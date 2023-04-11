@@ -1,0 +1,1 @@
+import"./index.2defaa64.js";async function l({params:e,fetch:t}){let a=`https://codingchaska.up.railway.app/api/v1/editor/project/${e.slug}/`;return(await t(a)).json()}const p=Object.freeze(Object.defineProperty({__proto__:null,load:l},Symbol.toStringTag,{value:"Module"}));export{p as _,l};
