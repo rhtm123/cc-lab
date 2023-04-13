@@ -79,8 +79,9 @@
     .then(data2 => {
     //   requesting = false  
         goto("/write-code-online/"+data2.slug)    
-        // console.log(data2)
+        console.log(data2)
       }).catch(error => {
+        console.log(error)
     })
   }
     } 

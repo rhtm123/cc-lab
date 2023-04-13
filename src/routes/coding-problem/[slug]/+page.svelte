@@ -90,13 +90,13 @@
               if (response.ok) {
                 let data2 = await response.json()
                 let code = String(data2['results'][0].code);
-                console.log(code);
+                // console.log(code);
               
         for (let test_case of test_cases){
           // console.log(test_case);
           let inputs = test_case.input;
           let assert_code = test_case.assert_code?test_case.assert_code:"";
-          console.log(typeof code, typeof inputs, typeof assert_code);
+          // console.log(typeof code, typeof inputs, typeof assert_code);
         
         await postData(url, {code:code, inputs:inputs, assert_code:assert_code})
         .then(data => {
