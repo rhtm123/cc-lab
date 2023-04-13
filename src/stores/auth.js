@@ -21,6 +21,7 @@ function getUser(email){
 
 if (initialValue){
     let email = JSON.parse(initialValue).user.email;
+    getUser(email);
     setInterval(function() {
         getUser(email);
     }, 120000);

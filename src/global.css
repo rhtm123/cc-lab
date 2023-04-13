@@ -2452,6 +2452,8 @@ fieldset.form-group {
   padding: 1.25rem;
   position: absolute;
   top: 0;
+  max-height: 90%;
+  overflow-y: scroll;
   transform: translate(-50%, -50%);
 }
 @media only screen and (max-width: 768px) {
