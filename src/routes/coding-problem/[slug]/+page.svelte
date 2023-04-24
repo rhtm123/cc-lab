@@ -11,9 +11,17 @@
     import user from '../../../stores/auth';
     import { postDataAuth,postData } from '../../../utils/auth';
 
+    /**
+     * @type {any}
+     */
     let test_cases;
+    /**
+     * @type {{ accepted?: any; project?: any; id?: any; success?: boolean; }}
+     */
     let user_problem;
-    let API_URL = "https://codingchaska.up.railway.app/api/v1/"
+    let API_URL = import.meta.env.VITE_API_URL;
+
+    // let API_URL = "https://codingchaska.up.railway.app/api/v1/"
 
 
     /** @type {import('./$types').PageData} */
@@ -73,6 +81,9 @@
     }
   })
 
+  /**
+     * @type {any[]}
+     */
   let test_results=[];
   let all_test_passed=true;
   let test_complete = false;

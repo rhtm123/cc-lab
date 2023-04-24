@@ -5,11 +5,17 @@
     import { onMount } from "svelte";
     import Navbar from "../../components/Navbar.svelte";
     import { postDataAuth } from "../../utils/auth";
+    // import { API_URL } from '$env/static/private';
+
+    let API_URL = import.meta.env.VITE_API_URL;
+
 
     import user from "../../stores/auth";
-    let API_URL = "https://codingchaska.up.railway.app/api/v1/";
+    // let API_URL = "https://codingchaska.up.railway.app/api/v1/";
     import { goto } from "$app/navigation";
     import LoginRequired from "../../components/LoginRequired.svelte";
+
+
 
 
     // @ts-ignore

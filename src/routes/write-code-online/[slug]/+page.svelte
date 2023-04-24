@@ -13,8 +13,9 @@
 export let data;
 
 let container_name;
+let API_URL = import.meta.env.VITE_API_URL;
 
-let handler_address = "http://143.110.190.99:5000/"
+// let handler_address = "http://143.110.190.99:5000/"
 
 let value = "";
 let socket;
@@ -42,7 +43,7 @@ $: {
   }
 }
 
-  let url = "https://codingchaska.up.railway.app/api/v1/editor/projectcodes/?project="+data.id;
+  let url = API_URL + "editor/projectcodes/?project="+data.id;
       fetch(url)
         .then(async (response) => {
           if (response.ok) {
@@ -54,7 +55,7 @@ $: {
 
 
 onMount(async ()=>{
-    let url = `ws://143.110.190.99:5000/ws/socket-server/`
+    let url = import.meta.env.VITE_HANDLER_WS;
     const chatSocket = new WebSocket(url);
     socket = chatSocket;
 

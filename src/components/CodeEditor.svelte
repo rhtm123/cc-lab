@@ -5,6 +5,8 @@
     import { Pane, Splitpanes } from 'svelte-splitpanes';
     import CodeMirror from "svelte-codemirror-editor";
     import { python } from "@codemirror/lang-python";
+    import { oneDark } from "@codemirror/theme-one-dark";
+
     import { onMount } from 'svelte';
     import { postDataAuth } from '../utils/auth';
     import user from '../stores/auth';
@@ -22,7 +24,9 @@
     let socket;
     let is_mount = false;
     let project_code;
-    let API_URL = "https://codingchaska.up.railway.app/api/v1/";
+    let API_URL = import.meta.env.VITE_API_URL;
+
+    // let API_URL = "https://codingchaska.up.railway.app/api/v1/";
     let is_owner = false;
 
     let user1;
@@ -66,7 +70,7 @@ $: {
   }
 }
 
-  let url = "https://codingchaska.up.railway.app/api/v1/editor/projectcodes/?project="+projectdata.id;
+  let url = API_URL + "editor/projectcodes/?project="+projectdata.id;
       fetch(url)
         .then(async (response) => {
           if (response.ok) {
@@ -79,7 +83,7 @@ $: {
 
 
 onMount(async ()=>{
-    let url = `ws://143.110.190.99:5000/ws/socket-server/`
+    let url = import.meta.env.VITE_HANDLER_WS;
     const chatSocket = new WebSocket(url);
     socket = chatSocket;
 
