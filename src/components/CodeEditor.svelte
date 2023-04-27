@@ -117,7 +117,6 @@ onMount(async ()=>{
 
   
 
-
 </script>
 
 {#if !is_owner}
@@ -134,7 +133,7 @@ onMount(async ()=>{
 	<Pane minSize={20}>
     {#if container_name}
     <iframe allowFullScreen
-    id="containerFrame" width={"100%"} height={"100%"} src={'https://'+container_name+'.thelearningsetu.com/terminal/'+projectdata.lang.prog_lang+"/"} />
+    id="containerFrame" width={"100%"} height={"100%"} src={projectdata.lang==1?  'https://'+container_name+'.thelearningsetu.com/terminal/python/': 'https://'+container_name+'.thelearningsetu.com/terminal/'+projectdata.lang.prog_lang+'/'} />
   {:else}
     <p>Creating Container...</p>
   {/if}
