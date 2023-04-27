@@ -92,8 +92,12 @@
 
 
   const testCodefunc = async () => {
-        test_results = [] 
+        test_results = []
+        test_complete = false;
+        all_test_passed = true
         show_modal = true
+        // let url = 'https://'+data.project.container_name+'.thelearningsetu.com/run_python_code/'
+        // console.log(url);
         let url = "https://web-production-241c.up.railway.app/run_python_code/";
         let url2 = "https://codingchaska.up.railway.app/api/v1/editor/projectcodes/?project="+user_problem.project.id;
         fetch(url2)

@@ -18,6 +18,7 @@ let API_URL = import.meta.env.VITE_API_URL;
 // let handler_address = "http://143.110.190.99:5000/"
 
 let value = "";
+let projectcode;
 let socket;
 let is_mount = false;
 let user1;
@@ -37,7 +38,7 @@ $: {
 
     setTimeout(()=>{
       try{
-      socket.send(JSON.stringify({'task':"save_code",'code':value,"container_name":container_name,"file_name":"/src/main.py"}));   
+      socket.send(JSON.stringify({'task':"save_code",'code':value,"container_name":container_name,"file_name":"/src/"+projectcode?.file_name}));   
       } catch(e){}
     }, 500)
   }
@@ -49,6 +50,7 @@ $: {
           if (response.ok) {
             let data1 = await response.json();
             value = data1['results'][0].code;
+            projectcode = data1['results'][0];
            } else {
           }
   }).catch(error=>{ })
@@ -60,11 +62,16 @@ onMount(async ()=>{
     socket = chatSocket;
 
     socket.onopen = () => {
+        if (data.lang.prog_lang==="python"){
+          localStorage.setItem('pty-cmd', 'python main.py')
+        } else if (data.lang.prog_lang==="nodejs"){
+          localStorage.setItem('pty-cmd', 'node main.js')
+        }
         socket.send(JSON.stringify(
           {'task':"create_container", "container_name":data.container_name,
           'image_name':"terminal-image",
           } 
-      ));
+        ));
     }
 
     socket.onmessage = function(e){ 
