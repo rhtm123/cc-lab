@@ -94,7 +94,7 @@ onMount(async ()=>{
 
 
 </script>
-
+<div style="height:100vh">
 {#if user1}
 <nav class="split-nav">
     <div class="nav-brand">
@@ -120,3 +120,5 @@ onMount(async ()=>{
 
   <LoginRequired />
 {/if}
+
+</div>

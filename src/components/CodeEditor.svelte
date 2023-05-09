@@ -10,6 +10,10 @@
     import user from '../stores/auth';
     import PythonEditor from './Editors/PythonEditor.svelte';
     import JavaScriptEditor from './Editors/JavaScriptEditor.svelte';
+    import FileExplorer from './FileExplorer.svelte';
+    import SimpleEditor from './Editors/SimpleEditor.svelte';
+
+    import { activeFile } from '../stores/activeFile';
 
     /**
      * @type {{ container_name: any; }}
@@ -29,6 +33,7 @@
     let is_owner = false;
     let user1;
     let theme;
+    let explorer;
 
     $:onMount(()=>{
         theme = localStorage.getItem("theme") || "light"; 
@@ -39,9 +44,6 @@
     user.subscribe(value => {
         if (value) {
           user1 = JSON.parse(value);
-          // console.log(user1);
-          // console.log(typeof projectdata.creator.id);
-          // console.log(user1);
           if (projectdata.creator.id) {is_owner = user1.user.id === projectdata.creator.id;}
           else{is_owner = user1.user.id === projectdata.creator}
         };
@@ -49,10 +51,12 @@
 
     $: {
     if (is_mount && socket){
-
+    
     setTimeout(()=>{
+      // console.log(activeFile);
       try{
-      socket.send(JSON.stringify({'task':"save_code",'code':value,"container_name":container_name,"file_name":"/src/"+projectcode?.file_name}));   
+      socket.send(JSON.stringify({'task':"save_code",'code':value,"container_name":container_name,"file_name":projectcode?.file_location}));
+      localStorage.setItem(projectcode.file_location, value);
       } catch(e){}
     }, 500)
   }
@@ -64,7 +68,8 @@ $: {
     setTimeout(()=>{
       try{
         let url = API_URL+`editor/projectcode/${projectcode.id}/`;
-        if (user1.user.id===projectcode.project.creator){
+        // console.log(projectdata);
+        if (user1.user.id===projectdata.creator.id){
             postDataAuth(url,user1.access,{code:value},'PATCH').then(data2 => {
             // console.log("saved")
             }).catch(error => {
@@ -76,13 +81,22 @@ $: {
   }
 }
 
+  activeFile.subscribe(value1 => {
+        value = value1?.code;
+        projectcode = value1;
+  });
+
   let url = API_URL + "editor/projectcodes/?project="+projectdata.id;
       fetch(url)
         .then(async (response) => {
           if (response.ok) {
             let data1 = await response.json();
-            value = data1['results'][0].code;
             projectcode = data1['results'][0]
+            projectcode['file_location'] = "/src/"+projectcode.file_name;
+            // console.log(projectcode);
+            activeFile.update(()=>projectcode);
+            explorer = {is_folder:true, file_name:"src", files:data1.results}
+            // console.log(explorer);
            } else {
           }
   }).catch(error=>{ })
@@ -93,10 +107,12 @@ onMount(async ()=>{
     const chatSocket = new WebSocket(url);
     socket = chatSocket;
 
+    let image_name = projectdata.lang.docker_image_name;
+
     socket.onopen = () => {
         socket.send(JSON.stringify(
           {'task':"create_container", "container_name":projectdata.container_name,
-          'image_name':"terminal-image",
+          'image_name':image_name?image_name:"terminal-image",
           } 
       ));
     }
@@ -114,6 +130,14 @@ onMount(async ()=>{
     is_mount = true;
 })
 
+onMount(()=>{
+  
+  setTimeout(()=>{
+    let iframe = document.getElementById("containerFrame").src = projectdata.lang==1?'https://'+container_name+'.thelearningsetu.com/terminal/python/': 'https://'+container_name+'.thelearningsetu.com/terminal/'+projectdata.lang.prog_lang+'/';
+    // console.log("iframe", iframe)
+  },3000)
+
+})
 
   
 
@@ -123,11 +147,29 @@ onMount(async ()=>{
   <span>*You are not the owner of this project</span>
 {/if}
 <Splitpanes style="height: 90vh" class="splitpanes">
+
+  <Pane minSize={10} size={15}>
+    {#if (explorer && socket && container_name)}
+      <FileExplorer container_name={container_name} socket={socket} explorer={explorer} folder_name={"/"}  />
+    {/if}
+  </Pane>
+  
 	<Pane minSize={20} size={60}>
     {#if (projectdata.lang?.prog_lang==="python" || projectdata.lang===1)}
     <PythonEditor bind:value={value} theme={theme} />
     {:else if projectdata.lang.prog_lang==="nodejs"}
     <JavaScriptEditor bind:value={value} theme={theme} />
+
+    {:else if projectdata.lang.prog_lang==="html"}
+    <SimpleEditor bind:value={value} theme={theme} />
+
+    {:else if projectdata.lang.prog_lang==="css"}
+    <SimpleEditor bind:value={value} theme={theme} />
+
+   {:else}
+    
+   <SimpleEditor bind:value={value} theme={theme} />
+
     {/if}
   </Pane>
 	<Pane minSize={20}>

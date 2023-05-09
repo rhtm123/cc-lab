@@ -3357,3 +3357,12 @@ iframe {
 .tabs button {
   border: none;
 }
+
+/* .splitpanes {
+	background-color: #f8f8f8;
+} */
+
+
+.splitpanes {
+	background-color: var(--main-background);
+}
