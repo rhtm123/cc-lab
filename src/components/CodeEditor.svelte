@@ -12,8 +12,10 @@
     import JavaScriptEditor from './Editors/JavaScriptEditor.svelte';
     import FileExplorer from './FileExplorer.svelte';
     import SimpleEditor from './Editors/SimpleEditor.svelte';
+    import HtmlEditor from './Editors/HtmlEditor.svelte';
 
     import { activeFile } from '../stores/activeFile';
+    import CssEditor from './Editors/CSSEditor.svelte';
 
     /**
      * @type {{ container_name: any; }}
@@ -144,7 +146,7 @@ onMount(()=>{
 </script>
 
 {#if !is_owner}
-  <span>*You are not the owner of this project</span>
+  <span style="font-size: small;">*You are not the owner of this project</span>
 {/if}
 <Splitpanes style="height: 90vh" class="splitpanes">
 
@@ -157,18 +159,18 @@ onMount(()=>{
 	<Pane minSize={20} size={60}>
     {#if (projectdata.lang?.prog_lang==="python" || projectdata.lang===1)}
     <PythonEditor bind:value={value} theme={theme} />
-    {:else if projectdata.lang.prog_lang==="nodejs"}
+    {:else if (projectdata.lang.prog_lang==="nodejs" || projectdata.lang.prog_lang==="js")}
     <JavaScriptEditor bind:value={value} theme={theme} />
 
     {:else if projectdata.lang.prog_lang==="html"}
-    <SimpleEditor bind:value={value} theme={theme} />
+    <HtmlEditor bind:value={value} theme={theme} />
 
     {:else if projectdata.lang.prog_lang==="css"}
-    <SimpleEditor bind:value={value} theme={theme} />
+    <CssEditor bind:value={value} theme={theme} />
 
    {:else}
     
-   <SimpleEditor bind:value={value} theme={theme} />
+      <SimpleEditor bind:value={value} theme={theme} />
 
     {/if}
   </Pane>

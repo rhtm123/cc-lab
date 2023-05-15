@@ -2,8 +2,10 @@
     // @ts-nocheck
     
         import CodeMirror from "svelte-codemirror-editor";
+        // impor
+        import {html} from "@codemirror/lang-html";
         // import { python } from "@codemirror/lang-python";
-            import {javascript} from "@codemirror/lang-javascript"
+            // import {javascript} from "@codemirror/lang-javascript"
 
         import { oneDark } from "@codemirror/theme-one-dark";
     
@@ -16,11 +18,11 @@
     
     <CodeMirror 
         bind:value 
-        lang={javascript()}
+        lang={html()}
         styles={{
             "&": {
                 maxWidth: "100%",
-                height: "90vh",
+                height: "100%",
             },
         }}
         theme={theme==="dark"?oneDark:""}
