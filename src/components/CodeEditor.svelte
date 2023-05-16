@@ -87,6 +87,7 @@ $: {
   activeFile.subscribe(value1 => {
         value = value1?.code;
         projectcode = value1;
+        // console.log(projectcode);
   });
 
   let url = API_URL + "editor/projectcodes/?project="+projectdata.id;
@@ -160,22 +161,35 @@ onMount(()=>{
 	<Pane minSize={20} size={60}>
     {#if (projectdata.lang?.prog_lang==="python" || projectdata.lang===1)}
     <PythonEditor bind:value={value} theme={theme} />
-    {:else if (projectdata.lang.prog_lang==="nodejs" || projectdata.lang.prog_lang==="js")}
+    {:else if (projectcode.lang.prog_lang==="javascript" || projectdata.lang?.prog_lang==="nodejs")}
+    <!-- <h1>JS</h1> -->
     <JavaScriptEditor bind:value={value} theme={theme} />
+    
 
-    {:else if projectdata.lang.prog_lang==="html"}
+
+    {:else if projectcode.lang.prog_lang==="html"}
+    <!-- <h1>HTML</h1> -->
     <HtmlEditor bind:value={value} theme={theme} />
+    
 
-    {:else if projectdata.lang.prog_lang==="css"}
+
+    {:else if projectcode.lang.prog_lang==="css"}
+    <!-- <h1>CSS</h1> -->
     <CssEditor bind:value={value} theme={theme} />
 
    {:else}
-    
+   <!-- <h1>Simple</h1> -->
+
       <SimpleEditor bind:value={value} theme={theme} />
 
     {/if}
   </Pane>
 	<Pane minSize={20}>
+    <div style="padding:4px; border-bottom:1px solid #747474">
+    <a style="font-size: 0.8em;" href={projectdata.lang==1?  'https://'+container_name+'.thelearningsetu.com/terminal/python/': 'https://'+container_name+'.thelearningsetu.com/terminal/'+projectdata.lang.prog_lang+'/'}>
+      {projectdata.lang==1?  'https://'+container_name+'.thelearningsetu.com/terminal/python/': 'https://'+container_name+'.thelearningsetu.com/terminal/'+projectdata.lang.prog_lang+'/'}
+    </a>
+    </div>
     {#if container_name}
     <iframe allowFullScreen
     id="containerFrame" width={"100%"} height={"100%"} src={projectdata.lang==1?  'https://'+container_name+'.thelearningsetu.com/terminal/python/': 'https://'+container_name+'.thelearningsetu.com/terminal/'+projectdata.lang.prog_lang+'/'} />
