@@ -71,7 +71,8 @@ $: {
       try{
         let url = API_URL+`editor/projectcode/${projectcode.id}/`;
         // console.log(projectdata);
-        if (user1.user.id===projectdata.creator.id){
+        let creatorID = projectdata.creator.id ? projectdata.creator.id:projectdata.creator;
+        if (user1.user.id===creatorID){
             postDataAuth(url,user1.access,{code:value},'PATCH').then(data2 => {
             // console.log("saved")
             }).catch(error => {
@@ -122,7 +123,7 @@ onMount(async ()=>{
     socket.onmessage = function(e){ 
       let msg_data = JSON.parse(e.data);
       if (msg_data['message']==="container_created"){
-        console.log("Got the creation")
+        // console.log("Got the creation")
         setTimeout(()=>{
           container_name = projectdata.container_name;
         }, 1000)

@@ -115,7 +115,7 @@
         
         await postData(url, {code:code, inputs:inputs, assert_code:assert_code})
         .then(data => {
-          console.log(data)
+          // console.log(data)
           if(test_case.type==="inputoutput"){
             let correctout = test_case.output.replace(/\s+/g, ' ').trim();
             let yourout = data.output.replace(/\s+/g, ' ').trim();
