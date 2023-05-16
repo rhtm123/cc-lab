@@ -161,19 +161,19 @@ onMount(()=>{
 	<Pane minSize={20} size={60}>
     {#if (projectdata.lang?.prog_lang==="python" || projectdata.lang===1)}
     <PythonEditor bind:value={value} theme={theme} />
-    {:else if (projectcode.lang.prog_lang==="javascript" || projectdata.lang?.prog_lang==="nodejs")}
+    {:else if (projectcode?.lang?.prog_lang==="javascript" || projectdata.lang?.prog_lang==="nodejs")}
     <!-- <h1>JS</h1> -->
     <JavaScriptEditor bind:value={value} theme={theme} />
     
 
 
-    {:else if projectcode.lang.prog_lang==="html"}
+    {:else if projectcode?.lang.prog_lang==="html"}
     <!-- <h1>HTML</h1> -->
     <HtmlEditor bind:value={value} theme={theme} />
     
 
 
-    {:else if projectcode.lang.prog_lang==="css"}
+    {:else if projectcode?.lang.prog_lang==="css"}
     <!-- <h1>CSS</h1> -->
     <CssEditor bind:value={value} theme={theme} />
 
