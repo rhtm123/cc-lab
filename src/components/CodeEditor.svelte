@@ -186,7 +186,7 @@ onMount(()=>{
   </Pane>
 	<Pane minSize={20}>
     <div style="padding:4px; border-bottom:1px solid #747474">
-    <a style="font-size: 0.8em;" href={projectdata.lang==1?  'https://'+container_name+'.thelearningsetu.com/terminal/python/': 'https://'+container_name+'.thelearningsetu.com/terminal/'+projectdata.lang.prog_lang+'/'}>
+    <a target="_blank" style="font-size: 0.8em;" href={projectdata.lang==1?  'https://'+container_name+'.thelearningsetu.com/terminal/python/': 'https://'+container_name+'.thelearningsetu.com/terminal/'+projectdata.lang.prog_lang+'/'}>
       {projectdata.lang==1?  'https://'+container_name+'.thelearningsetu.com/terminal/python/': 'https://'+container_name+'.thelearningsetu.com/terminal/'+projectdata.lang.prog_lang+'/'}
     </a>
     </div>
