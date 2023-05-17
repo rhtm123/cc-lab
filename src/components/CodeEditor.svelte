@@ -150,7 +150,7 @@ onMount(()=>{
 {#if !is_owner}
   <span style="font-size: small;">*You are not the owner of this project</span>
 {/if}
-<Splitpanes style="height: 96vh" class="splitpanes">
+<Splitpanes style="height: 94vh" class="splitpanes">
 
   <Pane minSize={10} size={15}>
     {#if (explorer && socket && container_name)}
