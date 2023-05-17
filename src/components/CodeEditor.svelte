@@ -150,7 +150,7 @@ onMount(()=>{
 {#if !is_owner}
   <span style="font-size: small;">*You are not the owner of this project</span>
 {/if}
-<Splitpanes style="height: 90vh" class="splitpanes">
+<Splitpanes style="height: 96vh" class="splitpanes">
 
   <Pane minSize={10} size={15}>
     {#if (explorer && socket && container_name)}
@@ -192,7 +192,7 @@ onMount(()=>{
     </div>
     {#if container_name}
     <iframe allowFullScreen
-    id="containerFrame" width={"100%"} height={"100%"} src={projectdata.lang==1?  'https://'+container_name+'.thelearningsetu.com/terminal/python/': 'https://'+container_name+'.thelearningsetu.com/terminal/'+projectdata.lang.prog_lang+'/'} />
+    id="containerFrame" width={"100%"} height={"94%"} src={projectdata.lang==1?  'https://'+container_name+'.thelearningsetu.com/terminal/python/': 'https://'+container_name+'.thelearningsetu.com/terminal/'+projectdata.lang.prog_lang+'/'} />
   {:else}
     <p>Creating Container...</p>
   {/if}

@@ -35,12 +35,16 @@ onMount(()=>{
     });
 
     const handleClick = () => {
+        if(!explorer.is_folder){
        let code = localStorage.getItem(folder_name+explorer.file_name);
     //    console.log(code);
     //    console.log(code);
        explorer['file_location'] = folder_name+explorer.file_name
        explorer['code'] = code;
        activeFile.update(()=>explorer);
+        }else{
+            expand = !expand;
+        }
     }
 
 
