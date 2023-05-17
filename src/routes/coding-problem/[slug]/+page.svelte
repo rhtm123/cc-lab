@@ -262,7 +262,7 @@ const submitCode = () => {
               {:else}
 
               <div class="row flex-right margin-top">
-                <label on:click={testCodefunc} class="paper-btn" for="modal-1">Check</label>
+                <label on:click={testCodefunc} class="paper-btn btn-primary" for="modal-1">Check</label>
   
               </div>
               {#if user_problem}

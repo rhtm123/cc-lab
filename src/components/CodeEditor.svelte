@@ -196,15 +196,18 @@ onMount(()=>{
 
     {/if}
   </Pane>
-	<Pane minSize={20}>
+	<Pane style="height:100%" minSize={20} size={40}>
+    {#if projectdata.type==="project"}
     <div style="padding:4px; border:1px solid #747474; border-radius:10px">
     <a target="_blank" style="font-size: 0.8em;" href={projectdata.lang==1?  'https://'+container_name+'.thelearningsetu.com/terminal/python/': 'https://'+container_name+'.thelearningsetu.com/terminal/'+projectdata.lang.prog_lang+'/'}>
       {projectdata.lang==1?  'https://'+container_name+'.thelearningsetu.com/terminal/python/': 'https://'+container_name+'.thelearningsetu.com/terminal/'+projectdata.lang.prog_lang+'/'}
     </a>
     </div>
+    {/if}
+
     {#if container_name}
     <iframe allowFullScreen style={projectdata.lang.prog_lang==="html"?"background:white":""}
-    id="containerFrame" width={"100%"} height={"94%"} src={projectdata.lang==1?  'https://'+container_name+'.thelearningsetu.com/terminal/python/': 'https://'+container_name+'.thelearningsetu.com/terminal/'+projectdata.lang.prog_lang+'/'} />
+    id="containerFrame" width={"100%"} height={"100%"} src={projectdata.lang==1?  'https://'+container_name+'.thelearningsetu.com/terminal/python/': 'https://'+container_name+'.thelearningsetu.com/terminal/'+projectdata.lang.prog_lang+'/'} />
   {:else}
     <p>Creating Container...</p>
   {/if}
