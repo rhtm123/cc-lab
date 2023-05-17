@@ -31,8 +31,9 @@
 <slot />
 <!-- footer -->
 
+<ThemeChange />
 
-<div>
+<!-- <div>
   <p style="text-align:center; font-weight:400; padding:1rem">@Coding Chaska v0.0.1 </p>
-</div>
+</div> -->
 

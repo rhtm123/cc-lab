@@ -147,10 +147,20 @@ onMount(()=>{
 
 </script>
 
-{#if !is_owner}
-  <span style="font-size: small;">*You are not the owner of this project</span>
-{/if}
-<Splitpanes style="height: 94vh" class="splitpanes">
+<div class="editor-box">
+  <div class="row1 header">
+  <nav class="nav-split">
+    <div class="nav-brand">
+      <h6><a href="/">Home</a> > <a href="/write-code-online">All Projects</a></h6> 
+    </div>
+  </nav>
+  
+  {#if !is_owner}
+    <span style="font-size: small;">*You are not the owner of this project</span>
+  {/if}
+  </div>
+<Splitpanes class="row1 content">
+
 
   <Pane minSize={10} size={15}>
     {#if (explorer && socket && container_name)}
@@ -158,7 +168,7 @@ onMount(()=>{
     {/if}
   </Pane>
   
-	<Pane minSize={20} size={60}>
+	<Pane style="height:100%" minSize={20} size={60}>
     {#if (projectdata.lang?.prog_lang==="python" || projectdata.lang===1)}
     <PythonEditor bind:value={value} theme={theme} />
     {:else if (projectcode?.lang?.prog_lang==="javascript" || projectdata.lang?.prog_lang==="nodejs")}
@@ -191,7 +201,7 @@ onMount(()=>{
     </a>
     </div>
     {#if container_name}
-    <iframe allowFullScreen
+    <iframe allowFullScreen style={projectdata.lang.prog_lang==="html"?"background:white":""}
     id="containerFrame" width={"100%"} height={"94%"} src={projectdata.lang==1?  'https://'+container_name+'.thelearningsetu.com/terminal/python/': 'https://'+container_name+'.thelearningsetu.com/terminal/'+projectdata.lang.prog_lang+'/'} />
   {:else}
     <p>Creating Container...</p>
@@ -199,3 +209,4 @@ onMount(()=>{
 
   </Pane>
 </Splitpanes>
+</div>

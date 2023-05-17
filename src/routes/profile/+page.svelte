@@ -3,6 +3,7 @@
 </script>
 
 <Navbar />
+
 <ul class="breadcrumb">
     <li><a href="/">Home</a></li>
     <li>Profile</li>

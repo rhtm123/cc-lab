@@ -3346,9 +3346,7 @@ iframe {
   border: none;
 }
 
-.splitpanes {
-  border: 1px solid yellowgreen;
-}
+
 
 .tabs {
   border-bottom: 2px solid slategray;
@@ -3358,11 +3356,38 @@ iframe {
   border: none;
 }
 
-/* .splitpanes {
-	background-color: #f8f8f8;
-} */
+.active-file {
+  color:var(--success);
+}
 
+
+.codemirror-wrapper {
+  height: 100%;
+}
+
+
+.editor-box {
+  display: flex;
+  flex-flow: column;
+  height: 96vh;
+}
+
+.editor-box .row1 {
+  /* border: 1px dotted grey; */
+}
+
+.editor-box .row1.header {
+  flex: 0 1 auto;
+}
+
+.editor-box .row1.content {
+  flex: 1 1 auto;
+}
 
 .splitpanes {
-	background-color: var(--main-background);
+  border-top: 1px solid darkgray;
+}
+
+.splitpanes.default-theme .splitpanes__pane {
+	background-color: var(--main-background) !important;
 }

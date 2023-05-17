@@ -1,6 +1,7 @@
 <script>
 
     import { onMount } from 'svelte';
+    import { currentTheme } from '../stores/theme';
 
     /**
      * @type {string}
@@ -10,6 +11,7 @@
         theme = localStorage.getItem("theme") || "light"; 
         // console.log("This is called");
         setTheme(theme);
+        currentTheme.update(()=>theme);
     })
 
     const setTheme = (/** @type {string} */ theme) => {
@@ -22,6 +24,7 @@
         if (typeof localStorage !== 'undefined') {
         localStorage.setItem("theme", theme);
         }
+        currentTheme.update(()=>theme);
     }
 
     const toggleTheme = () => {

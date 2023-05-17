@@ -182,6 +182,7 @@ const submitCode = () => {
 </script>
 
 <Navbar />
+
 <ul class="breadcrumb">
     <li><a href="/">Home</a></li>
     <li><a href="/coding-problems">Coding Problems</a></li>

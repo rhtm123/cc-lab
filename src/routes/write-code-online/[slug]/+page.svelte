@@ -94,9 +94,9 @@ onMount(async ()=>{
 
 
 </script>
-<div style="height:100vh">
+<!-- <div style="height:100vh"> -->
 {#if user1}
-<nav class="split-nav">
+<!-- <nav class="split-nav">
     <div class="nav-brand">
       <h5><a href="/">Home</a> > <a href="/write-code-online">All Projects</a> > {data.name}</h5> 
     </div>
@@ -111,7 +111,7 @@ onMount(async ()=>{
         
       </div>
     </div>
-</nav>
+</nav> -->
 
 
 <CodeEditor projectdata={data}/>
@@ -121,4 +121,4 @@ onMount(async ()=>{
   <LoginRequired />
 {/if}
 
-</div>
+<!-- </div> -->

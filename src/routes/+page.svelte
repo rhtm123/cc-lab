@@ -1,13 +1,13 @@
 <script>
     import Navbar from "../components/Navbar.svelte";
-    import ThemeChange from "../components/ThemeChange.svelte";
+    // import ThemeChange from "../components/ThemeChange.svelte";
 
 </script>
 
 
 <Navbar />
 
-<ThemeChange />
+<!-- <ThemeChange /> -->
 
 <div class="container section">
     <br /> <br />

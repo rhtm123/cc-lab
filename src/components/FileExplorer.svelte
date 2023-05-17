@@ -17,7 +17,7 @@
 // console.log(explorer);
 let expand = explorer.file_name==="src";
 
-console.log(container_name);
+// console.log(container_name);
 
 
 
@@ -51,14 +51,15 @@ onMount(()=>{
 
 </script>
 
+<div class="">
 {#if explorer.id === activeFile1.id}
-<div style="background:#c7f2c7;">
+<div class="active-file"> 
     {explorer.file_name}
 </div>
 {:else}
-<div on:click={()=>handleClick()}>
+<span on:click={()=>handleClick()}>
     {explorer.file_name}
-</div>
+</span>
 {/if}
 
 <div style="margin-left: 8px;">
@@ -72,4 +73,6 @@ onMount(()=>{
     />
 {/each}
 {/if}
+</div>
+
 </div>

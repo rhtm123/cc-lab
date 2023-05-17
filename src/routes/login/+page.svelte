@@ -6,6 +6,7 @@
     import { page } from '$app/stores';
     import user from '../../stores/auth';
     import { goto } from '$app/navigation';
+   //  import ThemeChange from '../../components/ThemeChange.svelte';
 
 
     const nextPage = $page.url.searchParams.get("nextPage");
@@ -72,6 +73,7 @@
 {#if user1}
 
 <Navbar />
+
 
 <div class="section" style="min-height:80vh">
    <br />
