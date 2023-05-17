@@ -149,11 +149,13 @@ onMount(()=>{
 
 <div class="editor-box">
   <div class="row1 header">
+  {#if projectdata.type==="project"}
   <nav class="nav-split">
     <div class="nav-brand">
       <h6><a href="/">Home</a> > <a href="/write-code-online">All Projects</a></h6> 
     </div>
   </nav>
+  {/if}
   
   {#if !is_owner}
     <span style="font-size: small;">*You are not the owner of this project</span>
@@ -195,7 +197,7 @@ onMount(()=>{
     {/if}
   </Pane>
 	<Pane minSize={20}>
-    <div style="padding:4px; border-bottom:1px solid #747474">
+    <div style="padding:4px; border:1px solid #747474; border-radius:10px">
     <a target="_blank" style="font-size: 0.8em;" href={projectdata.lang==1?  'https://'+container_name+'.thelearningsetu.com/terminal/python/': 'https://'+container_name+'.thelearningsetu.com/terminal/'+projectdata.lang.prog_lang+'/'}>
       {projectdata.lang==1?  'https://'+container_name+'.thelearningsetu.com/terminal/python/': 'https://'+container_name+'.thelearningsetu.com/terminal/'+projectdata.lang.prog_lang+'/'}
     </a>
