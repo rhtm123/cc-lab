@@ -98,6 +98,11 @@
 
 </script>
 
+<svelte:head>
+  <title>Write code online | Coding Chaska Lab </title>
+  <meta property="description" content="Online Editor for Python, NodeJS, HTML, CSS & JavaScript" />
+</svelte:head>
+
 <Navbar />
 
 <div class="container">
@@ -111,7 +116,7 @@
         <br />
     
           <div class="">
-            <label class="paper-btn" for="modal-1">Start Coding</label>
+            <label class="paper-btn btn-primary" for="modal-1">Start Coding</label>
           </div>
           <input class="modal-state" id="modal-1" type="checkbox">
           <div class="modal">

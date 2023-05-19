@@ -181,6 +181,11 @@ const submitCode = () => {
 
 </script>
 
+<svelte:head>
+  <title>{data.name} | Coding Chaska Lab </title>
+  <meta property="description" content={`Solve Coding Problem Online Python Editor`} />
+</svelte:head>
+
 <Navbar />
 
 <ul class="breadcrumb">

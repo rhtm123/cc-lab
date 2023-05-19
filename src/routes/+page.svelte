@@ -4,6 +4,11 @@
 
 </script>
 
+<svelte:head>
+  <title>Home | Coding Chaska Lab</title>
+  <meta property="description" content="Coding Problems, Online IDE for Python, NodeJS, HTML, CSS & JavaScript" />
+</svelte:head>
+
 
 <Navbar />
 

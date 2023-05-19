@@ -64,9 +64,9 @@
 }
 
 .theme-wrapper .dark {
-  color:#edfcf0;
+  color:grey;
 }
 .theme-wrapper .light {
-  color:#000;
+  color:grey;
 }
 </style>

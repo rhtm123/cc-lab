@@ -94,6 +94,12 @@ onMount(async ()=>{
 
 
 </script>
+<svelte:head>
+  <title>{data.name} | Coding Chaska Lab </title>
+  <meta property="description" content={`${data.name} - Online editor`} />
+</svelte:head>
+
+
 <!-- <div style="height:100vh"> -->
 {#if user1}
 <!-- <nav class="split-nav">

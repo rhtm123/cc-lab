@@ -69,8 +69,15 @@
     }
 
  </script>
+
+<svelte:head>
+   <title>About | Coding Chaska Lab </title>
+   <meta property="description" content={`Login with Google account & Access the restricted features of Coding Chaska Lab`} />
+ </svelte:head>
+ 
  
 {#if user1}
+
 
 <Navbar />
 

@@ -63,6 +63,12 @@
 
  </script>
 
+  <svelte:head>
+    <title>Coding Problems | Coding Chaska Lab </title>
+    <meta property="description" content="Coding Problems - Python Basics, Python Decision Making, Python Loops, Python Functions, Python Native Data Types, Object Oriented Programming" />
+  </svelte:head>
+
+
 <Navbar />
 
 <ul class="breadcrumb">

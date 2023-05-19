@@ -2,6 +2,11 @@
     import Navbar from "../../components/Navbar.svelte";
 </script>
 
+<svelte:head>
+  <title>About | Coding Chaska Lab </title>
+  <meta property="description" content={`Coding Chaska Lab provides online editor for Python, NodeJs & HTML`} />
+</svelte:head>
+
 <Navbar />
 
 <ul class="breadcrumb">
