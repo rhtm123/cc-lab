@@ -1,7 +1,8 @@
 <script>
 // @ts-nocheck
 
-    import Navbar from "../../components/Navbar.svelte";
+    import CodingProblem from "../../components/CodingProblem.svelte";
+import Navbar from "../../components/Navbar.svelte";
 
     // import { API_URL } from "$env/static/public";
     let API_URL = import.meta.env.VITE_API_URL;
@@ -109,11 +110,8 @@
             {/if}
 
             {#each data1 as item, key}
-            <div>
-                <h4 class="margin-bottom-none">{key+1}_ <a href={"/coding-problem/"+item.slug}>{item.name}</a></h4>
-                <p>Created by- {item.creator.firstname} {item.creator.lastname}</p>
-            </div>
-        {/each}
+                <CodingProblem item={item} key={key} />
+            {/each}
     
         {#if (next && !loading)}
             <br />

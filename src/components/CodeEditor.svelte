@@ -16,6 +16,7 @@
 
     import { activeFile } from '../stores/activeFile';
     import CssEditor from './Editors/CSSEditor.svelte';
+    import ThemeChange from './ThemeChange.svelte';
 
     /**
      * @type {{ container_name: any; }}
@@ -150,10 +151,11 @@ onMount(()=>{
 <div class="editor-box">
   <div class="row1 header">
   {#if projectdata.type==="project"}
-  <nav class="nav-split">
+  <nav class="nav-split row flex-edges flex-middle" style="margin: 0;">
     <div class="nav-brand">
       <h6><a href="/">Home</a> > <a href="/write-code-online">All Projects</a></h6> 
     </div>
+    <ThemeChange />
   </nav>
   {/if}
   

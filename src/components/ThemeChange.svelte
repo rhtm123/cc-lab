@@ -50,23 +50,24 @@
 <style>
     
 .theme-wrapper {
-  position: fixed;
+  /* position: fixed;
   bottom: 2rem;
-  right: 5%;
+  left: 5%; */
+  /* margin-top:4px ; */
   cursor: pointer;
 }
 
 
 @media only screen and (max-width: 664px) {
   .theme-wrapper {
-    right: 3%;
+    left: 3%;
   }
 }
 
 .theme-wrapper .dark {
-  color:grey;
+  color:#fff;
 }
 .theme-wrapper .light {
-  color:grey;
+  color:black;
 }
 </style>

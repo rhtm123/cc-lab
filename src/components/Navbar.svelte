@@ -15,6 +15,8 @@ import  user  from "../stores/auth";
   const logoutHandle = () => {
     user.set(null); localStorage.removeItem("user");
   }
+
+  import ThemeChange from "./ThemeChange.svelte";
   
 </script>
 
@@ -41,6 +43,7 @@ import  user  from "../stores/auth";
         {:else}
           <li><a href="/login">login</a></li>
         {/if}
+          <li><ThemeChange /></li>
       </ul>
     </div>
   </div>

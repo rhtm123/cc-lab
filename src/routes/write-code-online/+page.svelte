@@ -24,6 +24,8 @@
     let languages = [];
     let loading = true;
     let loginChecked = false;
+    let next;
+    let loadingMore = false
 
     user.subscribe(value => {
         if (value) {user1 = JSON.parse(value);}
@@ -41,6 +43,7 @@
           let data1 = await response.json();
           loading = false;
           projects = data1.results;
+          next = data1.next;
          } 
       }).catch(error=>{ loading=false })
    }
@@ -95,6 +98,21 @@
     let new_project_name="";
     let language;
     let requesting=false;
+
+
+    const loadMore = () => {
+      loadingMore = true
+      console.log(next);
+      fetch(next)
+      .then(async (response) => {
+        if (response.ok) {
+          let data1 = await response.json();
+          projects =[...projects, ...data1.results];
+          next = data1.next;
+          loadingMore = false
+         } 
+      }).catch(error=>{ loadingMore=false })
+    }
 
 </script>
 
@@ -185,9 +203,12 @@
             
             </td>
             <td>{project.lang.prog_lang}</td>
+            <!-- <td>fd</td> -->
             <td>{new Date(project.created).toLocaleDateString()}</td>
             <td>
-              <button on:click={()=>deleteProject(project.id)}>delete</button>
+              <span class="cursor" on:click={()=>deleteProject(project.id)}>
+                <svg width="24px" height="24px" viewBox="0 0 1024 1024" class="icon" version="1.1" xmlns="http://www.w3.org/2000/svg" fill="#ff2e2e" stroke="#ff2e2e"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path d="M960 160h-291.2a160 160 0 0 0-313.6 0H64a32 32 0 0 0 0 64h896a32 32 0 0 0 0-64zM512 96a96 96 0 0 1 90.24 64h-180.48A96 96 0 0 1 512 96zM844.16 290.56a32 32 0 0 0-34.88 6.72A32 32 0 0 0 800 320a32 32 0 1 0 64 0 33.6 33.6 0 0 0-9.28-22.72 32 32 0 0 0-10.56-6.72zM832 416a32 32 0 0 0-32 32v96a32 32 0 0 0 64 0v-96a32 32 0 0 0-32-32zM832 640a32 32 0 0 0-32 32v224a32 32 0 0 1-32 32H256a32 32 0 0 1-32-32V320a32 32 0 0 0-64 0v576a96 96 0 0 0 96 96h512a96 96 0 0 0 96-96v-224a32 32 0 0 0-32-32z" fill="#ff3700"></path><path d="M384 768V352a32 32 0 0 0-64 0v416a32 32 0 0 0 64 0zM544 768V352a32 32 0 0 0-64 0v416a32 32 0 0 0 64 0zM704 768V352a32 32 0 0 0-64 0v416a32 32 0 0 0 64 0z" fill="#ff3700"></path></g></svg>
+              </span>
               
               
               </td>
@@ -198,6 +219,12 @@
     </table>
     {/if}
     <br />
+    {#if next}
+    <div class="row flex-center">
+      {#if loadingMore} <p>loading...</p> {/if}
+      {#if !loadingMore}<button on:click={loadMore} class="btn btn-seconday">Load More</button>{/if}
+    </div>
+    {/if}
     <br />
 
     </div>
@@ -205,3 +232,8 @@
 </div>
 
 
+<style>
+  .cursor{
+    cursor: pointer;
+  }
+</style>
