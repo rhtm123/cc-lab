@@ -115,6 +115,7 @@ onMount(async ()=>{
     let image_name = projectdata.lang.docker_image_name;
 
     socket.onopen = () => {
+        console.log("socket open now");
         socket.send(JSON.stringify(
           {'task':"create_container", "container_name":projectdata.container_name,
           'image_name':image_name?image_name:"terminal-image",
@@ -167,7 +168,7 @@ onMount(()=>{
 
 
   <Pane minSize={10} size={15}>
-    {#if (explorer && socket && container_name)}
+    {#if (explorer)}
       <FileExplorer container_name={container_name} socket={socket} explorer={explorer} folder_name={"/"}  />
     {/if}
   </Pane>

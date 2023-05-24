@@ -19,15 +19,14 @@ let expand = explorer.file_name==="src";
 
 // console.log(container_name);
 
+$: if(explorer.is_folder===false && container_name) { saveNow() }
 
+const saveNow = () => {
+    
+    socket?.send(JSON.stringify({'task':"save_code",'code':explorer.code,"container_name":container_name,"file_name":folder_name+explorer.file_name}));
+    localStorage.setItem(folder_name+explorer.file_name,explorer.code)
+}
 
-
-onMount(()=>{
-    if(explorer.is_folder===false){
-        socket?.send(JSON.stringify({'task':"save_code",'code':explorer.code,"container_name":container_name,"file_name":folder_name+explorer.file_name}));
-        localStorage.setItem(folder_name+explorer.file_name,explorer.code)
-    }
-    })
     let activeFile1;
 
     activeFile.subscribe(value => {
