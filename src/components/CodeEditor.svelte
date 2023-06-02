@@ -136,10 +136,21 @@ onMount(async ()=>{
     is_mount = true;
 })
 
+let iframeURL;
+
+
 onMount(()=>{
   
   setTimeout(()=>{
-    let iframe = document.getElementById("containerFrame").src = projectdata.lang==1?'https://'+container_name+'.thelearningsetu.com/terminal/python/': 'https://'+container_name+'.thelearningsetu.com/terminal/'+projectdata.lang.prog_lang+'/';
+    if (projectdata.lang==1){
+      iframeURL = 'https://'+container_name+'.thelearningsetu.com/terminal/python/'
+    }
+    else if(projectdata.lang?.prog_lang=="html"){
+      iframeURL= 'https://'+container_name+'.thelearningsetu.com/'
+    } else{
+      iframeURL = 'https://'+container_name+'.thelearningsetu.com/terminal/'+projectdata.lang.prog_lang+'/';
+    }
+    let iframe = document.getElementById("containerFrame").src = iframeURL;
     // console.log("iframe", iframe)
   },3000)
 
@@ -202,9 +213,7 @@ onMount(()=>{
 	<Pane style="height:100%" minSize={20} size={40}>
     {#if projectdata.type==="project"}
     <div style="padding:4px; border:1px solid #747474; border-radius:10px">
-    <a target="_blank" style="font-size: 0.8em;" href={projectdata.lang==1?  'https://'+container_name+'.thelearningsetu.com/terminal/python/': 'https://'+container_name+'.thelearningsetu.com/terminal/'+projectdata.lang.prog_lang+'/'}>
-      {projectdata.lang==1?  'https://'+container_name+'.thelearningsetu.com/terminal/python/': 'https://'+container_name+'.thelearningsetu.com/terminal/'+projectdata.lang.prog_lang+'/'}
-    </a>
+    <a target="_blank" style="font-size: 0.8em;" href={iframeURL}>{iframeURL}</a>
     </div>
     {/if}
 
