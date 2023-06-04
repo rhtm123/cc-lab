@@ -11,7 +11,7 @@
 
 
     import user from "../../stores/auth";
-    // let API_URL = "https://codingchaska.up.railway.app/api/v1/";
+
     import { goto } from "$app/navigation";
     import LoginRequired from "../../components/LoginRequired.svelte";
 

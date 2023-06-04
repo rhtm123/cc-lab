@@ -1,8 +1,10 @@
 import { error } from '@sveltejs/kit';
 
 /** @type {import('./$types').PageLoad} */
+let API_URL = import.meta.env.VITE_API_URL;
+
 export async function load({  fetch, setHeaders }) {
-let url = "https://codingchaska.up.railway.app/api/v1/editor/codingproblems/?is_published=true&level=&ordering=updated";
+let url = API_URL+"editor/codingproblems/?is_published=true&level=&ordering=updated";
    let res = await fetch(url);
    return res.json();
    throw error(404, 'Not found');

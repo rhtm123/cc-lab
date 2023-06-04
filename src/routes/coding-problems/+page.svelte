@@ -7,9 +7,6 @@ import Navbar from "../../components/Navbar.svelte";
     // import { API_URL } from "$env/static/public";
     let API_URL = import.meta.env.VITE_API_URL;
 
-
-    // let API_URL = "https://codingchaska.up.railway.app/api/v1/"
-
     /** @type {import('./$types').PageData} */
     export let data;
     let data1 = data.results;

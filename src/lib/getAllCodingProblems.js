@@ -1,5 +1,6 @@
 export async function getAllCodingProblems() {
-    let API_URL = "https://codingchaska.up.railway.app/api/v1/"
+  let API_URL = import.meta.env.VITE_API_URL;
+
     let url = API_URL + "editor/codingproblems/?is_published=true&level=&ordering=updated"
 
     let problems = [];

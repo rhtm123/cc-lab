@@ -8,8 +8,11 @@ const initialValue = browser ? window.localStorage.getItem('user') ?? defaultVal
 
 const user = writable(initialValue);
 
+let API_URL = import.meta.env.VITE_API_URL;
+
+
 function getUser(email){
-    let url = 'https://codingchaska.up.railway.app/api/v1/' + 'auth/get-user-email/';
+    let url = API_URL + 'auth/get-user-email/';
         postData(url, {"email":email})
           .then(data => {
             user.set(JSON.stringify(data));

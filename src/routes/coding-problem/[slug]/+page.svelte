@@ -21,7 +21,6 @@
     let user_problem;
     let API_URL = import.meta.env.VITE_API_URL;
 
-    // let API_URL = "https://codingchaska.up.railway.app/api/v1/"
 
 
     /** @type {import('./$types').PageData} */
@@ -99,7 +98,7 @@
         // let url = 'https://'+data.project.container_name+'.thelearningsetu.com/run_python_code/'
         // console.log(url);
         let url = "https://web-production-241c.up.railway.app/run_python_code/";
-        let url2 = "https://codingchaska.up.railway.app/api/v1/editor/projectcodes/?project="+user_problem.project.id;
+        let url2 = API_URL+"editor/projectcodes/?project="+user_problem.project.id;
         fetch(url2)
             .then(async (response) => {
               if (response.ok) {

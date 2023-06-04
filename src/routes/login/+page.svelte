@@ -6,6 +6,8 @@
     import { page } from '$app/stores';
     import user from '../../stores/auth';
     import { goto } from '$app/navigation';
+    let API_URL = import.meta.env.VITE_API_URL;
+
    //  import ThemeChange from '../../components/ThemeChange.svelte';
 
 
@@ -37,7 +39,7 @@
       console.log(profile);
 
        let r = (Math.random() + 1).toString(36).substring(7);
-       let url = `https://codingchaska.up.railway.app/api/v1/auth/users/`;
+       let url = API_URL+`auth/users/`;
 
        postData(url, {"password":r, "firstname":firstname, "lastname":lastname,"email":email}, "POST")
         .then(data => {
@@ -51,12 +53,14 @@
     }
     
     const getUser = (email) => {
-      let url =  'https://codingchaska.up.railway.app/api/v1/'+ 'auth/get-user-email/';
+
+      let url =  API_URL+ 'auth/get-user-email/';
         postData(url, {"email":email})
           .then(data => {
             //  console.log(data);
              localStorage.setItem("user", JSON.stringify(data));
              user.set(JSON.stringify(data));
+             console.log(data);
              if (nextPage) goto(nextPage);
           }).catch(error => {
             console.log(error)
