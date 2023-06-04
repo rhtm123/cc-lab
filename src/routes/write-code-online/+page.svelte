@@ -102,7 +102,7 @@
 
     const loadMore = () => {
       loadingMore = true
-      console.log(next);
+      // console.log(next);
       fetch(next)
       .then(async (response) => {
         if (response.ok) {
