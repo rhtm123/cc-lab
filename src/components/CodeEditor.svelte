@@ -143,15 +143,17 @@
         }, 1000);
       }
     };
-
     is_mount = true;
   });
 
   let iframeURL;
 
-  onMount(() => {
-    setTimeout(() => {
-      if (projectdata.lang == 1) {
+  const refreshIframe = function () {
+    refreshIframe_();
+  }
+
+  const refreshIframe_ = function () {
+    if (projectdata.lang == 1) {
         iframeURL =
           "https://" + container_name + ".thelearningsetu.com/terminal/python/";
       } else if (projectdata.lang?.prog_lang == "html") {
@@ -165,9 +167,15 @@
           "/";
       }
       let iframe = (document.getElementById("containerFrame").src = iframeURL);
-      // console.log("iframe", iframe)
+  }
+
+  onMount(() => {
+    setTimeout(() => {
+      refreshIframe_()
     }, 3000);
   });
+
+
 </script>
 
 <div class="editor-box">
@@ -216,7 +224,9 @@
     </Pane>
     <Pane style="height:100%" minSize={20} size={40}>
       {#if projectdata.type === "project"}
-        <div style="padding:4px; border:1px solid #747474; border-radius:10px">
+        <div style="padding:4px;display:flex;justify-content:space-between; border:1px solid #747474; border-radius:10px">
+          <span on:click={refreshIframe} class="" style="cursor:pointer;font-size: 0.8em;">Refresh</span>
+
           <a target="_blank" style="font-size: 0.8em;" href={iframeURL}
             >{iframeURL}</a
           >
