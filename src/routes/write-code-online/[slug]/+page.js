@@ -7,5 +7,14 @@ export async function load({ params,fetch }) {
 
   let url = API_URL+`editor/project/${slug}/`;
   let res = await fetch(url);
-  return res.json();
+
+  const error1 = res.ok ? false : true
+  // @ts-ignore
+    if (error1) {
+      throw error(404, {
+        message: 'Not found'
+      });
+    }
+
+  return res.json()
 }

@@ -6,8 +6,7 @@
     import CodeEditor from '../../../components/CodeEditor.svelte';
     import user from '../../../stores/auth';
     import LoginRequired from '../../../components/LoginRequired.svelte';
-
-    // import SplitPane from '../../../components/SplitPane.svelte';
+    import Loading from '../../../components/Loading.svelte';
 
 /** @type {import('./$types').PageData} */
 export let data;
@@ -15,22 +14,20 @@ export let data;
 let container_name;
 let API_URL = import.meta.env.VITE_API_URL;
 
-// let handler_address = "http://143.110.190.99:5000/"
-
 let value = "";
 let projectcode;
 let socket;
 let is_mount = false;
 let user1;
+let loading = true;
 
-user.subscribe(value => {
-        if (value) {user1 = JSON.parse(value);}
-        else{user1=null}
+  user.subscribe(value => {
+        if (value) {user1 = JSON.parse(value); loading=false}
+        else{user1=null; loading=false}
 	});
 
 // if (language==="python"){image_name="terminal-image"}
 // else if (language==="html"){image_name="html-image"}
-
 
 
 $: {
@@ -83,12 +80,6 @@ onMount(async ()=>{
         }, 1000)
       }
     };
-
-  //   socket.onmessage((event)=>{
-  //     console.log(event);
-  //   }
-  // )
-    
     is_mount = true;
 })
 
@@ -100,31 +91,17 @@ onMount(async ()=>{
 </svelte:head>
 
 
-<!-- <div style="height:100vh"> -->
 {#if user1}
-<!-- <nav class="split-nav">
-    <div class="nav-brand">
-      <h5><a href="/">Home</a> > <a href="/write-code-online">All Projects</a> > {data.name}</h5> 
-    </div>
-    <div class="collapsible">
-      <input id="collapsible1" type="checkbox" name="collapsible1">
-      <label for="collapsible1">
-        <div class="bar1"></div>
-        <div class="bar2"></div>
-        <div class="bar3"></div>
-      </label>
-      <div class="collapsible-body">
-        
-      </div>
-    </div>
-</nav> -->
-
 
 <CodeEditor projectdata={data}/>
 
 {:else}
 
+  {#if loading}
+  <Loading />
+  {:else}
   <LoginRequired />
+  {/if}
+  
 {/if}
 
-<!-- </div> -->

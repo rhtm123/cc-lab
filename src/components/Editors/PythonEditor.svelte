@@ -23,7 +23,7 @@
     styles={{
         "&": {
             maxWidth: "100%",
-            height: "100%",
+            height:"94vh",
         },
     }}
     theme={theme==="dark"?oneDark:""}

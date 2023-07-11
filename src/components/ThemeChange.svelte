@@ -14,13 +14,14 @@
         currentTheme.update(()=>theme);
     })
 
-    const setTheme = (/** @type {string} */ theme) => {
+    const setTheme = (theme) => {
         if (theme==="light"){
-        document.documentElement.className =""
+        document.documentElement.setAttribute('data-theme', theme);
+
         } else {
-          document.documentElement.className ="dark"
+        document.documentElement.setAttribute('data-theme', "dark");
+
         }
-        // document.documentElement.setAttribute('data-theme', theme);
         if (typeof localStorage !== 'undefined') {
         localStorage.setItem("theme", theme);
         }

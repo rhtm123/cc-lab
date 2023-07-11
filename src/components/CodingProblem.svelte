@@ -35,20 +35,23 @@
 </script>
 
 <div>
-    <h4 class="margin-bottom-none">{key+1}_ <a href={"/coding-problem/"+item.slug}>{item.name}</a></h4>
+    <h4 class="text-xl margin-bottom-none">Q_ <a class="text-primary" href={"/coding-problem/"+item.slug}>{item.name}</a></h4>
     {#if user1}
 
     {/if}
     <div class="row align-center"> 
     Solution accepted - 
     {#if solved} 
-    <svg width="24px" height="24px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#00ff33"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g id="Interface / Check_Big"> <path id="Vector" d="M4 12L8.94975 16.9497L19.5572 6.34326" stroke="#00ff33" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g> </g></svg>
+    <svg class="inline" width="24px" height="24px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" ><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g id="Interface / Check_Big"> <path id="Vector" d="M4 12L8.94975 16.9497L19.5572 6.34326" stroke="#00ff33" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g> </g></svg>
     {/if}
 
     {#if !solved} 
     No
     <!-- <svg fill="#ff0000" width="24px" height="24px" viewBox="0 0 64 64" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;" stroke="#ff0000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <rect id="Icons" x="-1152" y="-64" width="1280" height="800" style="fill:none;"></rect> <g id="Icons1" serif:id="Icons"> <g id="Strike"> </g> <g id="H1"> </g> <g id="H2"> </g> <g id="H3"> </g> <g id="list-ul"> </g> <g id="hamburger-1"> </g> <g id="hamburger-2"> </g> <g id="list-ol"> </g> <g id="list-task"> </g> <g id="trash"> </g> <g id="vertical-menu"> </g> <g id="horizontal-menu"> </g> <g id="sidebar-2"> </g> <g id="Pen"> </g> <g id="Pen1" serif:id="Pen"> </g> <g id="clock"> </g> <g id="external-link"> </g> <g id="hr"> </g> <g id="info"> </g> <g id="warning"> </g> <g id="plus-circle"> </g> <g id="minus-circle"> </g> <g id="vue"> </g> <g id="cog"> </g> <g id="logo"> </g> <g id="radio-check"> </g> <g id="eye-slash"> </g> <g id="eye"> </g> <g id="toggle-off"> </g> <path id="square" d="M50.005,56l-35.989,0c-3.309,0 -5.995,-2.686 -5.995,-5.995l0,-36.011c0,-3.308 2.686,-5.995 5.995,-5.995l35.989,0c3.309,0 5.995,2.687 5.995,5.995l0,36.011c0,3.309 -2.686,5.995 -5.995,5.995Zm-0.993,-4.001c1.65,0 2.989,-1.339 2.989,-2.989l0,-34.021c0,-1.649 -1.339,-2.989 -2.989,-2.989l-34.003,0c-1.65,0 -2.989,1.34 -2.989,2.989l0,34.021c0,1.65 1.339,2.989 2.989,2.989l34.003,0Z"></path> <g id="shredder"> </g> <g id="spinner--loading--dots-" serif:id="spinner [loading, dots]"> </g> <g id="react"> </g> <g id="check-selected"> </g> <g id="turn-off"> </g> <g id="code-block"> </g> <g id="user"> </g> <g id="coffee-bean"> </g> <g id="coffee-beans"> <g id="coffee-bean1" serif:id="coffee-bean"> </g> </g> <g id="coffee-bean-filled"> </g> <g id="coffee-beans-filled"> <g id="coffee-bean2" serif:id="coffee-bean"> </g> </g> <g id="clipboard"> </g> <g id="clipboard-paste"> </g> <g id="clipboard-copy"> </g> <g id="Layer1"> </g> </g> </g></svg> -->
     {/if}
-    |  Created by- {item.creator.firstname} {item.creator.lastname} 
+    {#if item.creator.id}
+    |  Created by- {item.creator?.firstname} {item.creator?.lastname} 
+    {/if}
     </div>
+    <br />
 </div>

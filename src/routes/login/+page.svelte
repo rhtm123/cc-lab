@@ -6,6 +6,7 @@
     import { page } from '$app/stores';
     import user from '../../stores/auth';
     import { goto } from '$app/navigation';
+    let GOOGLE_CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID;
     let API_URL = import.meta.env.VITE_API_URL;
 
    //  import ThemeChange from '../../components/ThemeChange.svelte';
@@ -21,6 +22,7 @@
 	});
 
     import { postData } from '../../utils/auth';
+    import Footer from '../../components/Footer.svelte';
  
     /**
      * @type {{ name: any; } | null}
@@ -75,25 +77,42 @@
  </script>
 
 <svelte:head>
-   <title>About | Coding Chaska Lab </title>
+   <title>Login | Coding Chaska Lab </title>
    <meta property="description" content={`Login with Google account & Access the restricted features of Coding Chaska Lab`} />
  </svelte:head>
- 
- 
-{#if user1}
-
 
 <Navbar />
 
+<div class="container">
 
-<div class="section" style="min-height:80vh">
+   <div class="text-sm breadcrumbs">
+      <ul>
+        <li>
+          <a href="/">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="w-4 h-4 mr-2 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"></path></svg>
+            Home
+          </a>
+        </li> 
+         
+        <li>
+          Login Page
+        </li>
+      </ul>
+    </div>
+
+    <br />
+
+<div class="md:w-3/4 prose max-w-none m-auto">
+ 
+{#if user1}
+
+<div class="section" style="min-height:60vh">
    <br />
    <br />
    <div class="text-center">
-   <h4>You are logged In</h4> 
-   <button><a href="/">Go to Home Page</a></button>
+   <h2>You are logged In</h2> 
+   <button class="btn btn-primary"><a href="/">Go to Home Page</a></button>
    </div>
-   <br />
    <br />
    <br />
    <br />
@@ -103,38 +122,30 @@
 
 {:else}
 
+<div class="text-center" style="min-height:60vh">
 
-<div class="container section text-center" style="min-height:80vh">
-
    <br />
    <br />
    <br />
    <br />
-   <br />
-   <br />
-   
     <GoogleLogin 
-       clientId={"430888155183-p0e7c7m7qsbpt5p141chqpbk3491n04t.apps.googleusercontent.com"}
+       clientId={GOOGLE_CLIENT_ID}
        on:success={handleSignin}
        on:failure={handleFailure}
        let:signIn
     >
-       <button on:click={signIn}>
+       <button class="btn" on:click={signIn}>
           Sign in with Google
        </button>
     </GoogleLogin>
-   
-   
-   
-   
-    <!-- <button on:click={handleIt}>Just Do It</button> -->
-   
-   
-    <br />
-    <br />
-   
-    <br />
-   <br />
+
    </div>
 
 {/if}
+
+</div>
+</div>
+
+<br />
+
+<Footer />

@@ -1,15 +1,13 @@
-<script>
-    import '../global.css';
-    import 'aos/dist/aos.css';
-    // import ThemeChange from '../components/ThemeChange.svelte';
-    // import Logo from '$lib/images/logo.png';
-    import NProgress from 'nprogress';
-	import { navigating } from '$app/stores';
-    import { onMount } from 'svelte';
-	import 'nprogress/nprogress.css';
-    import AOS from 'aos';
 
-	$: {
+<script>
+    import "../app.css";
+    import Footer from "../components/Footer.svelte";
+    import Navbar from "../components/Navbar.svelte";
+    import NProgress from 'nprogress';
+    import 'nprogress/nprogress.css';
+    import { navigating } from "$app/stores";
+
+    $: {
 		if ($navigating) {
 			NProgress.start();
 		}
@@ -18,22 +16,8 @@
 		}
 	}
 
-	onMount(() => {
-		AOS.init();
-	});
-  
+
 </script>
 
-<!-- navbar -->
-
-
-
 <slot />
-<!-- footer -->
-
-<!-- <ThemeChange /> -->
-
-<!-- <div>
-  <p style="text-align:center; font-weight:400; padding:1rem">@Coding Chaska v0.0.1 </p>
-</div> -->
 

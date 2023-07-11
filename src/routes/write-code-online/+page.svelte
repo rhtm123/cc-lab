@@ -14,6 +14,7 @@
 
     import { goto } from "$app/navigation";
     import LoginRequired from "../../components/LoginRequired.svelte";
+    import Footer from "../../components/Footer.svelte";
 
 
 
@@ -125,48 +126,68 @@
 
 <div class="container">
 
+  <div class="text-sm breadcrumbs">
+    <ul>
+      <li>
+        <a href="/">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="w-4 h-4 mr-2 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"></path></svg>
+          Home
+        </a>
+      </li> 
+       
+      <li>
+        Write Code Online
+      </li>
+    </ul>
+  </div>
+
+
+
     {#if (loginChecked && !user1)}
       <LoginRequired />
     {/if}
 
     {#if (loginChecked && user1)}
-    <div class="section">
+    <div class="">
         <br />
     
-          <div class="">
-            <label class="paper-btn btn-primary" for="modal-1">Start Coding</label>
-          </div>
-          <input class="modal-state" id="modal-1" type="checkbox">
-          <div class="modal">
-            <label class="modal-bg" for="modal-1"></label>
-            <div class="modal-body">
-              <label class="btn-close" for="modal-1">X</label>
-              <h4 class="modal-title">Create New Project</h4>
+          
+        <button class="btn" onclick="my_modal_1.showModal()" for="modal-1">Start Coding</button>
+
+          <dialog id="my_modal_1" class="modal">
+            <form method="dialog" class="modal-box">
+              <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+
+              <h4 class="font-bold text-lg">Create New Project</h4>
 
               <div class="form-group">
               
               <label>Choose programming language:</label>
-              <br />
-              <select bind:value={language} >
+            
+              <select class="select select-sm" bind:value={language} >
                 {#each languages as lang}
                 <option value={lang.id}>{lang.prog_lang}</option>
                 {/each}
               </select>
               </div>
 
-              <div class="form-group">
-              <input placeholder="Project Name" bind:value={new_project_name} text="Project Name" />
+              <div >
+              <input class="mt-4 input input-bordered input-sm w-full" placeholder="Project Name" bind:value={new_project_name} text="Project Name" />
               </div>
               {#if !requesting}
-              <button on:click={creatProjectRedirect}>Start Now</button>
+              <button class="mt-4 btn btn-secondary" on:click={creatProjectRedirect}>Start Now</button>
               {/if}
 
               {#if requesting}
               <p>Creating...</p>
               {/if}
+            </form>
 
-            </div>
-          </div>
+            <form method="dialog" class="modal-backdrop">
+              <button>close</button>
+            </form>
+
+          </dialog>
 
 
     {#if loading}
@@ -182,9 +203,9 @@
 
     {#if (!loading && projects.results!=0)}
 
-    <h4>Your Works</h4>
+    <h4 class="text-xl mt-4">Your Works</h4>
 
-    <table>
+    <table class="table">
         <thead>
           <tr>
             <th>Name</th>
@@ -199,7 +220,7 @@
         {#each projects as project}
 		<tr>
             <td>
-            <a href={"/write-code-online/"+project.slug}> {project.name} </a> 
+            <a class="text-primary font-bold" href={"/write-code-online/"+project.slug}> {project.name} </a> 
             
             </td>
             <td>{project.lang.prog_lang}</td>
@@ -231,7 +252,8 @@
     {/if}
 </div>
 
-
+<br />
+<Footer />
 <style>
   .cursor{
     cursor: pointer;

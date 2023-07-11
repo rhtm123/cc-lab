@@ -14,7 +14,7 @@
 
   import { activeFile } from "../stores/activeFile";
   import CssEditor from "./Editors/CSSEditor.svelte";
-  import ThemeChange from "./ThemeChange.svelte";
+  // import ThemeChange from "./ThemeChange.svelte";
 
   /**
    * @type {{ container_name: any; }}
@@ -178,83 +178,103 @@
 
 </script>
 
-<div class="editor-box">
-  <div class="row1 header">
-    {#if projectdata.type === "project"}
-      <nav class="nav-split row flex-edges flex-middle" style="margin: 0;">
-        <div class="nav-brand">
-          <h6>
-            <a href="/">Home</a> > <a href="/write-code-online">All Projects</a>
-          </h6>
-        </div>
-        <ThemeChange />
-      </nav>
-    {/if}
-
-    {#if !is_owner}
-      <span style="font-size: small;"
-        >*You are not the owner of this project</span
-      >
+<div class="flex flex-col h-screen">
+  <div class="sm:block">
+    {#if projectdata.type==="project"}
+    <div class="text-sm breadcrumbs">
+      <ul>
+        <li>
+          <a href="/">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="w-4 h-4 mr-2 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"></path></svg>
+            Home
+          </a>
+        </li> 
+         
+        <li>
+          <a href="/write-code-online">
+          All Projects
+          </a>
+        </li>
+        <li>
+          {#if !is_owner}
+          <span style="font-size: small;"
+            >*You are not the owner of this project</span
+          >
+        {/if}
+        </li>
+      </ul>
+    </div>
     {/if}
   </div>
-  <Splitpanes class="row1 content">
-    <Pane minSize={10} size={15}>
-      {#if explorer}
-        <FileExplorer {container_name} {socket} {explorer} folder_name={"/"} />
-      {/if}
-    </Pane>
-
-    <Pane style="height:100%" minSize={20} size={60}>
-      {#if projectdata.lang?.prog_lang === "python" || projectdata.lang === 1}
-        <PythonEditor bind:value {theme} />
-      {:else if projectcode?.lang?.prog_lang === "javascript" || projectdata.lang?.prog_lang === "nodejs"}
-        <!-- <h1>JS</h1> -->
-        <JavaScriptEditor bind:value {theme} />
-      {:else if projectcode?.lang.prog_lang === "html"}
-        <!-- <h1>HTML</h1> -->
-        <HtmlEditor bind:value {theme} />
-      {:else if projectcode?.lang.prog_lang === "css"}
-        <!-- <h1>CSS</h1> -->
-        <CssEditor bind:value {theme} />
-      {:else}
-        <!-- <h1>Simple</h1> -->
-
-        <SimpleEditor bind:value {theme} />
-      {/if}
-    </Pane>
-    <Pane style="height:100%" minSize={20} size={40}>
-      {#if projectdata.type === "project"}
-        <div style="padding:4px;display:flex;justify-content:space-between; border:1px solid #747474; border-radius:10px">
-          <span on:click={refreshIframe} class="" style="cursor:pointer;font-size: 0.8em;">Refresh</span>
-
-          <a target="_blank" style="font-size: 0.8em;" href={iframeURL}
-            >{iframeURL}</a
-          >
-        </div>
-      {/if}
-
-      {#if container_name}
-        <iframe
-          allowFullScreen
-          style={projectdata.lang.prog_lang === "html"
-            ? "background:white"
-            : ""}
-          id="containerFrame"
-          width={"100%"}
-          height={"100%"}
-          src={projectdata.lang == 1
-            ? "https://" +
-              container_name +
-              ".thelearningsetu.com/terminal/python/"
-            : "https://" +
-              container_name +
-              ".thelearningsetu.com/terminal/" +
-              projectdata.lang.prog_lang +
-              "/"}
-        />
-      {:else}
-        <p>Creating Container...</p>
-      {/if}
-    </Pane>
-  </Splitpanes>
+    
+  <div class="flex flex-grow">
+    <Splitpanes class="h-full">
+      <Pane minSize={10} size={15}>
+        {#if explorer}
+        <ul class="menu bg-base-200 w-full h-full">
+          <FileExplorer {container_name} {socket} {explorer} folder_name={"/"} />
+        </ul>
+        {/if}
+      </Pane>
+  
+      <Pane minSize={20} size={60} style="height:100%" >
+        {#if projectdata.lang?.prog_lang === "python" || projectdata.lang === 1}
+          <PythonEditor bind:value {theme} />
+        {:else if projectcode?.lang?.prog_lang === "javascript" || projectdata.lang?.prog_lang === "nodejs"}
+          <!-- <h1>JS</h1> -->
+          <JavaScriptEditor bind:value {theme} />
+        {:else if projectcode?.lang.prog_lang === "html"}
+          <!-- <h1>HTML</h1> -->
+          <HtmlEditor bind:value {theme} />
+        {:else if projectcode?.lang.prog_lang === "css"}
+          <!-- <h1>CSS</h1> -->
+          <CssEditor bind:value {theme} />
+        {:else}
+          <!-- <h1>Simple</h1> -->
+  
+          <SimpleEditor bind:value {theme} />
+        {/if}
+      </Pane>
+      <Pane minSize={20} size={40}>
+        {#if projectdata.type === "project"}
+          <div class="bg-base-200" style="padding:4px;display:flex;justify-content:space-between;">
+            <span on:click={refreshIframe} class="" style="cursor:pointer;font-size: 0.8em;">Refresh</span>
+  
+            <a target="_blank" style="font-size: 0.8em;" href={iframeURL}
+              >{iframeURL}</a
+            >
+          </div>
+        {/if}
+  
+        {#if container_name}
+          <iframe
+            allowFullScreen
+            style={projectdata.lang.prog_lang === "html"
+              ? "background:white"
+              : ""}
+            id="containerFrame"
+            width={"100%"}
+            height={"96%"}
+            src={projectdata.lang == 1
+              ? "https://" +
+                container_name +
+                ".thelearningsetu.com/terminal/python/"
+              : "https://" +
+                container_name +
+                ".thelearningsetu.com/terminal/" +
+                projectdata.lang.prog_lang +
+                "/"}
+          />
+        {:else}
+          <p>Creating Container...</p>
+        {/if}
+      </Pane>
+    </Splitpanes>
+  
+  </div>
 </div>
+
+
+<style>
+
+</style>

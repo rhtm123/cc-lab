@@ -28,7 +28,7 @@
         styles={{
             "&": {
                 maxWidth: "100%",
-                height: "100%",
+                height:"94vh",
 
                 // maxHeight: "100%",
             },

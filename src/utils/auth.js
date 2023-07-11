@@ -1,4 +1,5 @@
 
+
 import Cookies from 'js-cookie';
 
 export function postDataAuth(url = ``, token="", data = {}, method='POST') {
@@ -27,7 +28,7 @@ function postData_(url='',data={},token='',method='POST',content_type='json'){
 
 	    if (content_type =='json'){
 	    	headers["Content-Type"] = "application/json"
-	    	var data = JSON.stringify(data) 
+	    	data = JSON.stringify(data) 
 	    }
 
 

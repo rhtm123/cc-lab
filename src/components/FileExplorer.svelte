@@ -45,33 +45,36 @@ const saveNow = () => {
             expand = !expand;
         }
     }
-
-
-
 </script>
 
-<div class="">
-{#if explorer.id === activeFile1.id}
-<div class="active-file"> 
-    {explorer.file_name}
-</div>
-{:else}
-<span on:click={()=>handleClick()}>
-    {explorer.file_name}
-</span>
-{/if}
 
-<div style="margin-left: 8px;">
+
 {#if expand}
-{#each explorer.files as explore}
 
+<li>
+{explorer.file_name}
+
+<ul class="p-1">
+{#each explorer.files as explore}
     <svelte:self explorer={explore}
     folder_name={folder_name+explorer.file_name+'/'} 
     socket={socket}
     container_name={container_name}
     />
 {/each}
-{/if}
-</div>
+</ul>
+</li>
+{:else}
 
-</div>
+{#if explorer.id === activeFile1.id}
+<li class="text-success"> 
+    {explorer.file_name}
+</li>
+{:else}
+<li class="cursor-pointer" on:click={()=>handleClick()}>
+    {explorer.file_name}
+</li>
+{/if}
+
+{/if}
+

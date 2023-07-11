@@ -10,6 +10,7 @@
     import Navbar from '../../../components/Navbar.svelte';
     import user from '../../../stores/auth';
     import { postDataAuth,postData } from '../../../utils/auth';
+    import Footer from '../../../components/Footer.svelte';
 
     /**
      * @type {any}
@@ -21,6 +22,7 @@
     let user_problem;
     let API_URL = import.meta.env.VITE_API_URL;
 
+    let loading = true;
 
 
     /** @type {import('./$types').PageData} */
@@ -34,6 +36,7 @@
 
     user.subscribe(value => {
         if (value) user1 = JSON.parse(value);
+        loading = false;
 	});
 
 
@@ -187,18 +190,58 @@ const submitCode = () => {
 
 <Navbar />
 
-<ul class="breadcrumb">
-    <li><a href="/">Home</a></li>
+<div class="container">
+
+  <div class="text-sm breadcrumbs">
+    <ul>
+      <li>
+        <a href="/">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="w-4 h-4 mr-2 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"></path></svg>
+          Home
+        </a>
+      </li> 
+       
     <li><a href="/coding-problems">Coding Problems</a></li>
     <li>{data.name}</li>
-</ul>
+    </ul>
+  </div>
+
+  <br />
 
 
-<input class="modal-state" id="modal-1" type="checkbox">
-          <div class="modal" style={!show_modal?"display:none":""}>
-            <div class="modal-body" style="min-width: 40%;">
-              <label class="btn-close" for="modal-1">X</label>
-              <h4 class="modal-title">Test Results</h4>
+
+<div>
+
+  <div class="tabs">
+    <button on:click={()=>{activeTab="problem"}} class={activeTab=="problem"?"tab tab-bordered tab-lg tab-active":"tab tab-lg tab-bordered"}>Problem</button> 
+    <button on:click={()=>{activeTab="solve"}} class={activeTab=="solve"?"tab tab-bordered tab-lg tab-active":"tab tab-lg tab-bordered"}>Solve it</button> 
+  </div>
+          
+  <div class="prose max-w-none m-auto">
+        {#if activeTab==="problem"}
+            <h2 class="mt-6">{data.name}</h2>
+            <div>{@html data.statement}</div>
+
+        {:else}
+            {#if user1}
+
+              {#if problem_solved}
+
+              <p class="pt-8">You have solved this problem.</p>
+              <a href="/coding-problems"><button class="btn btn-secondary">Solve More Problems</button></a>
+              <button class="btn btn-secondary" on:click={unSubmit}>Solve it Again</button>
+
+              {:else}
+
+              <div class="flex justify-end mb-2">
+                <label on:click={testCodefunc} class="btn btn-primary btn-sm" onclick="my_modal_1.showModal()">Check</label>
+
+                <dialog id="my_modal_1" class="modal">
+                  <form method="dialog" class="modal-box">
+                    <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+
+                    
+                    <h4 class="text-xl">Test Results</h4>
               {#if test_complete}
                   <p>Test Completed</p>
               {:else}
@@ -211,7 +254,7 @@ const submitCode = () => {
                   {#if test_result.pass}
                   <span class="text-success">Passed</span>
                 {:else}
-                  <span class="text-danger">Failed</span>
+                  <span class="text-error">Failed</span>
                 {/if}
                 
                 </p>
@@ -231,46 +274,22 @@ const submitCode = () => {
                     <p>Your Output: {test_result.result.output}</p>
                     </div>
                   {/if}
-
-                
-                
               {/each}
 
               {#if (test_complete && all_test_passed)}
-                    <button for="modal-1" on:click={submitCode}>Submit Code</button>
-              {/if}
-            </div>
-    </div>
-
-
-<div class="section padding">
-            <div class="tabs">
-                <button on:click={()=>{activeTab="problem"}} class={activeTab=="problem"?"btn-primary":""}>Problem</button>
-
-                <button on:click={()=>{activeTab="solve"}} class={activeTab=="solve"?"btn-primary":""}>Solve</button>
-            </div>
-    
-        {#if activeTab==="problem"}
-            <h2 class="header">{data.name}</h2>
-            <div>{@html data.statement}</div>
-
-        {:else}
-            {#if user1}
-
-              {#if problem_solved}
-
-              <p>You have solved this problem.</p>
-              <button><a href="/coding-problems">Solve More Problems</a></button>
-              <button on:click={unSubmit}>Solve it Again</button>
-
-              {:else}
-
-              <div class="row flex-right margin-top">
-                <label on:click={testCodefunc} class="paper-btn btn-primary" for="modal-1">Check</label>
-  
+                    <button class="btn btn-primary" for="modal-1" on:click={submitCode}>Submit Code</button>
+              {/if}                    
+                  </form>
+                  <form method="dialog" class="modal-backdrop">
+                    <button>close</button>
+                  </form>
+                </dialog>
               </div>
+
               {#if user_problem}
+              <div class="not-prose">
               <CodeEditor projectdata={user_problem.project} />
+              </div>
               {/if}
 
               {/if}
@@ -282,6 +301,11 @@ const submitCode = () => {
             {/if}
         {/if}
 
-        
+  </div>   
 
 </div>
+
+<br />
+</div>
+
+<Footer />
