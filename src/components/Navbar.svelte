@@ -40,7 +40,7 @@ import  user  from "../stores/auth";
 
         {#if loggedIn}
           <li><a href="/profile">{user1.user.firstname}</a></li>
-          <li><a  on:click={logoutHandle} href="/about">Logout</a></li>
+          <li><a  on:click={logoutHandle} href="/">Logout</a></li>
 
         {:else}
           <li><a href="/login">login</a></li>
