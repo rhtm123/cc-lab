@@ -3,7 +3,7 @@
 
   import { Pane, Splitpanes } from "svelte-splitpanes";
 
-  import { onMount } from "svelte";
+  import { onMount, onDestroy } from "svelte";
   import { postDataAuth } from "../utils/auth";
   import user from "../stores/auth";
   import PythonEditor from "./Editors/PythonEditor.svelte";
@@ -174,16 +174,17 @@
   //   refreshIframe_();
   // } 
 
+  let interval; 
   onMount(() => {
     setTimeout(() => {
       refreshIframe_();
     }, 3000);
-
-    setInterval(() => {
+    interval = setInterval(() => {
       refreshIframe_();
     }, 5000);
-
   });
+
+  onDestroy(() => clearInterval(interval));
 
 
 </script>
