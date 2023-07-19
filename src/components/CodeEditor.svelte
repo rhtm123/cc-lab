@@ -179,12 +179,16 @@
     setTimeout(() => {
       refreshIframe_();
     }, 3000);
+    if (projectdata.lang?.prog_lang == "html" ) {
     interval = setInterval(() => {
       refreshIframe_();
     }, 5000);
+    }
   });
 
-  onDestroy(() => clearInterval(interval));
+  onDestroy(() => {
+    if (projectdata.lang?.prog_lang == "html") clearInterval(interval)
+  });
 
 
 </script>
@@ -212,7 +216,7 @@
           >
           {#if !is_owner}
           <span style="font-size: small;"
-            >*You are not the owner of this project</span
+            > (*You are not the owner of this project) </span
           >
         {/if}
         </li>
