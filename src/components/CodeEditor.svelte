@@ -153,6 +153,7 @@
   }
 
   const refreshIframe_ = function () {
+    console.log("Refreshing iframe");
     if (projectdata.lang == 1) {
         iframeURL =
           "https://" + container_name + ".thelearningsetu.com/terminal/python/";
@@ -169,10 +170,19 @@
       let iframe = (document.getElementById("containerFrame").src = iframeURL);
   }
 
+  // $: {
+  //   refreshIframe_();
+  // } 
+
   onMount(() => {
     setTimeout(() => {
-      refreshIframe_()
+      refreshIframe_();
     }, 3000);
+
+    setInterval(() => {
+      refreshIframe_();
+    }, 5000);
+
   });
 
 
@@ -198,7 +208,7 @@
         <li>
           {#if !is_owner}
           <span style="font-size: small;"
-            >*You are not the owner of this project</span
+            >{projectdata.name} *You are not the owner of this project</span
           >
         {/if}
         </li>
