@@ -207,9 +207,12 @@
           </a>
         </li>
         <li>
+          <span style="font-size: small;"
+            >{projectdata.name}</span
+          >
           {#if !is_owner}
           <span style="font-size: small;"
-            >{projectdata.name} *You are not the owner of this project</span
+            >*You are not the owner of this project</span
           >
         {/if}
         </li>
