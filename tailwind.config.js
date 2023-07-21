@@ -3,6 +3,7 @@ export default {
   content: ['./src/**/*.{html,js,svelte,ts}'],
   theme: {
     container: {
+      margin: "auto",
       padding: {
         DEFAULT: '1rem',
         sm: '2rem',
