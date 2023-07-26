@@ -20,6 +20,7 @@
       if (value) {user1 = JSON.parse(value);}
       else{user1=null}
 	});
+   let loading = false;
 
     import { postData } from '../../utils/auth';
     import Footer from '../../components/Footer.svelte';
@@ -30,6 +31,7 @@
     let profile = null
  
     const handleSignin = (event) => {
+      loading = true;
        profile = event.detail.profileObj
        console.log(`User signed in successfully`);
        
@@ -38,7 +40,7 @@
       let lastname = profile.familyName
       let email = profile.email
 
-      console.log(profile);
+      // console.log(profile);
 
        let r = (Math.random() + 1).toString(36).substring(7);
        let url = API_URL+`auth/users/`;
@@ -47,10 +49,10 @@
         .then(data => {
          //  console.log(data);
 
-         getUser(email)
+         getUser(email);
         }).catch(error => {
-          getUser(email)
-          console.log(error);
+          getUser(email);
+         //  console.log(error);
       })
     }
     
@@ -62,7 +64,8 @@
             //  console.log(data);
              localStorage.setItem("user", JSON.stringify(data));
              user.set(JSON.stringify(data));
-             console.log(data);
+             loading = false;
+            //  console.log(data);
              if (nextPage) goto(nextPage);
           }).catch(error => {
             console.log(error)
@@ -103,6 +106,8 @@
     <br />
 
 <div class="md:w-3/4 prose max-w-none m-auto">
+
+
  
 {#if user1}
 
@@ -111,7 +116,7 @@
    <br />
    <div class="text-center">
    <h2>You are logged In</h2> 
-   <button class="btn btn-primary"><a href="/">Go to Home Page</a></button>
+   <a href="/"><button class="btn btn-primary">Go to Home Page</button></a>
    </div>
    <br />
    <br />
@@ -128,6 +133,12 @@
    <br />
    <br />
    <br />
+
+   {#if loading}
+   <p>Loading...</p>
+   
+   {:else}
+   
     <GoogleLogin 
        clientId={GOOGLE_CLIENT_ID}
        on:success={handleSignin}
@@ -138,6 +149,8 @@
           Sign in with Google
        </button>
     </GoogleLogin>
+
+    {/if}
 
    </div>
 

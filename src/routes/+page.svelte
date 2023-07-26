@@ -32,6 +32,8 @@
                 By solving coding problems regularly, programmers can become more confident and proficient in their chosen programming language and domain.
             </p>
             <a href="/coding-problems"><button class="btn btn-primary">Solve Now</button></a> 
+            <br />
+            <br />
           </div>
         </div>
     </div>
