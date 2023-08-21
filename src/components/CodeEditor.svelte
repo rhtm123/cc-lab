@@ -14,6 +14,7 @@
 
   import { activeFile } from "../stores/activeFile";
   import CssEditor from "./Editors/CSSEditor.svelte";
+    import CLangEditor from "./Editors/CLangEditor.svelte";
   // import ThemeChange from "./ThemeChange.svelte";
 
   /**
@@ -247,6 +248,11 @@
         {:else if projectcode?.lang.prog_lang === "css"}
           <!-- <h1>CSS</h1> -->
           <CssEditor bind:value {theme} />
+
+          {:else if projectcode?.lang.prog_lang === "c-language"}
+          <!-- <h1>CSS</h1> -->
+          <CLangEditor bind:value {theme} />
+
         {:else}
           <!-- <h1>Simple</h1> -->
   

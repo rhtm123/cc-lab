@@ -16,9 +16,6 @@
     import LoginRequired from "../../components/LoginRequired.svelte";
     import Footer from "../../components/Footer.svelte";
 
-
-
-
     // @ts-ignore
     let user1;
     let projects=[];
