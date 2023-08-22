@@ -15,6 +15,7 @@
   import { activeFile } from "../stores/activeFile";
   import CssEditor from "./Editors/CSSEditor.svelte";
     import CLangEditor from "./Editors/CLangEditor.svelte";
+    import JavaEditor from "./Editors/JavaEditor.svelte";
   // import ThemeChange from "./ThemeChange.svelte";
 
   /**
@@ -56,7 +57,7 @@
   $: {
     if (is_mount && socket) {
       setTimeout(() => {
-        // console.log(activeFile);
+        console.log(projectcode);
         try {
           socket.send(
             JSON.stringify({
@@ -108,7 +109,7 @@
         let data1 = await response.json();
         projectcode = data1["results"][0];
         projectcode["file_location"] = "/src/" + projectcode.file_name;
-        // console.log(projectcode);
+        console.log(projectcode);
         activeFile.update(() => projectcode);
         explorer = { is_folder: true, file_name: "src", files: data1.results };
         // console.log(explorer);
@@ -142,6 +143,8 @@
         setTimeout(() => {
           container_name = projectdata.container_name;
         }, 1000);
+      } else {
+        console.log(msg_data)
       }
     };
     is_mount = true;
@@ -249,9 +252,13 @@
           <!-- <h1>CSS</h1> -->
           <CssEditor bind:value {theme} />
 
-          {:else if projectcode?.lang.prog_lang === "c-language"}
+        {:else if projectcode?.lang.prog_lang === "c-language"}
           <!-- <h1>CSS</h1> -->
           <CLangEditor bind:value {theme} />
+
+        {:else if projectcode?.lang.prog_lang === "java"}
+          <!-- <h1>CSS</h1> -->
+          <JavaEditor bind:value {theme} />
 
         {:else}
           <!-- <h1>Simple</h1> -->

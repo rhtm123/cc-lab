@@ -22,7 +22,8 @@ let expand = explorer.file_name==="src";
 $: if(explorer.is_folder===false && container_name) { saveNow() }
 
 const saveNow = () => {
-    
+    // console.log(folder_name+explorer.file_name);
+    // console.log(container_name);
     socket?.send(JSON.stringify({'task':"save_code",'code':explorer.code,"container_name":container_name,"file_name":folder_name+explorer.file_name}));
     localStorage.setItem(folder_name+explorer.file_name,explorer.code)
 }

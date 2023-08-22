@@ -149,7 +149,7 @@
         <br />
     
           
-        <button class="btn" onclick="my_modal_1.showModal()" for="modal-1">Start Coding</button>
+        <button class="btn btn-primary" onclick="my_modal_1.showModal()" for="modal-1">Start Coding</button>
 
           <dialog id="my_modal_1" class="modal">
             <form method="dialog" class="modal-box">
