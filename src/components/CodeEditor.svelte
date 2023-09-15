@@ -16,7 +16,7 @@
   import CssEditor from "./Editors/CSSEditor.svelte";
     import CLangEditor from "./Editors/CLangEditor.svelte";
     import JavaEditor from "./Editors/JavaEditor.svelte";
-  // import ThemeChange from "./ThemeChange.svelte";
+  import ThemeChange from "./ThemeChange.svelte";
 
   /**
    * @type {{ container_name: any; }}
@@ -174,24 +174,29 @@
       let iframe = (document.getElementById("containerFrame").src = iframeURL);
   }
 
-  // $: {
-  //   refreshIframe_();
-  // } 
 
-  let interval; 
+  $: onChange(value);
+
+  let timeout; 
+function onChange(...args) {
+  clearTimeout(timeout);
+  if (projectdata.lang?.prog_lang == "html" ) {
+    timeout = setTimeout(() => {
+      refreshIframe_();
+    }, 3000);
+    }
+}
+
+  // let interval; 
   onMount(() => {
     setTimeout(() => {
       refreshIframe_();
     }, 3000);
-    if (projectdata.lang?.prog_lang == "html" ) {
-    interval = setInterval(() => {
-      refreshIframe_();
-    }, 5000);
-    }
+    
   });
 
   onDestroy(() => {
-    if (projectdata.lang?.prog_lang == "html") clearInterval(interval)
+    if (projectdata.lang?.prog_lang == "html") clearTimeout(timeout);
   });
 
 
@@ -200,7 +205,7 @@
 <div class="flex flex-col h-screen">
   <div class="sm:block">
     {#if projectdata.type==="project"}
-    <div class="text-sm breadcrumbs">
+    <div class="text-sm flex justify-between breadcrumbs">
       <ul>
         <li>
           <a href="/">
@@ -223,6 +228,12 @@
             > (*You are not the owner of this project) </span
           >
         {/if}
+        </li>
+      </ul>
+
+      <ul>
+        <li>
+          <ThemeChange />
         </li>
       </ul>
     </div>
