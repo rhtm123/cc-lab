@@ -121,7 +121,7 @@
 
 <Navbar />
 
-<div class="container">
+<div class="container max-w-none">
 
   <div class="text-sm breadcrumbs">
     <ul>
@@ -193,22 +193,22 @@
 
     
 
-    {#if (!loading && projects.results===0)}
-        <p>You have not created any project yet.</p>
+    {#if (!loading && projects.results==0)}
+        <p class="my-4 ">You have not created any project yet.</p>
     
     {/if}
 
     {#if (!loading && projects.results!=0)}
 
-    <h4 class="text-xl mt-4">Your Works</h4>
+    <h4 class="text-xl my-4 ">Your Works</h4>
 
-    <table class="table">
+    <table class="table bg-base-200">
         <thead>
           <tr>
-            <th>Name</th>
-            <th>Language</th>
-            <th>Created on</th>
-            <th>Action</th>
+            <th>NAME</th>
+            <th>LANGUAGE</th>
+            <th>CREATED ON</th>
+            <th>ACTION</th>
           </tr>
         </thead>
     

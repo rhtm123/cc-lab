@@ -190,7 +190,7 @@ const submitCode = () => {
 
 <Navbar />
 
-<div class="container">
+<div class="container max-w-none">
 
   <div class="text-sm breadcrumbs">
     <ul>
