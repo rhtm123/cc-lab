@@ -23,7 +23,8 @@
     let loading = true;
     let loginChecked = false;
     let next;
-    let loadingMore = false
+    let loadingMore = false;
+    let error; 
 
     user.subscribe(value => {
         if (value) {user1 = JSON.parse(value);}
@@ -57,7 +58,7 @@
         if (response.ok) {
           let data1 = await response.json();
           languages = data1.results;
-          language = data1.results[0].id;
+          // language = data1.results[0].id;
          } else {
         }
       }).catch(error=>{  }) 
@@ -78,8 +79,8 @@
     let url = API_URL+ "editor/projects/";
 
     if (new_project_name===""){
-      setError({text:"Title name should not be emptied"});
-      requesting = false      
+      let error = {text:"Title name should not be emptied"}
+      requesting = false;   
     } else {
 
     postDataAuth(url,user1.access,{name:new_project_name, creator_id:user1.user.id,lang_id:language})
@@ -94,7 +95,7 @@
     } 
 
     let new_project_name="";
-    let language;
+    let language ="";
     let requesting=false;
 
 
@@ -161,7 +162,8 @@
               
               <label>Choose programming language:</label>
             
-              <select class="select select-sm" bind:value={language} >
+              <select class="select select-sm border" bind:value={language} >
+                <option hidden value="" selected></option>
                 {#each languages as lang}
                 <option value={lang.id}>{lang.prog_lang}</option>
                 {/each}
@@ -170,9 +172,10 @@
 
               <div >
               <input class="mt-4 input input-bordered input-sm w-full" placeholder="Project Name" bind:value={new_project_name} text="Project Name" />
+              
               </div>
-              {#if !requesting}
-              <button class="mt-4 btn btn-secondary" on:click={creatProjectRedirect}>Start Now</button>
+              {#if (!requesting && language && new_project_name.length>0)}
+              <button class="mt-4 btn btn-secondary" on:click={creatProjectRedirect}>Create Project</button>
               {/if}
 
               {#if requesting}
@@ -188,7 +191,7 @@
 
 
     {#if loading}
-    <p>Loading...</p>
+    <p class="pt-10">Loading...</p>
     {/if}
 
     
@@ -240,7 +243,7 @@
     {#if next}
     <div class="row flex-center">
       {#if loadingMore} <p>loading...</p> {/if}
-      {#if !loadingMore}<button on:click={loadMore} class="btn btn-seconday">Load More</button>{/if}
+      {#if (!loadingMore && !loading)}<button on:click={loadMore} class="btn btn-seconday">Load More</button>{/if}
     </div>
     {/if}
     <br />
