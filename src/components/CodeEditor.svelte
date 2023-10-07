@@ -160,14 +160,14 @@
     console.log("Refreshing iframe");
     if (projectdata.lang == 1) {
         iframeURL =
-          "https://" + container_name + ".thelearningsetu.com/terminal/python/";
+          "https://" + container_name + ".nikhilmohite.info/terminal/python/";
       } else if (projectdata.lang?.prog_lang == "html") {
-        iframeURL = "https://" + container_name + ".thelearningsetu.com/";
+        iframeURL = "https://" + container_name + ".nikhilmohite.info/";
       } else {
         iframeURL =
           "https://" +
           container_name +
-          ".thelearningsetu.com/terminal/" +
+          ".nikhilmohite.info/terminal/" +
           projectdata.lang.prog_lang +
           "/";
       }
@@ -300,10 +300,10 @@ function onChange(...args) {
             src={projectdata.lang == 1
               ? "https://" +
                 container_name +
-                ".thelearningsetu.com/terminal/python/"
+                ".nikhilmohite.info/terminal/python/"
               : "https://" +
                 container_name +
-                ".thelearningsetu.com/terminal/" +
+                ".nikhilmohite.info/terminal/" +
                 projectdata.lang.prog_lang +
                 "/"}
           />
