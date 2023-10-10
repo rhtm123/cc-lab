@@ -57,7 +57,7 @@
   $: {
     if (is_mount && socket) {
       setTimeout(() => {
-        console.log(projectcode);
+        // console.log(projectcode);
         try {
           socket.send(
             JSON.stringify({
@@ -109,7 +109,7 @@
         let data1 = await response.json();
         projectcode = data1["results"][0];
         projectcode["file_location"] = "/src/" + projectcode.file_name;
-        console.log(projectcode);
+        // console.log(projectcode);
         activeFile.update(() => projectcode);
         explorer = { is_folder: true, file_name: "src", files: data1.results };
         // console.log(explorer);
@@ -160,14 +160,14 @@
     console.log("Refreshing iframe");
     if (projectdata.lang == 1) {
         iframeURL =
-          "https://" + container_name + ".nikhilmohite.info/terminal/python/";
+          "https://" + container_name + ".nikhilmohite.info/python/";
       } else if (projectdata.lang?.prog_lang == "html") {
         iframeURL = "https://" + container_name + ".nikhilmohite.info/";
       } else {
         iframeURL =
           "https://" +
           container_name +
-          ".nikhilmohite.info/terminal/" +
+          ".nikhilmohite.info/" +
           projectdata.lang.prog_lang +
           "/";
       }
