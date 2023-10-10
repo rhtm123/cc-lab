@@ -30,6 +30,7 @@
 		"@codemirror/lang-python": "^6.1.2",
 		"@codemirror/theme-one-dark": "^6.1.1",
 		"aos": "^2.3.4",
+		"codemirror": "^6.0.1",
 		"google-login-svelte": "^0.0.1",
 		"js-cookie": "^3.0.5",
 		"openai": "^3.2.1",
