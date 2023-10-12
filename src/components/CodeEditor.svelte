@@ -124,6 +124,7 @@
     socket = chatSocket;
 
     let image_name = projectdata.lang.docker_image_name;
+    // console.log(image_name);
 
     socket.onopen = () => {
       console.log("socket open now");
@@ -131,7 +132,7 @@
         JSON.stringify({
           task: "create_container",
           container_name: projectdata.container_name,
-          image_name: image_name ? image_name : "terminal-image",
+          image_name: image_name ? image_name : "python-image",
         })
       );
     };

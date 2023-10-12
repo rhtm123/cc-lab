@@ -32,7 +32,6 @@
 		"codemirror": "^6.0.1",
 		"google-login-svelte": "^0.0.1",
 		"js-cookie": "^3.0.5",
-		"openai": "^3.2.1",
 		"svelte-codemirror-editor": "^1.1.0",
 		"svelte-splitpanes": "^0.8.0"
 	}
