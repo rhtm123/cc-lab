@@ -21,9 +21,9 @@ let expand = explorer.file_name==="src";
 
 $: if(explorer.is_folder===false && container_name) { saveNow() }
 
+// this is only for the first time
 const saveNow = () => {
-    // console.log(folder_name+explorer.file_name);
-    // console.log(container_name);
+    // console.log("file_name = " + folder_name+explorer.file_name)
     socket?.send(JSON.stringify({'task':"save_code",'code':explorer.code,"container_name":container_name,"file_name":folder_name+explorer.file_name}));
     localStorage.setItem(folder_name+explorer.file_name,explorer.code)
 }
@@ -41,6 +41,7 @@ const saveNow = () => {
     //    console.log(code);
        explorer['file_location'] = folder_name+explorer.file_name
        explorer['code'] = code;
+       // this code is updating the active file
        activeFile.update(()=>explorer);
         }else{
             expand = !expand;

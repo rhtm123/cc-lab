@@ -54,10 +54,15 @@
     }
   });
 
-  $: {
+
+  // saving to Container if value is changed
+  $: saveToContainer(value);
+
+  function saveToContainer(...args) {
     if (is_mount && socket) {
       setTimeout(() => {
         // console.log(projectcode);
+        // console.log()
         try {
           socket.send(
             JSON.stringify({
@@ -68,13 +73,23 @@
             })
           );
           localStorage.setItem(projectcode.file_location, value);
+          // console.log(projectcode.file_location, value);
         } catch (e) {}
-      }, 500);
+      }, 10);
     }
   }
 
-  $: {
+
+
+  // saving to database if typing is stopped for few seconds; 
+  $: saveToDatabase(value);
+
+  let timeout1; 
+  function saveToDatabase(...args) {
+    clearTimeout(timeout1);
+    // console.log("onchange is called");
     if (is_mount && socket) {
+      console.log("stored to database");
       setTimeout(() => {
         try {
           let url = API_URL + `editor/projectcode/${projectcode.id}/`;
@@ -96,6 +111,9 @@
     }
   }
 
+  // storing to database if keypad
+
+  // activeFile will change the projectcode
   activeFile.subscribe((value1) => {
     value = value1?.code;
     projectcode = value1;
@@ -181,10 +199,11 @@
   let timeout; 
 function onChange(...args) {
   clearTimeout(timeout);
+  console.log("onchange is called");
   if (projectdata.lang?.prog_lang == "html" ) {
-    timeout = setTimeout(() => {
-      refreshIframe_();
-    }, 3000);
+      timeout = setTimeout(() => {
+        refreshIframe_();
+      }, 500);
     }
 }
 
@@ -192,12 +211,15 @@ function onChange(...args) {
   onMount(() => {
     setTimeout(() => {
       refreshIframe_();
-    }, 3000);
+    }, 1000);
     
   });
 
   onDestroy(() => {
-    if (projectdata.lang?.prog_lang == "html") clearTimeout(timeout);
+    if (projectdata.lang?.prog_lang == "html") { 
+      clearTimeout(timeout);
+    }
+    clearTimeout(timeout1);
   });
 
 
@@ -215,11 +237,6 @@ function onChange(...args) {
           </a>
         </li> 
          
-        <li>
-          <a href="/write-code-online">
-          All Projects
-          </a>
-        </li>
         <li>
           <span style="font-size: small;"
             >{projectdata.name}</span
