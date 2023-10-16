@@ -171,9 +171,13 @@
 
   let iframeURL;
 
-  const refreshIframe = function () {
+  function refreshIframe(...args) {
     refreshIframe_();
   }
+
+  // $: refreshIframe(container_name);
+
+  // onMount()
 
   const refreshIframe_ = function () {
     console.log("Refreshing iframe");
@@ -190,28 +194,39 @@
           projectdata.lang.prog_lang +
           "/";
       }
-      let iframe = (document.getElementById("containerFrame").src = iframeURL);
+      const iframe = document.getElementById("containerFrame");
+
+      iframe.src = iframeURL;
+
+      console.log("title is", iframe.contentDocument.title)
+
+
+      if (iframe.contentDocument.title === '404 Not Found') {
+                // If it's a 404 error, refresh the iframe
+                _refreshIframe();
+            }
   }
 
 
   $: onChange(value);
 
   let timeout; 
-function onChange(...args) {
-  clearTimeout(timeout);
-  console.log("onchange is called");
-  if (projectdata.lang?.prog_lang == "html" ) {
-      timeout = setTimeout(() => {
-        refreshIframe_();
-      }, 500);
-    }
-}
+  function onChange(...args) {
+    clearTimeout(timeout);
+    console.log("onchange is called");
+    if (projectdata.lang?.prog_lang == "html" ) {
+        timeout = setTimeout(() => {
+          refreshIframe_();
+        }, 500);
+      }
+  }
+
 
   // let interval; 
   onMount(() => {
     setTimeout(() => {
       refreshIframe_();
-    }, 1000);
+    }, 2000);
     
   });
 
@@ -318,10 +333,10 @@ function onChange(...args) {
             src={projectdata.lang == 1
               ? "https://" +
                 container_name +
-                ".nikhilmohite.info/terminal/python/"
+                ".nikhilmohite.info/python/"
               : "https://" +
                 container_name +
-                ".nikhilmohite.info/terminal/" +
+                ".nikhilmohite.info/" +
                 projectdata.lang.prog_lang +
                 "/"}
           />
