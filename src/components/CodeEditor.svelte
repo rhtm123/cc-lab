@@ -60,6 +60,8 @@
 
   function saveToContainer(...args) {
     if (is_mount && socket) {
+      // console.log("Saving to container")
+      console.log(value);
       setTimeout(() => {
         // console.log(projectcode);
         // console.log()
@@ -84,12 +86,13 @@
   // saving to database if typing is stopped for few seconds; 
   $: saveToDatabase(value);
 
-  let timeout1; 
+  let timeout1;
+
   function saveToDatabase(...args) {
     clearTimeout(timeout1);
     // console.log("onchange is called");
     if (is_mount && socket) {
-      console.log("stored to database");
+      // console.log("stored to database");
       setTimeout(() => {
         try {
           let url = API_URL + `editor/projectcode/${projectcode.id}/`;
@@ -163,7 +166,7 @@
           container_name = projectdata.container_name;
         }, 1000);
       } else {
-        console.log(msg_data)
+        // console.log(msg_data)
       }
     };
     is_mount = true;
@@ -171,7 +174,7 @@
 
   let iframeURL;
 
-  function refreshIframe(...args) {
+  function refreshIframe() {
     refreshIframe_();
   }
 
@@ -183,14 +186,14 @@
     console.log("Refreshing iframe");
     if (projectdata.lang == 1) {
         iframeURL =
-          "https://" + container_name + ".nikhilmohite.info/python/";
+          "https://" + container_name + ".thelearningsetu.com/python/";
       } else if (projectdata.lang?.prog_lang == "html") {
-        iframeURL = "https://" + container_name + ".nikhilmohite.info/";
+        iframeURL = "https://" + container_name + ".thelearningsetu.com/";
       } else {
         iframeURL =
           "https://" +
           container_name +
-          ".nikhilmohite.info/" +
+          ".thelearningsetu.com/" +
           projectdata.lang.prog_lang +
           "/";
       }
@@ -198,13 +201,13 @@
 
       iframe.src = iframeURL;
 
-      console.log("title is", iframe.contentDocument.title)
+      // console.log("title is", iframe.contentDocument.title)
 
 
-      if (iframe.contentDocument.title === '404 Not Found') {
-                // If it's a 404 error, refresh the iframe
-                _refreshIframe();
-            }
+      // if (iframe.contentDocument.title === '404 Not Found') {
+      //           // If it's a 404 error, refresh the iframe
+      //           _refreshIframe();
+      //       }
   }
 
 
@@ -217,7 +220,7 @@
     if (projectdata.lang?.prog_lang == "html" ) {
         timeout = setTimeout(() => {
           refreshIframe_();
-        }, 500);
+        }, 1000);
       }
   }
 
@@ -226,7 +229,7 @@
   onMount(() => {
     setTimeout(() => {
       refreshIframe_();
-    }, 2000);
+    }, 1500);
     
   });
 
@@ -333,10 +336,10 @@
             src={projectdata.lang == 1
               ? "https://" +
                 container_name +
-                ".nikhilmohite.info/python/"
+                ".thelearningsetu.com/python/"
               : "https://" +
                 container_name +
-                ".nikhilmohite.info/" +
+                ".thelearningsetu.com/" +
                 projectdata.lang.prog_lang +
                 "/"}
           />
