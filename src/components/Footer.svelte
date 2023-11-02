@@ -1,6 +1,4 @@
-<br />
-<br />
-<footer class="footer footer-center p-10 bg-base-200 text-base-content rounded">
+<footer class="footer footer-center p-10 bg-base-200 text-base-content" style="border-top:1.2px solid grey">
     <div class="grid grid-flow-col gap-4">
       <a href="/about" class="link link-hover">About us</a> 
       <a href="/coding-problems" class="link link-hover">Coding Problems</a> 

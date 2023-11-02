@@ -86,7 +86,7 @@
 
 <Navbar />
 
-<div class="container">
+<div class="px-4">
 
    <div class="text-sm breadcrumbs">
       <ul>

@@ -12,6 +12,8 @@
      export let value;
      export let theme;
 
+     export let height = "94vh";
+
      currentTheme.subscribe(value => {
                 theme = value;   
     });
@@ -23,7 +25,7 @@
     styles={{
         "&": {
             maxWidth: "100%",
-            height:"94vh",
+            height: height,
         },
     }}
     theme={theme==="dark"?oneDark:""}

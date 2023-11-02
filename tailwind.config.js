@@ -34,7 +34,10 @@ export default {
             "success": "#0c5f37",  
             "warning": "#ad840b",
             "error": "#ef3c25",
-            "--rounded-btn": "2rem",
+            "--rounded-btn": "1rem",
+            "--rounded-box": "1rem",
+            "--tab-radius": "1rem",
+            "--rounded-badge": "1rem",
           }
         },
         {
@@ -49,10 +52,10 @@ export default {
             "success": "#0c5f37",    
             "warning": "#ad840b",      
             "error": "#ef3c25",
-            "--rounded-btn": "2rem",
-            "--rounded-box": "2rem",
-            "--tab-radius": "2rem",
-            "--rounded-badge": "1.9rem",
+            "--rounded-btn": "1rem",
+            "--rounded-box": "1rem",
+            "--tab-radius": "1rem",
+            "--rounded-badge": "1rem",
   
           },
           

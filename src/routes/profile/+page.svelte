@@ -85,7 +85,7 @@ import Navbar from "../../components/Navbar.svelte";
   
   <Navbar />
 
-<div class="container">
+<div class="px-4">
 
   <div class="text-sm breadcrumbs">
     <ul>
@@ -130,7 +130,7 @@ import Navbar from "../../components/Navbar.svelte";
 
 
         <div class="tabs w-full mt-8">
-          <button on:click={()=>{activeTab="solved"}} class={activeTab=="solved"?"tab tab-lifted tab-active":"tab tab-bordered"}>Solve Coding Problems</button> 
+          <button on:click={()=>{activeTab="solved"}} class={activeTab=="solved"?"tab tab-lifted tab-active":"tab tab-bordered"}>Solved Coding Problems</button> 
           <button on:click={()=>{activeTab="added"}} class={activeTab=="added"?"tab tab-lifted tab-active":"tab tab-bordered"}>Added Coding Problems</button> 
         </div>
 
@@ -139,9 +139,30 @@ import Navbar from "../../components/Navbar.svelte";
 
               {#if solvedProblems?.length>0}
 
-              {#each solvedProblems as item, key}
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>STATUS</th>
+                    <th>PROBLEM</th>
+                    <th>CREATED BY</th>
+                  </tr>
+                </thead>
+            
+                <tbody>
+    
+                {#each solvedProblems as item, key}
+                    <CodingProblem item={item.problem} key={key} />
+    
+                {/each}
+    
+                
+            </tbody>
+    
+            </table>
+
+              <!-- {#each solvedProblems as item, key}
                   <CodingProblem item={item.problem} key={key} />
-              {/each}
+              {/each} -->
 
               {#if solvedProblemsNext}
                 <div class="row flex-center">
@@ -160,9 +181,30 @@ import Navbar from "../../components/Navbar.svelte";
 
             {#if uploadProblems?.length>0}
 
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>STATUS</th>
+                  <th>PROBLEM</th>
+                  <th>CREATED BY</th>
+                </tr>
+              </thead>
+          
+              <tbody>
+  
               {#each uploadProblems as item, key}
                   <CodingProblem item={item} key={key} />
+  
               {/each}
+  
+              
+          </tbody>
+  
+          </table>
+
+              <!-- {#each uploadProblems as item, key}
+                  <CodingProblem item={item} key={key} />
+              {/each} -->
 
               {#if uploadProblemsNext}
                 <div class="row flex-center">

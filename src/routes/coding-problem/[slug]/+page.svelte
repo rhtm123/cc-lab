@@ -1,23 +1,31 @@
+
+
+
+
+
 <script>
 // @ts-nocheck
 
     import { onMount } from 'svelte';
+    import ThemeChange from '../../../components/ThemeChange.svelte';
+    import Check from '../../../components/svg/Check.svelte';
 
 // @ts-nocheck
 
-    import CodeEditor from '../../../components/CodeEditor.svelte';
 // @ts-nocheck
 
     import LoginRequired from '../../../components/LoginRequired.svelte';
-    import Navbar from '../../../components/Navbar.svelte';
     import user from '../../../stores/auth';
     import { postDataAuth,postData } from '../../../utils/auth';
-    import Footer from '../../../components/Footer.svelte';
+
+
+
+  import { Splitpanes, Pane } from 'svelte-splitpanes';
+
 
     /**
      * @type {any}
      */
-    let test_cases;
     /**
      * @type {{ accepted?: any; project?: any; id?: any; success?: boolean; }}
      */
@@ -30,6 +38,9 @@
     /** @type {import('./$types').PageData} */
     export let data;
     let activeTab="problem";
+
+    let test_cases = [];
+
 
     /**
      * @type {{ access: string | undefined; user: { id: any; }; }}
@@ -49,6 +60,7 @@
           if (response.ok) {
             let data1 = await response.json();
             test_cases = data1.results;
+            console.log(test_cases);
            }
         }).catch(error=>{  })
     })
@@ -76,9 +88,10 @@
           if (data1.count>0){
 
             user_problem = data1.results[0];
+            console.log(user_problem);
             if (user_problem.accepted===true) problem_solved = true
           } else {
-            createUserProblem()
+            createUserProblem();
           } 
          } 
       }).catch(error=>{  })
@@ -93,6 +106,7 @@
   let test_complete = false;
   let show_modal = false;
   let problem_solved = false;
+  // let value = "" ;
 
 
   const testCodefunc = async () => {
@@ -158,7 +172,7 @@ const submitCode = () => {
       let url = API_URL + `editor/userproblem/`+problemID+'/';
       postDataAuth(url, user1.access, {submitted: true, accepted:true}, "PATCH")
         .then(data => {
-          // console.log(data);
+          console.log(data);
           problem_solved = true;
             
       }).catch(error => {
@@ -180,46 +194,206 @@ const submitCode = () => {
       })
     }
 
+    import CodeEditorProblem from '../../../components/CodeEditorProblem.svelte';
 
 
 
 </script>
+
+
+
 
 <svelte:head>
   <title>{data.name} | Coding Chaska Lab </title>
   <meta property="description" content={`Solve Coding Problem Online Python Editor`} />
 </svelte:head>
 
-<Navbar />
 
-<div class="container max-w-none">
 
-  <div class="text-sm breadcrumbs">
-    <ul>
-      <li>
-        <a href="/">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="w-4 h-4 mr-2 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"></path></svg>
-          Home
-        </a>
-      </li> 
-       
-    <li><a href="/coding-problems">Coding Problems</a></li>
-    <li>{data.name}</li>
-    </ul>
+
+
+<div class="flex flex-col h-screen overflow-hidden">
+  <div class="sm:block bg-base-200" style="border-bottom:1.2px solid grey">
+    <div class="text-sm flex justify-between breadcrumbs px-2">
+      <ul>
+        <li>
+          <a href="/">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="w-6 h-6 mr-2 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"></path></svg>
+            
+          </a>
+        </li> 
+         
+        <li>
+          <a href="/coding-problems">
+            Problems            
+          </a>
+        </li> 
+        
+      </ul>
+
+      <ul>
+        <!-- <button onclick="my_modal_1.showModal()" class="btn btn-primary py-3 min-h-0 h-auto">Check</button> -->
+
+        {#if (!problem_solved && user1)}
+        <label on:click={testCodefunc} class="btn btn-primary btn-sm" onclick="my_modal_1.showModal()">Check</label>
+        {/if}
+        <dialog id="my_modal_1" class="modal prose">
+                  <form method="dialog" class="modal-box">
+                    <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+
+                    
+                    <h4 class="text-xl">Test Results</h4>
+              {#if test_complete}
+                  <p>Test Completed</p>
+              {:else}
+                <p>Testing your code..</p>
+              {/if}
+
+              {#each test_results as test_result, index}
+                <p class="font-medium">{index+1}. {test_result.test.name}
+
+                  {#if test_result.pass}
+                  <span class="text-success">Success</span>
+
+                {:else}
+                  <span class="text-error">Failed</span>
+                {/if}
+                
+                </p>
+                
+
+                  {#if test_result.result.error} 
+                  <p class="text-error">
+                    {test_result.result.errorText}
+                  </p>
+                  {/if}
+
+                  {#if test_result.test.type==="inputoutput"}
+
+                  <div>
+
+                    <span>Input:</span>
+                      <pre class="my-2 " >{test_result.test.input}</pre>
+                      <span>Expected Output:</span>
+                      <pre class="my-2">{test_result.test.output}</pre>
+                      <span>Your Output:</span>
+                      <pre class="my-2">{test_result.result.output}</pre>
+                    </div>
+                  {/if}
+              {/each}
+
+              {#if (test_complete && all_test_passed)}
+                    <button class="btn btn-primary my-4" for="modal-1" on:click={submitCode}>Submit Code</button>
+              {/if}                    
+                  </form>
+                  <form method="dialog" class="modal-backdrop">
+                    <button>close</button>
+                  </form>
+                </dialog>
+
+      </ul>
+      <ul>
+        <li>
+          <ThemeChange />
+        </li>
+      </ul>
+    </div>
   </div>
+    
+    <Splitpanes class="h-full">
 
-  <br />
+      <Pane minSize={15} size={50}>
+
+        <div class="bg-base-100 overflow-y-auto prose max-w-none p-2" style="height: calc(100% - 40px);">
+        <h2 class="mt-6">{data.name}</h2>
+            <div>{@html data.statement}</div>
+
+          </div>
+      </Pane>
+  
+      <Pane minSize={20} size={60} class="h-full">
+        
+        <Splitpanes horizontal={true}>
+          <Pane minSize={15} size={50}>
+
+            {#if user1}
+            <div class="h-full bg-base-100">
+
+              {#if problem_solved}
+
+              <div class="p-2">
+
+                <p class="py-4">You have solved this problem.</p>
+                <a href="/coding-problems"><button class="btn btn-secondary">Solve More Problems</button></a>
+                <button class="btn btn-secondary" on:click={unSubmit}>Solve it Again</button>
+
+              </div>
+
+              {:else}
+
+                {#if user_problem}
+                <CodeEditorProblem projectdata={user_problem.project} />
+                {/if}
+              {/if}
+            </div>
+
+            {:else}
+              <LoginRequired />
+            {/if}
 
 
 
-<div>
+          </Pane>
+          <Pane >
 
-  <div class="tabs">
+            <div class=" bg-base-100 overflow-y-auto prose max-w-none p-2" style="height: calc(100% - 40px);">
+              <h3 class="text-bold">TEST CASES</h3>
+
+              {#each test_cases as test_case, index}
+                <span class="font-bold">{index+1}. {test_case.name} </span>
+
+                <div class="card">
+                   {#if test_case.type == "inputoutput"}
+                      <span>Input:</span>
+                      <pre class="my-2 " >{test_case.input}</pre>
+                      <span>Expected Output:</span>
+                      <pre class="my-2">{test_case.output}</pre>
+
+                   {/if}
+
+                   {#if test_case.type == "assert"}
+
+                    <pre class="my-2">{test_case.assert_code}</pre>
+
+
+                   {/if}
+                </div>
+
+              {/each}
+
+                  
+      
+              </div>
+            
+          </Pane>
+        </Splitpanes>
+        
+      </Pane>
+
+
+    </Splitpanes>
+  
+</div>
+
+
+
+
+  <!-- <div class="tabs">
     <button on:click={()=>{activeTab="problem"}} class={activeTab=="problem"?"tab tab-bordered tab-lg tab-active":"tab tab-lg tab-bordered"}>Problem</button> 
     <button on:click={()=>{activeTab="solve"}} class={activeTab=="solve"?"tab tab-bordered tab-lg tab-active":"tab tab-lg tab-bordered"}>Solve it</button> 
   </div>
-          
-  <div class="prose max-w-none m-auto">
+           -->
+  <!-- <div class="prose max-w-none m-auto">
         {#if activeTab==="problem"}
             <h2 class="mt-6">{data.name}</h2>
             <div>{@html data.statement}</div>
@@ -303,11 +477,19 @@ const submitCode = () => {
             {/if}
         {/if}
 
-  </div>   
+  </div>    -->
 
-</div>
 
-<br />
-</div>
 
-<Footer />
+
+
+<!-- <Footer /> -->
+
+
+
+
+<style>
+  :global(.codemirror-wrapper) {
+      height: 100%;
+  }
+</style>

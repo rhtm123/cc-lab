@@ -243,10 +243,10 @@
 
 </script>
 
-<div class="flex flex-col h-screen">
-  <div class="sm:block">
+<div class="flex flex-col h-screen  overflow-hidden">
+  <div class="sm:block" style="border-bottom:1.2px solid grey">
     {#if projectdata.type==="project"}
-    <div class="text-sm flex justify-between breadcrumbs">
+    <div class="text-sm flex justify-between breadcrumbs px-2">
       <ul>
         <li>
           <a href="/">
@@ -276,7 +276,6 @@
     {/if}
   </div>
     
-  <div class="flex flex-grow">
     <Splitpanes class="h-full">
       <Pane minSize={10} size={15}>
         {#if explorer}
@@ -313,7 +312,7 @@
           <SimpleEditor bind:value {theme} />
         {/if}
       </Pane>
-      <Pane minSize={20} size={40}>
+      <Pane minSize={20} size={40} className="overflow-hidden">
         {#if projectdata.type === "project"}
           <div class="bg-base-200" style="padding:4px;display:flex;justify-content:space-between;">
             <span on:click={refreshIframe} class="" style="cursor:pointer;font-size: 0.8em;">Refresh</span>
@@ -349,7 +348,6 @@
       </Pane>
     </Splitpanes>
   
-  </div>
 </div>
 
 
