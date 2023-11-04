@@ -4,7 +4,7 @@
 </script>
 
 
-<div class="prose w-full max-w-none m-auto">
+<div class="prose w-full max-w-none bg-base-100 m-auto">
     <br />
     <br />
     <div class="text-center">

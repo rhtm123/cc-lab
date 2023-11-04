@@ -173,12 +173,11 @@
 
 
 {#if user1}
-<div class="p-4 md:w-5/6  lg:w-4/6 xl:w-3/6 mx-auto">
+<div class="p-4 md:w-5/6  lg:w-4/6 xl:w-3/6 mx-auto min-h-screen">
 
         <button class="btn btn-primary" onclick="my_modal_1.showModal()" for="modal-1">
           New Project
         </button>
-
 
 
         <dialog id="my_modal_1" class="modal">
@@ -266,7 +265,7 @@
 
         {#if (!loading && projects.length>0)}
 
-        <table class="table">
+        <table class="table border">
             <thead>
               <tr>
                 <th>NAME</th>

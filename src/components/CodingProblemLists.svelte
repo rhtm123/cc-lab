@@ -11,7 +11,7 @@
     let next = data?.next;
     let loading = false;
     let loadingMore = false;
-    let ordering = "updated";
+    let ordering = "created";
     let level = "";
 
 
@@ -68,8 +68,8 @@
               <span class="label-text">Ordering: </span>
             </label>
             <select class="select select-sm select-bordered" on:change={e => changeOrder(e)} >
-                    <option value="updated">Old First</option>
-                    <option value="-updated">New First</option>
+                    <option value="created">Old First</option>
+                    <option value="-created">New First</option>
             </select>
 
             <label>
