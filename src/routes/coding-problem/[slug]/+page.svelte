@@ -22,6 +22,8 @@
 
   import { Splitpanes, Pane } from 'svelte-splitpanes';
 
+  import { activeFile } from '../../../stores/activeFile';
+
 
     /**
      * @type {any}
@@ -37,7 +39,7 @@
 
     /** @type {import('./$types').PageData} */
     export let data;
-    let activeTab="problem";
+
 
     let test_cases = [];
 
@@ -51,6 +53,14 @@
         if (value) user1 = JSON.parse(value);
         loading = false;
 	});
+
+  let projectcode;
+
+  activeFile.subscribe((value1) => {
+    if (value1) {
+      projectcode = value1;
+    }
+  })
 
 
     onMount(()=>{
@@ -88,7 +98,7 @@
           if (data1.count>0){
 
             user_problem = data1.results[0];
-            console.log(user_problem);
+            // console.log(user_problem);
             if (user_problem.accepted===true) problem_solved = true
           } else {
             createUserProblem();
@@ -117,13 +127,9 @@
         // let url = 'https://'+data.project.container_name+'.thelearningsetu.com/run_python_code/'
         // console.log(url);
         let url = "https://web-production-241c.up.railway.app/run_python_code/";
-        let url2 = API_URL+"editor/projectcodes/?project="+user_problem.project.id;
-        fetch(url2)
-            .then(async (response) => {
-              if (response.ok) {
-                let data2 = await response.json()
-                let code = String(data2['results'][0].code);
-                // console.log(code);
+        // let url2 = API_URL+"editor/projectcodes/?project="+user_problem.project.id;
+
+              
               
         for (let test_case of test_cases){
           // console.log(test_case);
@@ -131,7 +137,7 @@
           let assert_code = test_case.assert_code?test_case.assert_code:"";
           // console.log(typeof code, typeof inputs, typeof assert_code);
         
-        await postData(url, {code:code, inputs:inputs, assert_code:assert_code})
+        await postData(url, {code:projectcode.code, inputs:inputs, assert_code:assert_code})
         .then(data => {
           // console.log(data)
           if(test_case.type==="inputoutput"){
@@ -158,10 +164,14 @@
       }).catch(error => {
           console.log(error);
       })
-      }
+        }
+
+
       test_complete = true 
-          } 
-      })
+
+
+          
+
         
 }
 
@@ -338,7 +348,9 @@ const submitCode = () => {
             </div>
 
             {:else}
+              <div class="h-full bg-base-100">
               <LoginRequired />
+              </div>
             {/if}
 
 

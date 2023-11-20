@@ -42,6 +42,7 @@ const saveNow = () => {
        explorer['file_location'] = folder_name+explorer.file_name
        explorer['code'] = code;
        // this code is updating the active file
+    //    console.log(explorer);
        activeFile.update(()=>explorer);
         }else{
             expand = !expand;

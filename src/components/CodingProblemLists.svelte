@@ -84,17 +84,17 @@
                 <option value="hard">Hard</option>
             </select>
     </div>
-    <div class="col-span-3">
+    <div class="col-span-3 min-h-screen">
 
         {#if loading}
             <p class="py-4">Loding...</p>
         {/if}
 
         {#if (data1.length===0 && !loading)}
-            <p>Coding Problem is not available.</p>
+            <p class="py-4">Coding Problem is not available.</p>
         {/if}
 
-        {#if !loading}
+        {#if !loading && (data1.length>0)}
         <table class="table">
             <thead>
               <tr>
