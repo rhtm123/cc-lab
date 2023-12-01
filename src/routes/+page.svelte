@@ -33,6 +33,7 @@
 
   let ordering = "-updated";
   let selected_language = "";
+  let error;
   // get all languages
 
   onMount(async () => {   
@@ -122,13 +123,30 @@
     })
   }
 
+  function handleKeyPress(event) {
+    if (event.key === 'Enter') {
+      console.log('Enter key pressed!');
+      creatProjectRedirect();
+      // Handle the "Enter" key press here
+      
+      // You can perform any action or call a function here
+    }
+  }
+
   const creatProjectRedirect = () => {
     requesting = true
     let url = API_URL+ "editor/projects/";
 
+    if (selected_language===""){
+      error = {text:"Please select a language"};
+      requesting = false;
+      // return;
+    }
+
     if (new_project_name===""){
-      let error = {text:"Title name should not be emptied"}
-      requesting = false;   
+      error = {text:"Title name should not be emptied"}
+      requesting = false;
+      // return;
     } else {
 
     postDataAuth(url,user1.access,{name:new_project_name, creator_id:user1.user.id,lang_id:language})
@@ -158,6 +176,9 @@
   }
 
 
+const closeError = () => {
+  error = {}
+}
 
 </script>
 
@@ -172,12 +193,23 @@
 
 
 
+
+
 {#if user1}
 <div class="p-4 md:w-5/6  lg:w-4/6 xl:w-3/6 mx-auto min-h-screen">
 
+
+        {#if error?.text}
+        <div role="alert" class="alert alert-warning my-4">
+          <svg on:click={closeError} xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+          <span>{error?.text}</span>
+        </div>
+        {/if}
         <button class="btn btn-primary" onclick="my_modal_1.showModal()" for="modal-1">
           New Project
         </button>
+
+
 
 
         <dialog id="my_modal_1" class="modal">
@@ -199,11 +231,11 @@
             </div>
 
             <div >
-            <input class="mt-4 input input-bordered input-sm w-full" placeholder="Project Name" bind:value={new_project_name} text="Project Name" />
+            <input class="mt-4 input input-bordered input-sm w-full" placeholder="Project Name" bind:value={new_project_name} on:keydown={handleKeyPress} text="Project Name" />
             
             </div>
             {#if (!requesting && language && new_project_name.length>0)}
-            <button class="mt-4 btn btn-secondary" on:click={creatProjectRedirect}>Create Project</button>
+            <button class="mt-4 btn btn-secondary" on:click={creatProjectRedirect} >Create Project</button>
             {/if}
 
             {#if requesting}
@@ -382,6 +414,7 @@
   <hr />
 
 {/if}
+
 
 
 
