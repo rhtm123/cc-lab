@@ -17,6 +17,7 @@
     import CLangEditor from "./Editors/CLangEditor.svelte";
     import JavaEditor from "./Editors/JavaEditor.svelte";
   import ThemeChange from "./ThemeChange.svelte";
+    import Terminal from "./Terminal.svelte";
 
   /**
    * @type {{ container_name: any; }}
@@ -211,18 +212,18 @@
   }
 
 
-  $: onChange(value);
+  // $: onChange(value);
 
-  let timeout; 
-  function onChange(...args) {
-    clearTimeout(timeout);
-    console.log("onchange is called");
-    if (projectdata.lang?.prog_lang == "html" ) {
-        timeout = setTimeout(() => {
-          refreshIframe_();
-        }, 1000);
-      }
-  }
+  // let timeout; 
+  // function onChange(...args) {
+  //   clearTimeout(timeout);
+  //   console.log("onchange is called");
+  //   if (projectdata.lang?.prog_lang == "html" ) {
+  //       timeout = setTimeout(() => {
+  //         refreshIframe_();
+  //       }, 1000);
+  //     }
+  // }
 
 
   // let interval; 
@@ -324,6 +325,7 @@
         {/if}
   
         {#if container_name}
+          <!-- <Terminal container_name={container_name} /> -->
           <iframe
             allowFullScreen
             style={projectdata.lang.prog_lang === "html"
@@ -342,6 +344,7 @@
                 projectdata.lang.prog_lang +
                 "/"}
           />
+
         {:else}
           <p>Creating Container...</p>
         {/if}
