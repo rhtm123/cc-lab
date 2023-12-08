@@ -137,7 +137,7 @@
     requesting = true
     let url = API_URL+ "editor/projects/";
 
-    if (selected_language===""){
+    if (!language){
       error = {text:"Please select a language"};
       requesting = false;
       // return;
