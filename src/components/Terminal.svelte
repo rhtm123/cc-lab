@@ -4,66 +4,65 @@
   import { onMount, onDestroy } from 'svelte'; // Import the needed functions
 
 
-//   import io from 'socket.io-client';
+  import io from 'socket.io-client';
 
 
-//   let terminal; // Create a variable to bind the DOM element
+  let terminal; // Create a variable to bind the DOM element
 
-//   let term; // Xterm instance
+  let term; // Xterm instance
   let socket;
 
 
 
-//   onMount(async () => {
-//     // Import xterm.js and its addons when the DOM is ready
-//     const xterm = await import('xterm');
-//     const fitAddon = await import('xterm-addon-fit');
+  onMount(async () => {
+    // Import xterm.js and its addons when the DOM is ready
+    const xterm = await import('xterm');
+    const fitAddon = await import('xterm-addon-fit');
 
-//     term = new xterm.Terminal();
-//     term.open(terminal);
-//     term.write('Hello from xterm.js $ ');
+    term = new xterm.Terminal();
+    term.open(terminal);
+    term.write('Hello from xterm.js $ ');
 
-//     const fit = new fitAddon.FitAddon();
-//     term.loadAddon(fit);
-//     // term.loadAddon(new webLinksAddon.WebLinksAddon());
-//     // term.loadAddon(new SearchAddon.SearchAddon());
+    const fit = new fitAddon.FitAddon();
+    term.loadAddon(fit);
+    // term.loadAddon(new webLinksAddon.WebLinksAddon());
+    // term.loadAddon(new SearchAddon.SearchAddon());
 
-//     fit.fit();
+    fit.fit();
 
     
-// 	term.onData((data) => {
-//         console.log("browser terminal received new data:", data);
-//         socket.emit("pty-input", { input: data });
-//     });
+	term.onData((data) => {
+        console.log("browser terminal received new data:", data);
+        socket.emit("pty-input", { input: data });
+    });
 
-//   });
+  });
 
 
-//     onMount(() => {
-//     // Create a WebSocket connection when the DOM is ready
-
-	
-//     const url = `wss://${container_name}.thelearningsetu.com/pty`;
-//     socket = io(url);
+    onMount(() => {
+    // Create a WebSocket connection when the DOM is ready
 
 	
-// 	socket.on('message', (data) => {
-//     //   message = data;
-//     });
+    const url = `https://${container_name}.thelearningsetu.com/pty`;
+    socket = io(url);
 
-//     socket.on('connect', () => {
-//     //   isConnected = true;
-// 	  socket.emit("pty-input", { input: "cd /src\n" });
-// 	  console.log("connected to the socket")
-//     });
+	socket.on('message', (data) => {
+    //   message = data;
+    });
 
-//     socket.on('disconnect', () => {
-//     //   isConnected = false;
-// 	  console.log("disconnected from the socket");
-//     });
+    socket.on('connect', () => {
+    //   isConnected = true;
+	  socket.emit("pty-input", { input: "cd /src\n" });
+	  console.log("connected to the socket haha")
+    });
+
+    socket.on('disconnect', () => {
+    //   isConnected = false;
+	  console.log("disconnected from the socket");
+    });
 
 
-//   });
+  });
 
 
   onDestroy(() => {
@@ -72,144 +71,171 @@
 
 
 
-      // console.log(value)
-
-      let runcmd = 'python main.py'.replace(/&amp;/g, '&');
-    //   let initialinstall = '{{data.install}}'.replace(/&amp;/g, '&')
-
-	
-      
-	run.addEventListener("click",function(){
-        term.reset();
-        socket.emit("pty-input", { input: runcmd+"\n" });
-      })
-
-
-      const term = new Terminal({
-        cursorBlink: true,
-        macOptionIsMeta: true,
-        // scrollback: true,
-      });
-      term.attachCustomKeyEventHandler(customKeyEventHandler);
-      // https://github.com/xtermjs/xterm.js/issues/2941
-      const fit = new FitAddon.FitAddon();
-      term.loadAddon(fit);
-      term.loadAddon(new WebLinksAddon.WebLinksAddon());
-      term.loadAddon(new SearchAddon.SearchAddon());
-
-      term.open(document.getElementById("terminal"));
-      fit.fit();
-      term.resize(15, 50);
-      console.log(`size: ${term.cols} columns, ${term.rows} rows`);
-      fit.fit();
-      
-  
-      term.onData((data) => {
-        // console.log("browser terminal received new data:", data);
-        socket.emit("pty-input", { input: data });
-      });
-
-      socket = io.connect("/pty");
-      const status = document.getElementById("status");
-      
-	  socket.emit("pty-input", { input: "cd /src\n" });
-    //   if (initialinstall){
-    //   socket.emit("pty-input", { input: initialinstall+"\n" });
-    //   }
-
-      term.writeln("Welcome to terminal");
-
-      term.writeln("Click on RUN to execute your program");
-      term.writeln("You can copy with ctrl+shift+x");
-      term.writeln("You can paste with ctrl+shift+v");
-      term.writeln('')
-      
-      socket.on("pty-output", function (data) {
-        // console.log("new output received from server:", data.output);
-        term.write(data.output);
-      });
-
-      socket.on("connect", () => {
-        fitToscreen();
-        status.innerHTML =
-          '<span style="background-color: lightgreen;">connected</span>';
-      });
-
-      socket.on("disconnect", () => {
-        status.innerHTML =
-          '<span style="background-color: #ff8383;">disconnected</span>';
-      });
-
-      function fitToscreen() {
-        fit.fit();
-        const dims = { cols: term.cols, rows: term.rows };
-        // console.log("sending new dimensions to server's pty", dims);
-        socket.emit("resize", dims);
-      }
-
-      function debounce(func, wait_ms) {
-        let timeout;
-        return function (...args) {
-          const context = this;
-          clearTimeout(timeout);
-          timeout = setTimeout(() => func.apply(context, args), wait_ms);
-        };
-      }
-
-      /**
-       * Handle copy and paste events
-       */
-      function customKeyEventHandler(e) {
-        if (e.type !== "keydown") {
-          return true;
-        }
-        if (e.ctrlKey && e.shiftKey) {
-          const key = e.key.toLowerCase();
-          if (key === "v") {
-            // ctrl+shift+v: paste whatever is in the clipboard
-            navigator.clipboard.readText().then((toPaste) => {
-              term.writeText(toPaste);
-            });
-            return false;
-          } else if (key === "c" || key === "x") {
-            // ctrl+shift+x: copy whatever is highlighted to clipboard
-
-            // 'x' is used as an alternate to 'c' because ctrl+c is taken
-            // by the terminal (SIGINT) and ctrl+shift+c is taken by the browser
-            // (open devtools).
-            // I'm not aware of ctrl+shift+x being used by anything in the terminal
-            // or browser
-            const toCopy = term.getSelection();
-            navigator.clipboard.writeText(toCopy);
-            term.focus();
-            return false;
-          }
-        }
-        return true;
-      }
-
-      const wait_ms = 50;
-      window.onresize = debounce(fitToscreen, wait_ms);
-
-
 </script>
 
 <svelte:head>
-	    <!-- xterm -->
-		<script src="https://unpkg.com/xterm@4.11.0/lib/xterm.js"></script>
-		<script src="https://unpkg.com/xterm-addon-fit@0.5.0/lib/xterm-addon-fit.js"></script>
-		<script src="https://unpkg.com/xterm-addon-web-links@0.4.0/lib/xterm-addon-web-links.js"></script>
-		<script src="https://unpkg.com/xterm-addon-search@0.8.0/lib/xterm-addon-sear
-	ch.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.min.js"></script>
-	
 
 </svelte:head>
 
-	
-<div class="wrapper">
-    <button class="btn" id="run">RUN</button>
-      <span style="font-size: small" id="status">connecting...</span>
-    </div>
-    <div style="width: 100%; height: calc(100% - 50px)" id="terminal"></div>
+<span style="font-size: small" id="status">Connecting...</span>
+<div id="terminal" bind:this={terminal} />
 
+
+<style>
+	
+	/* Xterm.css */
+	:global(.xterm) {
+			cursor: text;
+			position: relative;
+			user-select: none;
+			-ms-user-select: none;
+			-webkit-user-select: none;
+	}
+
+	:global(.xterm.focus),
+	:global(.xterm:focus) {
+			outline: none;
+	}
+
+	:global(.xterm .xterm-helpers) {
+			position: absolute;
+			top: 0;
+			/**
+			 * The z-index of the helpers must be higher than the canvases in order for
+			 * IMEs to appear on top.
+			 */
+			z-index: 5;
+	}
+
+	:global(.xterm .xterm-helper-textarea) {
+			padding: 0;
+			border: 0;
+			margin: 0;
+			/* Move textarea out of the screen to the far left, so that the cursor is not visible */
+			position: absolute;
+			opacity: 0;
+			left: -9999em;
+			top: 0;
+			width: 0;
+			height: 0;
+			z-index: -5;
+			/** Prevent wrapping so the IME appears against the textarea at the correct position */
+			white-space: nowrap;
+			overflow: hidden;
+			resize: none;
+	}
+
+	:global(.xterm .composition-view) {
+			/* TODO: Composition position got messed up somewhere */
+			background: #000;
+			color: #FFF;
+			display: none;
+			position: absolute;
+			white-space: nowrap;
+			z-index: 1;
+	}
+
+	:global(.xterm .composition-view.active) {
+			display: block;
+	}
+
+	:global(.xterm .xterm-viewport) {
+			/* On OS X this is required in order for the scroll bar to appear fully opaque */
+			background-color: #000;
+			overflow-y: scroll;
+			cursor: default;
+			position: absolute;
+			right: 0;
+			left: 0;
+			top: 0;
+			bottom: 0;
+	}
+
+	:global(.xterm .xterm-screen) {
+			position: relative;
+	}
+
+	:global(.xterm .xterm-screen canvas) {
+			position: absolute;
+			left: 0;
+			top: 0;
+	}
+
+	:global(.xterm .xterm-scroll-area) {
+			visibility: hidden;
+	}
+
+	:global(.xterm-char-measure-element) {
+			display: inline-block;
+			visibility: hidden;
+			position: absolute;
+			top: 0;
+			left: -9999em;
+			line-height: normal;
+	}
+
+	:global(.xterm.enable-mouse-events) {
+			/* When mouse events are enabled (eg. tmux), revert to the standard pointer cursor */
+			cursor: default;
+	}
+
+	:global(.xterm.xterm-cursor-pointer),
+	:global(.xterm .xterm-cursor-pointer) {
+			cursor: pointer;
+	}
+
+	:global(.xterm.column-select.focus) {
+			/* Column selection mode */
+			cursor: crosshair;
+	}
+
+	:global(.xterm .xterm-accessibility),
+	:global(.xterm .xterm-message) {
+			position: absolute;
+			left: 0;
+			top: 0;
+			bottom: 0;
+			right: 0;
+			z-index: 10;
+			color: transparent;
+	}
+
+	:global(.xterm .live-region) {
+			position: absolute;
+			left: -9999px;
+			width: 1px;
+			height: 1px;
+			overflow: hidden;
+	}
+
+	:global(.xterm-dim) {
+			opacity: 0.5;
+	}
+
+	:global(.xterm-underline) {
+			text-decoration: underline;
+	}
+
+	:global(.xterm-strikethrough) {
+			text-decoration: line-through;
+	}
+
+	:global(.xterm-screen .xterm-decoration-container .xterm-decoration) {
+		z-index: 6;
+		position: absolute;
+	}
+
+	:global(.xterm-decoration-overview-ruler) {
+			z-index: 7;
+			position: absolute;
+			top: 0;
+			right: 0;
+			pointer-events: none;
+	}
+
+	:global(.xterm-decoration-top) {
+			z-index: 2;
+			position: relative;
+	}
+
+</style>

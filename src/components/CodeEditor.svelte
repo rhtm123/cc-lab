@@ -199,22 +199,13 @@
           "/";
       }
       const iframe = document.getElementById("containerFrame");
-
       iframe.src = iframeURL;
-
-      // console.log("title is", iframe.contentDocument.title)
-
-
-      // if (iframe.contentDocument.title === '404 Not Found') {
-      //           // If it's a 404 error, refresh the iframe
-      //           _refreshIframe();
-      //       }
   }
 
 
   // $: onChange(value);
 
-  // let timeout; 
+  let timeout;
   // function onChange(...args) {
   //   clearTimeout(timeout);
   //   console.log("onchange is called");
@@ -224,6 +215,7 @@
   //       }, 1000);
   //     }
   // }
+
 
 
   // let interval; 
