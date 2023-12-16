@@ -203,18 +203,18 @@
   }
 
 
-  // $: onChange(value);
+  $: onChange(value);
 
   let timeout;
-  // function onChange(...args) {
-  //   clearTimeout(timeout);
-  //   console.log("onchange is called");
-  //   if (projectdata.lang?.prog_lang == "html" ) {
-  //       timeout = setTimeout(() => {
-  //         refreshIframe_();
-  //       }, 1000);
-  //     }
-  // }
+  function onChange(...args) {
+     clearTimeout(timeout);
+     console.log("onchange is called");
+     if (projectdata.lang?.prog_lang == "html" ) {
+         timeout = setTimeout(() => {
+           refreshIframe_();
+         }, 1000);
+       }
+   }
 
 
 
@@ -234,9 +234,18 @@
   });
 
 
+  function handleSave(event) {
+    if (event.ctrlKey && event.key ==='s') {
+      // Handle the save action here
+      // console.log('Save action triggered!');
+      event.preventDefault(); // Prevent the default browser save action
+    }
+  }
+
+
 </script>
 
-<div class="flex flex-col h-screen  overflow-hidden">
+<div on:keydown={handleSave} class="flex flex-col h-screen  overflow-hidden">
   <div class="sm:block" style="border-bottom:1.2px solid grey">
     {#if projectdata.type==="project"}
     <div class="text-sm flex justify-between breadcrumbs px-2">
