@@ -140,48 +140,108 @@
     })
     .catch((error) => {});
 
-  onMount(async () => {
+    const connectSocket = () => {
+    console.log("connect socket called again");
     let url = import.meta.env.VITE_HANDLER_WS;
-    const chatSocket = new WebSocket(url);
-    socket = chatSocket;
+    socket = new WebSocket(url);
+  };
 
-    let image_name = projectdata.lang.docker_image_name;
-    // console.log(image_name);
+  const onSocketOpen = () => {
+    console.log("socket open now");
+    socket.send(
+      JSON.stringify({
+        task: "create_container",
+        container_name: projectdata.container_name,
+        image_name: projectdata.lang.docker_image_name || "python-image",
+      })
+    );
+  };
 
-    socket.onopen = () => {
-      console.log("socket open now");
-      socket.send(
-        JSON.stringify({
-          task: "create_container",
-          container_name: projectdata.container_name,
-          image_name: image_name ? image_name : "python-image",
-        })
-      );
-    };
+  const onSocketMessage = (e) => {
+    let msg_data = JSON.parse(e.data);
+    if (msg_data["message"] === "container_created") {
+      setTimeout(() => {
+        container_name = projectdata.container_name;
+      }, 1000);
+    } else {
+      // console.log(msg_data)
+    }
+  };
 
-    socket.onmessage = function (e) {
-      let msg_data = JSON.parse(e.data);
-      if (msg_data["message"] === "container_created") {
-        // console.log("Got the creation")
-        setTimeout(() => {
-          container_name = projectdata.container_name;
-        }, 1000);
-      } else {
-        // console.log(msg_data)
+  const onSocketClose = () => {
+    // Wait for a short delay before reconnecting
+    setTimeout(() => {
+      if (!socket || socket.readyState !== WebSocket.OPEN) {
+        connectSocket();
+      }
+    }, 1000); // You can adjust the delay (in milliseconds) as needed
+  };
+
+  onMount(() => {
+    connectSocket();
+
+    is_mount = true
+    socket.onopen = onSocketOpen;
+    socket.onmessage = onSocketMessage;
+    socket.onclose = onSocketClose;
+
+    return () => {
+      // Clean up resources when the component is about to be removed
+      if (socket && socket.readyState === WebSocket.OPEN) {
+        socket.close();
       }
     };
-    is_mount = true;
   });
+
+  onDestroy(() => {
+    // Clean up resources when the component is about to be removed
+    if (socket && socket.readyState === WebSocket.OPEN) {
+      socket.close();
+    }
+  });
+
+
+
+  // onMount(async () => {
+  //   connectSocket();
+
+  //   let image_name = projectdata.lang.docker_image_name;
+  //   // console.log(image_name);
+
+  //   socket.onopen = () => {
+  //     console.log("socket open now");
+  //     socket.send(
+  //       JSON.stringify({
+  //         task: "create_container",
+  //         container_name: projectdata.container_name,
+  //         image_name: image_name ? image_name : "python-image",
+  //       })
+  //     );
+  //   };
+
+  //   socket.onmessage = function (e) {
+  //     let msg_data = JSON.parse(e.data);
+  //     if (msg_data["message"] === "container_created") {
+  //       // console.log("Got the creation")
+  //       setTimeout(() => {
+  //         container_name = projectdata.container_name;
+  //       }, 1000);
+  //     } else {
+  //       // console.log(msg_data)
+  //     }
+  //   };
+
+  //   socket.onclose = function () {
+  //     connectSocket();
+  //   }
+  //   is_mount = true;
+  // });
 
   let iframeURL;
 
   function refreshIframe() {
     refreshIframe_();
   }
-
-  // $: refreshIframe(container_name);
-
-  // onMount()
 
   const refreshIframe_ = function () {
     console.log("Refreshing iframe");
@@ -216,8 +276,6 @@
        }
    }
 
-
-
   // let interval; 
   onMount(() => {
     setTimeout(() => {
@@ -231,6 +289,10 @@
       clearTimeout(timeout);
     }
     clearTimeout(timeout1);
+
+    if (socket && socket.readyState === WebSocket.OPEN) {
+      socket.close();
+    }
   });
 
 
