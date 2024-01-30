@@ -260,6 +260,7 @@
       }
       const iframe = document.getElementById("containerFrame");
       iframe.src = iframeURL;
+      iframe.contentWindow.location.reload(true);
   }
 
 
