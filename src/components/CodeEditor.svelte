@@ -259,7 +259,7 @@
           "/";
       }
       const iframe = document.getElementById("containerFrame");
-      iframe.src = iframeURL;
+      iframe.src = iframeURL+"?_=" + new Date().getTime();
       iframe.contentWindow.location.reload(true);
   }
 
