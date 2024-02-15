@@ -30,10 +30,4 @@ if (initialValue){
     }, 120000);
 }
 
-// user.subscribe((value) => {
-//     if (browser) {
-//       window.localStorage.setItem('user', value);
-//     }
-// });
-
 export default user;

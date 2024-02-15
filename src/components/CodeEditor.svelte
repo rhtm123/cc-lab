@@ -14,10 +14,9 @@
 
   import { activeFile } from "../stores/activeFile";
   import CssEditor from "./Editors/CSSEditor.svelte";
-    import CLangEditor from "./Editors/CLangEditor.svelte";
-    import JavaEditor from "./Editors/JavaEditor.svelte";
+  import CLangEditor from "./Editors/CLangEditor.svelte";
+  import JavaEditor from "./Editors/JavaEditor.svelte";
   import ThemeChange from "./ThemeChange.svelte";
-    import Terminal from "./Terminal.svelte";
 
   /**
    * @type {{ container_name: any; }}
@@ -64,8 +63,7 @@
       // console.log("Saving to container")
       // console.log(value);
       setTimeout(() => {
-        // console.log(projectcode);
-        // console.log()
+
         try {
           socket.send(
             JSON.stringify({
@@ -140,7 +138,7 @@
     })
     .catch((error) => {});
 
-    const connectSocket = () => {
+  const connectSocket = () => {
     console.log("connect socket called again");
     let url = import.meta.env.VITE_HANDLER_WS;
     socket = new WebSocket(url);
@@ -200,45 +198,7 @@
     }
   });
 
-
-
-  // onMount(async () => {
-  //   connectSocket();
-
-  //   let image_name = projectdata.lang.docker_image_name;
-  //   // console.log(image_name);
-
-  //   socket.onopen = () => {
-  //     console.log("socket open now");
-  //     socket.send(
-  //       JSON.stringify({
-  //         task: "create_container",
-  //         container_name: projectdata.container_name,
-  //         image_name: image_name ? image_name : "python-image",
-  //       })
-  //     );
-  //   };
-
-  //   socket.onmessage = function (e) {
-  //     let msg_data = JSON.parse(e.data);
-  //     if (msg_data["message"] === "container_created") {
-  //       // console.log("Got the creation")
-  //       setTimeout(() => {
-  //         container_name = projectdata.container_name;
-  //       }, 1000);
-  //     } else {
-  //       // console.log(msg_data)
-  //     }
-  //   };
-
-  //   socket.onclose = function () {
-  //     connectSocket();
-  //   }
-  //   is_mount = true;
-  // });
-
   let iframeURL;
-
   function refreshIframe() {
     refreshIframe_();
   }
@@ -251,16 +211,11 @@
       } else if (projectdata.lang?.prog_lang == "html") {
         iframeURL = "https://" + container_name + ".thelearningsetu.com/";
       } else {
-        iframeURL =
-          "https://" +
-          container_name +
-          ".thelearningsetu.com/" +
-          projectdata.lang.prog_lang +
-          "/";
+        iframeURL = "https://" + container_name + ".thelearningsetu.com/" + projectdata.lang.prog_lang + "/";
       }
       const iframe = document.getElementById("containerFrame");
       iframe.src = iframeURL+"?_=" + new Date().getTime();
-      iframe.contentWindow.location.reload(true);
+
   }
 
 
