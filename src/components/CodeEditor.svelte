@@ -25,7 +25,7 @@
   export let projectdata;
   //  console.log(projectdata);
 
-  let container_name;
+  let container_name="f";
 
   let value = "";
   let socket;
@@ -37,6 +37,12 @@
   let user1;
   let theme;
   let explorer;
+
+  let html = localStorage.getItem("/src/index.html") || "";
+  let css = localStorage.getItem("/src/style.css") || "";
+  let js = localStorage.getItem("/src/script.js") || "";
+
+  let srcDoc;
 
   $: onMount(() => {
     theme = localStorage.getItem("theme") || "light";
@@ -56,29 +62,29 @@
 
 
   // saving to Container if value is changed
-  $: saveToContainer(value);
+  // $: saveToContainer(value);
 
-  function saveToContainer(...args) {
-    if (is_mount && socket) {
-      // console.log("Saving to container")
-      // console.log(value);
-      setTimeout(() => {
+  // function saveToContainer(...args) {
+  //   if (is_mount && socket) {
+  //     // console.log("Saving to container")
+  //     // console.log(value);
+  //     setTimeout(() => {
 
-        try {
-          socket.send(
-            JSON.stringify({
-              task: "save_code",
-              code: value,
-              container_name: container_name,
-              file_name: projectcode?.file_location,
-            })
-          );
-          localStorage.setItem(projectcode.file_location, value);
-          // console.log(projectcode.file_location, value);
-        } catch (e) {}
-      }, 10);
-    }
-  }
+  //       try {
+  //         socket.send(
+  //           JSON.stringify({
+  //             task: "save_code",
+  //             code: value,
+  //             container_name: container_name,
+  //             file_name: projectcode?.file_location,
+  //           })
+  //         );
+  //         localStorage.setItem(projectcode.file_location, value);
+  //         // console.log(projectcode.file_location, value);
+  //       } catch (e) {}
+  //     }, 10);
+  //   }
+  // }
 
 
 
@@ -88,9 +94,14 @@
   let timeout1;
 
   function saveToDatabase(...args) {
+    // console.log(projectcode)
+    localStorage.setItem(projectcode?.file_location, value);
+    // console.log(projectcode.file_location, value);
+
+    // console.log("Saving to database");
     clearTimeout(timeout1);
     // console.log("onchange is called");
-    if (is_mount && socket) {
+    if (is_mount && value.length > 0) {
       // console.log("stored to database");
       setTimeout(() => {
         try {
@@ -113,13 +124,12 @@
     }
   }
 
-  // storing to database if keypad
 
   // activeFile will change the projectcode
   activeFile.subscribe((value1) => {
     value = value1?.code;
     projectcode = value1;
-    // console.log(projectcode);
+    // console.log(projectcode?.code);
   });
 
   let url = API_URL + "editor/projectcodes/?project=" + projectdata.id;
@@ -138,64 +148,65 @@
     })
     .catch((error) => {});
 
-  const connectSocket = () => {
-    console.log("connect socket called again");
-    let url = import.meta.env.VITE_HANDLER_WS;
-    socket = new WebSocket(url);
-  };
+  // const connectSocket = () => {
+  //   console.log("connect socket called again");
+  //   let url = import.meta.env.VITE_HANDLER_WS;
+  //   socket = new WebSocket(url);
+  // };
 
-  const onSocketOpen = () => {
-    console.log("socket open now");
-    socket.send(
-      JSON.stringify({
-        task: "create_container",
-        container_name: projectdata.container_name,
-        image_name: projectdata.lang.docker_image_name || "python-image",
-      })
-    );
-  };
+  // const onSocketOpen = () => {
+  //   console.log("socket open now");
+  //   socket.send(
+  //     JSON.stringify({
+  //       task: "create_container",
+  //       container_name: projectdata.container_name,
+  //       image_name: projectdata.lang.docker_image_name || "python-image",
+  //     })
+  //   );
+  // };
 
-  const onSocketMessage = (e) => {
-    let msg_data = JSON.parse(e.data);
-    if (msg_data["message"] === "container_created") {
-      setTimeout(() => {
-        container_name = projectdata.container_name;
-      }, 1000);
-    } else {
-      // console.log(msg_data)
-    }
-  };
+  // const onSocketMessage = (e) => {
+  //   let msg_data = JSON.parse(e.data);
+  //   if (msg_data["message"] === "container_created") {
+  //     setTimeout(() => {
+  //       container_name = projectdata.container_name;
+  //     }, 1000);
+  //   } else {
+  //     // console.log(msg_data)
+  //   }
+  // };
 
-  const onSocketClose = () => {
-    // Wait for a short delay before reconnecting
-    setTimeout(() => {
-      if (!socket || socket.readyState !== WebSocket.OPEN) {
-        connectSocket();
-      }
-    }, 1000); // You can adjust the delay (in milliseconds) as needed
-  };
+  // const onSocketClose = () => {
+  //   // Wait for a short delay before reconnecting
+  //   setTimeout(() => {
+  //     if (!socket || socket.readyState !== WebSocket.OPEN) {
+  //       connectSocket();
+  //     }
+  //   }, 1000); // You can adjust the delay (in milliseconds) as needed
+  // };
 
   onMount(() => {
-    connectSocket();
-
+    // connectSocket();
     is_mount = true
-    socket.onopen = onSocketOpen;
-    socket.onmessage = onSocketMessage;
-    socket.onclose = onSocketClose;
+    // socket.onopen = onSocketOpen;
+    // socket.onmessage = onSocketMessage;
+    // socket.onclose = onSocketClose;
 
-    return () => {
-      // Clean up resources when the component is about to be removed
-      if (socket && socket.readyState === WebSocket.OPEN) {
-        socket.close();
-      }
-    };
+    // return () => {
+    //   // Clean up resources when the component is about to be removed
+    //   if (socket && socket.readyState === WebSocket.OPEN) {
+    //     socket.close();
+    //   }
+    // };
   });
 
   onDestroy(() => {
     // Clean up resources when the component is about to be removed
-    if (socket && socket.readyState === WebSocket.OPEN) {
-      socket.close();
-    }
+    // if (socket && socket.readyState === WebSocket.OPEN) {
+    //   socket.close();
+    // };
+    clearTimeout(timeout1);
+
   });
 
   let iframeURL;
@@ -215,41 +226,48 @@
       }
       const iframe = document.getElementById("containerFrame");
       iframe.src = iframeURL+"?_=" + new Date().getTime();
-
   }
 
 
   $: onChange(value);
 
-  let timeout;
   function onChange(...args) {
-     clearTimeout(timeout);
-     console.log("onchange is called");
-     if (projectdata.lang?.prog_lang == "html" ) {
-         timeout = setTimeout(() => {
-           refreshIframe_();
-         }, 1000);
-       }
-   }
+    console.log(projectcode);
+    html =  localStorage.getItem("/src/index.html") || "";
+    css = localStorage.getItem("/src/style.css") || "";
+    js = localStorage.getItem("/src/script.js") || "";
 
-  // let interval; 
-  onMount(() => {
-    setTimeout(() => {
-      refreshIframe_();
-    }, 1500);
-    
-  });
+    let htmlString = `
+        <html>
+            <head>
+              <style>${css}</style>
+            </head>
+            <body>
+              ${html}
+            </body>
+            <script>
+            ${js}
+          </scr` + `ipt>
 
-  onDestroy(() => {
-    if (projectdata.lang?.prog_lang == "html") { 
-      clearTimeout(timeout);
-    }
-    clearTimeout(timeout1);
+        </html>
+      `;
+    srcDoc = htmlString;
 
-    if (socket && socket.readyState === WebSocket.OPEN) {
-      socket.close();
-    }
-  });
+
+  }
+
+
+
+  // let timeout;
+  // function onChange(...args) {
+  //    clearTimeout(timeout);
+  //    console.log("onchange is called");
+  //    if (projectdata.lang?.prog_lang == "html" ) {
+  //        timeout = setTimeout(() => {
+  //          refreshIframe_();
+  //        }, 1000);
+  //      }
+  //  }
 
 
   function handleSave(event) {
@@ -334,13 +352,13 @@
       </Pane>
       <Pane minSize={20} size={40} className="overflow-hidden">
         {#if projectdata.type === "project"}
-          <div class="bg-base-200" style="padding:4px;display:flex;justify-content:space-between;">
+          <!-- <div class="bg-base-200" style="padding:4px;display:flex;justify-content:space-between;">
             <span on:click={refreshIframe} class="" style="cursor:pointer;font-size: 0.8em;">Refresh</span>
   
             <a target="_blank" style="font-size: 0.8em;" href={iframeURL}
               >{iframeURL}</a
             >
-          </div>
+          </div> -->
         {/if}
   
         {#if container_name}
@@ -353,15 +371,7 @@
             id="containerFrame"
             width={"100%"}
             height={"96%"}
-            src={projectdata.lang == 1
-              ? "https://" +
-                container_name +
-                ".thelearningsetu.com/python/"
-              : "https://" +
-                container_name +
-                ".thelearningsetu.com/" +
-                projectdata.lang.prog_lang +
-                "/"}
+            srcdoc={srcDoc}
           />
 
         {:else}
