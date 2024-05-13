@@ -1,4 +1,6 @@
 <script>
+// @ts-nocheck
+
 
 import Navbar from "../../components/Navbar.svelte";
   import Footer from "../../components/Footer.svelte";
@@ -14,17 +16,24 @@ import Navbar from "../../components/Navbar.svelte";
 
   import { postDataAuth } from "../../utils/auth";
   import LoginRequired from "../../components/LoginRequired.svelte";
+    // @ts-ignore
     import CodingProblemLists from "../../components/CodingProblemLists.svelte";
 
 
+  // @ts-ignore
   let user1;
 
+  // @ts-ignore
   let languages =[];
   let language = "";
 
+  // @ts-ignore
   let loading;
+  // @ts-ignore
   let projects = [];
+  // @ts-ignore
   let loadingMore;
+  // @ts-ignore
   let next;
 
 
@@ -33,6 +42,7 @@ import Navbar from "../../components/Navbar.svelte";
 
   let ordering = "-updated";
   let selected_language = "7";
+  // @ts-ignore
   let error;
   // get all languages
 
@@ -46,6 +56,7 @@ import Navbar from "../../components/Navbar.svelte";
         // language = data1.results[0].id;
       } else {
       }
+    // @ts-ignore
     }).catch(error=>{  }) 
   });
 
@@ -58,6 +69,7 @@ import Navbar from "../../components/Navbar.svelte";
 
   const getProjects = () => {
   loading = true;
+  // @ts-ignore
   if (user1){
   projects = [];
     let url = API_URL + `editor/projects/?type=project&creator=${user1.user.id}&lang=${selected_language}&ordering=${ordering}`;
@@ -69,6 +81,7 @@ import Navbar from "../../components/Navbar.svelte";
         projects = data1.results;
         next = data1.next;
       } 
+    // @ts-ignore
     }).catch(error=>{ loading=false })
   } else {
     loading = false;
@@ -80,6 +93,7 @@ import Navbar from "../../components/Navbar.svelte";
     getProjects();
   }
 
+  // @ts-ignore
   const changeLanguage = (/** @type {{ target: { value: any; }; }} */ e) => {
     selected_language = e.target.value;
     getProjects();
@@ -102,6 +116,7 @@ import Navbar from "../../components/Navbar.svelte";
           codingproblems = data1;
           // next = data1.next;
         } 
+      // @ts-ignore
       }).catch(error=>{ loading=false })
     } 
 
@@ -113,16 +128,21 @@ import Navbar from "../../components/Navbar.svelte";
   });
 
 
+  // @ts-ignore
   const deleteProject = (id) => {
     loading = true;
     let url = API_URL + `editor/project/delete/${id}/`;
+    // @ts-ignore
     postDataAuth(url,user1.access,{},'DELETE')
+    // @ts-ignore
     .then(data2 => {
       getProjects();
+      // @ts-ignore
       }).catch(error => {
     })
   }
 
+  // @ts-ignore
   function handleKeyPress(event) {
     if (event.key === 'Enter') {
       console.log('Enter key pressed!');
@@ -149,9 +169,11 @@ import Navbar from "../../components/Navbar.svelte";
       // return;
     } else {
 
+    // @ts-ignore
     postDataAuth(url,user1.access,{name:new_project_name, creator_id:user1.user.id,lang_id:language})
     .then(data2 => {
     //   requesting = false  
+        // @ts-ignore
         goto("/write-code-online/"+data2.slug)    
         console.log(data2)
       }).catch(error => {
@@ -164,14 +186,17 @@ import Navbar from "../../components/Navbar.svelte";
   const loadMore = () => {
     loadingMore = true
     // console.log(next);
+    // @ts-ignore
     fetch(next)
     .then(async (response) => {
       if (response.ok) {
         let data1 = await response.json();
+        // @ts-ignore
         projects =[...projects, ...data1.results];
         next = data1.next;
         loadingMore = false
       } 
+    // @ts-ignore
     }).catch(error=>{ loadingMore=false })
   }
 
@@ -192,7 +217,6 @@ const closeError = () => {
 
 {#if user1}
   <div class="p-4 md:w-5/6  lg:w-4/6 xl:w-3/6 mx-auto min-h-screen">
-
 
           {#if error?.text}
           <div role="alert" class="alert alert-warning my-4">
@@ -357,6 +381,12 @@ const closeError = () => {
 
 
   </div>  
+
+{:else}
+  <br />
+  <LoginRequired />
+  <br />
+  <br />
 
 {/if}
 
