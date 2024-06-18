@@ -8,7 +8,7 @@
 
     import { onMount } from 'svelte';
     import ThemeChange from '../../../components/ThemeChange.svelte';
-    import Check from '../../../components/svg/Check.svelte';
+    // import Check from '../../../components/svg/Check.svelte';
 
 // @ts-nocheck
 
@@ -33,6 +33,7 @@
      */
     let user_problem;
     let API_URL = import.meta.env.VITE_API_URL;
+
 
     let loading = true;
 
@@ -126,7 +127,7 @@
         show_modal = true
         // let url = 'https://'+data.project.container_name+'.thelearningsetu.com/run_python_code/'
         // console.log(url);
-        let url = "https://web-production-241c.up.railway.app/run_python_code/";
+        let url = import.meta.env.VITE_CODE_URL;
         // let url2 = API_URL+"editor/projectcodes/?project="+user_problem.project.id;
 
               
