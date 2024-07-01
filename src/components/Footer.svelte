@@ -1,3 +1,18 @@
+
+<script>
+  import { onMount } from "svelte";
+
+  onMount(() => {
+    const script = document.createElement('script');
+    script.src = 'https://thelearningsetu.com/static/js/gt.js?t=1'; // Replace with your script path
+    script.async = true; // Optional: Load script asynchronously (recommended)
+
+    document.body.appendChild(script);
+  });
+
+</script>
+
+
 <footer class="footer footer-center p-10 bg-base-200 text-base-content" style="border-top:1.2px solid grey">
     <div class="grid grid-flow-col gap-4">
       <a href="/about" class="link link-hover">About us</a> 
@@ -11,6 +26,6 @@
       </div>
     </div> 
     <div>
-      <p>Copyright © 2022 - All right reserved by Learning Setu Private Limited</p>
+      <p>Copyright © 2022 - All right reserved by Learning Setu Private Limited | <span id="gt"></span></p>
     </div>
 </footer>
