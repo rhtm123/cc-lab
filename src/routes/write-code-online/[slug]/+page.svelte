@@ -87,7 +87,7 @@ let loading = false;
 </script>
 <svelte:head>
   <title>{data.name} | Coding Chaska Lab </title>
-  <meta property="description" content={`${data.name} - Online editor`} />
+  <meta property="description" content={`${data.name} - Write Code Online editor`} />
 </svelte:head>
 
 

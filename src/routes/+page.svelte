@@ -21,7 +21,7 @@
   <div class="hero-content md:px-4 py-24 flex-col lg:flex-row-reverse">
 
       <div class="flex-1">
-        <video  autoplay>
+        <video class="rounded-lg shadow-lg" autoplay>
           <source src="/video/codes.mp4" type="video/mp4">
           <!-- <source src="mov_bbb.ogg" type="video/ogg"> -->
           Your browser does not support HTML video.

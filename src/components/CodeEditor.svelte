@@ -210,23 +210,23 @@
   });
 
   let iframeURL;
-  function refreshIframe() {
-    refreshIframe_();
-  }
+  // function refreshIframe() {
+  //   refreshIframe_();
+  // }
 
-  const refreshIframe_ = function () {
-    console.log("Refreshing iframe");
-    if (projectdata.lang == 1) {
-        iframeURL =
-          "https://" + container_name + ".thelearningsetu.com/python/";
-      } else if (projectdata.lang?.prog_lang == "html") {
-        iframeURL = "https://" + container_name + ".thelearningsetu.com/";
-      } else {
-        iframeURL = "https://" + container_name + ".thelearningsetu.com/" + projectdata.lang.prog_lang + "/";
-      }
-      const iframe = document.getElementById("containerFrame");
-      iframe.src = iframeURL+"?_=" + new Date().getTime();
-  }
+  // const refreshIframe_ = function () {
+  //   console.log("Refreshing iframe");
+  //   if (projectdata.lang == 1) {
+  //       iframeURL =
+  //         "https://" + container_name + ".thelearningsetu.com/python/";
+  //     } else if (projectdata.lang?.prog_lang == "html") {
+  //       iframeURL = "https://" + container_name + ".thelearningsetu.com/";
+  //     } else {
+  //       iframeURL = "https://" + container_name + ".thelearningsetu.com/" + projectdata.lang.prog_lang + "/";
+  //     }
+  //     const iframe = document.getElementById("containerFrame");
+  //     iframe.src = iframeURL+"?_=" + new Date().getTime();
+  // }
 
 
   $: onChange(value);
@@ -315,7 +315,7 @@
   </div>
     
     <Splitpanes class="h-full">
-      <Pane minSize={10} size={15}>
+      <Pane minSize={5} size={15}>
         {#if explorer}
         <ul class="menu bg-base-200 w-full h-full">
           <FileExplorer {container_name} {socket} {explorer} folder_name={"/"} />
@@ -323,7 +323,7 @@
         {/if}
       </Pane>
   
-      <Pane minSize={20} size={60} style="height:100%" >
+      <Pane minSize={5} size={60} style="height:100%" >
         {#if projectdata.lang?.prog_lang === "python" || projectdata.lang === 1}
           <PythonEditor bind:value {theme} />
         {:else if projectcode?.lang?.prog_lang === "javascript" || projectdata.lang?.prog_lang === "nodejs"}
