@@ -213,12 +213,15 @@ const submitCode = () => {
 
 
 
-
 <svelte:head>
-  <title>{data.name} | Coding Chaska Lab </title>
-  <meta property="description" content={`Solve Coding Problem Online Python Editor`} />
+  <title>{data.name} | Coding Chaska Lab</title>
+  <meta name="description" content={`Solve coding problems online with Python editor at Coding Chaska Lab`} />
+  <meta name="keywords" content="coding problems, online editor, Python, coding practice, Coding Chaska Lab" />
+  <meta property="og:title" content="{data.name} | Coding Chaska Lab" />
+  <meta property="og:description" content={`Solve coding problems online with Python editor at Coding Chaska Lab`} />
+  <!-- <meta property="og:image" content= /> -->
+  <meta property="og:url" content={"https://www.codingchaskalab.com/coding-problem/"+data.slug} />
 </svelte:head>
-
 
 
 
