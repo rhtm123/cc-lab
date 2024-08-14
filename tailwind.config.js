@@ -61,47 +61,42 @@ export default {
     },
   },
 
-    daisyui: {
-      themes: [
-        {
-          light:{
-            "primary": "#0048A4",    
-            "secondary": "#E35A01",      
-            "accent": "#E08955",      
-            "neutral": "#1a1d23",          
-            "base-100": "#e5ecf5",      
-            "info": "#18c2ec",    
-            "success": "#0c5f37",  
-            "warning": "#ad840b",
-            "error": "#ef3c25",
-            "--rounded-btn": "1rem",
-            "--rounded-box": "1rem",
-            "--tab-radius": "1rem",
-            "--rounded-badge": "1rem",
-          }
-        },
-        {
-          dark: {
-          
-            "primary": "#0048A4",    
-            "secondary": "#E35A01",      
-            "accent": "#E08955",     
-            "neutral": "#191b24",       
-            "base-100": "#000e20",     
-            "info": "#18c2ec",    
-            "success": "#0c5f37",    
-            "warning": "#ad840b",      
-            "error": "#ef3c25",
-            "--rounded-btn": "1rem",
-            "--rounded-box": "1rem",
-            "--tab-radius": "1rem",
-            "--rounded-badge": "1rem",
-  
-          },
-          
-        },
-      ],
-    },
+  daisyui: {
+    themes: [
+      {
+        light: {
+          ...require('daisyui/src/theming/themes')['[data-theme=cupcake]'],
+          "primary": "#0048A4",        // Primary color remains unchanged
+          "secondary": "#F68C1F",      // Secondary color
+          "accent": "#FF6F61",         // Accent color
+          "neutral": "#1F2937",        // Darker neutral for better readability
+          "base-100": "#F9FAFB",       // Base background color
+          "base-200": "#E5E7EB",       // Light base background color
+          "base-300": "#CBD5E1",       // Lighter base background color
+          "info": "#18C2EC",           // Info color
+          "success": "#0C5F37",        // Success color
+          "warning": "#AD840B",        // Warning color
+          "error": "#EF3C25"           // Error color
+        }
+      },
+      {
+        dark: {
+          ...require('daisyui/src/theming/themes')['[data-theme=forest]'],
+          "primary": "#0048A4",        // Primary color remains unchanged
+          "secondary": "#F68C1F",      // Secondary color
+          "accent": "#FF6F61",         // Accent color
+          "neutral": "#2D3748",        // Darker neutral for better contrast
+          "base-100": "#0D1117",       // Dark base background color
+          "base-200": "#1F2937",       // Slightly lighter dark background color
+          "base-300": "#2D3748",       // Even lighter dark background color
+          "info": "#18C2EC",           // Info color
+          "success": "#0C5F37",        // Success color
+          "warning": "#AD840B",        // Warning color
+          "error": "#EF3C25"           // Error color
+        }
+      },
+    ],
+  },
 
   plugins: [require('@tailwindcss/typography'), require('daisyui')]
 };
