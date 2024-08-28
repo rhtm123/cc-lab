@@ -15,10 +15,9 @@ import Navbar from "../../components/Navbar.svelte";
 
 
   import { postDataAuth } from "../../utils/auth";
-  import LoginRequired from "../../components/LoginRequired.svelte";
     // @ts-ignore
-    import CodingProblemLists from "../../components/CodingProblemLists.svelte";
-
+  import CodingProblemLists from "../../components/CodingProblemLists.svelte";
+  import LoginWrapper from "../../components/LoginWrapper.svelte";
 
   // @ts-ignore
   let user1;
@@ -214,8 +213,8 @@ const closeError = () => {
 
 <Navbar />
 
+<LoginWrapper>
 
-{#if user1}
   <div class="p-4 md:w-5/6  lg:w-4/6 xl:w-3/6 mx-auto min-h-screen">
 
           {#if error?.text}
@@ -287,7 +286,7 @@ const closeError = () => {
                         <option value="-updated" selected>New First</option>
                 </select>
 
-                <!-- <label >
+                <label >
                   <span class="label-text">Language: </span>
                 </label>
                 <select class="select select-sm select-bordered" on:change={e => changeLanguage(e)}>
@@ -296,7 +295,7 @@ const closeError = () => {
                   <option value={lang.id}>{lang.prog_lang}</option>
                   {/each}
                   
-              </select> -->
+              </select>
 
               </div>
 
@@ -382,13 +381,7 @@ const closeError = () => {
 
   </div>  
 
-{:else}
-  <br />
-  <LoginRequired />
-  <br />
-  <br />
 
-{/if}
-
+</LoginWrapper>
 
 <Footer />

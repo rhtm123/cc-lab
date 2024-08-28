@@ -1,13 +1,12 @@
 <script>
     import Footer from "../../components/Footer.svelte";
-import LoginRequired from "../../components/LoginRequired.svelte";
 import Navbar from "../../components/Navbar.svelte";
     import user from "../../stores/auth";
     import CodingProblem from "../../components/CodingProblem.svelte";
+  import LoginWrapper from "../../components/LoginWrapper.svelte";
 
     let API_URL = import.meta.env.VITE_API_URL;
 
-    let isLoading = true;
     let user1;
     let userInfo;
     let uploadProblems;
@@ -23,9 +22,7 @@ import Navbar from "../../components/Navbar.svelte";
       if (value) {
         user1 = JSON.parse(value);
         userInfo = user1.user;
-        isLoading = false;
       } else {
-        isLoading = false;
       }
     });
     
@@ -102,11 +99,7 @@ import Navbar from "../../components/Navbar.svelte";
     </ul>
   </div>
 
-  {#if userInfo}
-
-  {#if isLoading}
-    <p>Loading</p>
-  {:else}
+<LoginWrapper>
   <div class="mt-24">
   <div class="bg-base-200 relative shadow rounded-lg md:w-5/6  lg:w-4/6 xl:w-3/6 mx-auto">
     <div class="flex justify-center">
@@ -223,15 +216,10 @@ import Navbar from "../../components/Navbar.svelte";
         </div>
     </div>
 </div>
+  </div>
+
+</LoginWrapper>
+
 </div>
 
-
-  {/if}
-  
-  {:else}
-    <LoginRequired />
-  {/if}
-</div>
-
-<br />
 <Footer />

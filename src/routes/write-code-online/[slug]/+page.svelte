@@ -5,10 +5,7 @@
     import { onMount } from 'svelte';
     import CodeEditor from '../../../components/CodeEditor.svelte';
     import user from '../../../stores/auth';
-    import LoginRequired from '../../../components/LoginRequired.svelte';
-    import Loading from '../../../components/Loading.svelte';
-
-
+    import LoginWrapper from '../../../components/LoginWrapper.svelte';
 
 /** @type {import('./$types').PageData} */
 export let data;
@@ -20,25 +17,7 @@ let value = "";
 let projectcode;
 let socket;
 let is_mount = false;
-let user1;
-let loading = false;
 
-
-  user.subscribe(value => {
-        if (value) {user1 = JSON.parse(value); loading=false}
-        else{user1=null; loading=false}
-	});
-
-// $: {
-//     if (is_mount && socket){
-
-//     setTimeout(()=>{
-//       try{
-//       socket.send(JSON.stringify({'task':"save_code",'code':value,"container_name":container_name,"file_name":"/src/"+projectcode?.file_name}));   
-//       } catch(e){}
-//     }, 500)
-//   }
-// }
 
   let url = API_URL + "editor/projectcodes/?project="+data.id;
       fetch(url)
@@ -91,18 +70,10 @@ let loading = false;
 </svelte:head>
 
 
-{#if user1}
+<LoginWrapper>
 
 <CodeEditor projectdata={data}/>
 
+</LoginWrapper>
 
-{:else}
-
-  {#if loading}
-  <Loading />
-  {:else}
-  <LoginRequired />
-  {/if}
-  
-{/if}
 

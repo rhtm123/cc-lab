@@ -45,7 +45,7 @@ export default {
     fontFamily: {
       'sans': ['ui-sans-serif', 'system-ui'],
       'serif': ['ui-serif', 'Georgia'],
-      'mono': ['ui-monospace', 'SFMono-Regular'],
+      'mono': ['ui-monospace', 'SFMono-Regular', 'monospace'],
       'display': ['Oswald'],
       'body': ['"Open Sans"'],
     },

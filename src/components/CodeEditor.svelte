@@ -17,6 +17,8 @@
   import CLangEditor from "./Editors/CLangEditor.svelte";
   import JavaEditor from "./Editors/JavaEditor.svelte";
   import ThemeChange from "./ThemeChange.svelte";
+  import { writable } from 'svelte/store';
+
 
   /**
    * @type {{ container_name: any; }}
@@ -27,7 +29,7 @@
 
   let container_name="f";
 
-  let value = "";
+  let value = "";  // current code of active file
   let socket;
   let is_mount = false;
   let projectcode;
@@ -49,9 +51,9 @@
     // console.log("This is called");
   });
 
-  user.subscribe((value) => {
-    if (value) {
-      user1 = JSON.parse(value);
+  user.subscribe((uservalue) => {
+    if (uservalue) {
+      user1 = JSON.parse(uservalue);
       if (projectdata.creator.id) {
         is_owner = user1.user.id === projectdata.creator.id;
       } else {
@@ -232,7 +234,7 @@
   $: onChange(value);
 
   function onChange(...args) {
-    console.log(projectcode);
+    // console.log(projectcode);
     html =  localStorage.getItem("/src/index.html") || "";
     css = localStorage.getItem("/src/style.css") || "";
     js = localStorage.getItem("/src/script.js") || "";
@@ -279,9 +281,23 @@
   }
 
 
+  function handleFunctionEvent(event) {
+    let runFunction = event.detail.runFunction;
+    runFunction();
+  }
+
+
+  const logs = writable([]);
+
+  const originalConsoleLog = console.log;
+    console.log = (...args) => {
+        logs.update(currentLogs => [...currentLogs, args.join(' ')]);
+        originalConsoleLog.apply(console, args);
+    };
+
 </script>
 
-<div on:keydown={handleSave} class="flex flex-col h-screen  overflow-hidden">
+<div on:keydown={handleSave} class="flex flex-col h-screen overflow-hidden">
   <div class="sm:block" style="border-bottom:1.2px solid grey">
     {#if projectdata.type==="project"}
     <div class="text-sm flex justify-between breadcrumbs px-2">
@@ -314,7 +330,8 @@
     {/if}
   </div>
     
-    <Splitpanes class="h-full">
+    <Splitpanes >
+      
       <Pane minSize={5} size={15}>
         {#if explorer}
         <ul class="menu bg-base-200 w-full h-full">
@@ -325,7 +342,7 @@
   
       <Pane minSize={5} size={60} style="height:100%" >
         {#if projectdata.lang?.prog_lang === "python" || projectdata.lang === 1}
-          <PythonEditor bind:value {theme} />
+          <PythonEditor bind:value {theme} on:functionEvent={handleFunctionEvent} project_type={"project"} />
         {:else if projectcode?.lang?.prog_lang === "javascript" || projectdata.lang?.prog_lang === "nodejs"}
           <!-- <h1>JS</h1> -->
           <JavaScriptEditor bind:value {theme} />
@@ -350,19 +367,11 @@
           <SimpleEditor bind:value {theme} />
         {/if}
       </Pane>
-      <Pane minSize={20} size={40} className="overflow-hidden">
-        {#if projectdata.type === "project"}
-          <!-- <div class="bg-base-200" style="padding:4px;display:flex;justify-content:space-between;">
-            <span on:click={refreshIframe} class="" style="cursor:pointer;font-size: 0.8em;">Refresh</span>
-  
-            <a target="_blank" style="font-size: 0.8em;" href={iframeURL}
-              >{iframeURL}</a
-            >
-          </div> -->
-        {/if}
-  
+      <Pane minSize={20} size={40} >
         {#if container_name}
           <!-- <Terminal container_name={container_name} /> -->
+          
+          {#if projectdata.lang.prog_lang==="html"}
           <iframe
             allowFullScreen
             style={projectdata.lang.prog_lang === "html"
@@ -373,6 +382,24 @@
             height={"96%"}
             srcdoc={srcDoc}
           />
+          {:else}
+
+          <div class="overflow-auto" style="height:90vh">
+          <div class="bg-base-200 flex items-center justify-between">
+            <span class="btn btn-sm">OUTCOME</span>
+
+          </div>
+            <div class="px-2 py-1 font-mono">
+                <ul>
+                    {#each $logs as log}
+                        <li class="text-sm">> {log}</li>
+                    {/each}
+                </ul>
+            </div>
+          </div>
+
+
+          {/if}
 
         {:else}
           <p>Creating Container...</p>
