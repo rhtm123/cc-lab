@@ -40,7 +40,7 @@ import Navbar from "../../components/Navbar.svelte";
   let requesting=false;
 
   let ordering = "-updated";
-  let selected_language = "7";
+  let selected_language = "";
   // @ts-ignore
   let error;
   // get all languages
