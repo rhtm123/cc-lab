@@ -15,8 +15,7 @@
          export let theme;
 
          currentTheme.subscribe(value => {
-                theme = value;
-                
+                theme = value;  
         });
 
 

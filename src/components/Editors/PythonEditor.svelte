@@ -82,6 +82,7 @@ async function interactive_input_set() {
                 // console.log("Output: " + output);
            } catch (e) {
                let output = `Error: ${e.message}\n`;
+               console.log(output);
              }
         }
 

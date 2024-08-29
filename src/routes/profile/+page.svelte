@@ -101,7 +101,7 @@ import Navbar from "../../components/Navbar.svelte";
 
 <LoginWrapper>
   <div class="mt-24">
-  <div class="bg-base-200 relative shadow rounded-lg md:w-5/6  lg:w-4/6 xl:w-3/6 mx-auto">
+  <div class="relative shadow rounded-lg md:w-5/6 lg:w-4/6 xl:w-3/6 mx-auto">
     <div class="flex justify-center">
         <img src={userInfo.profile_pic || "profile.png"} 
         alt="" class="rounded-full mx-auto absolute -top-20 w-32 h-32 shadow-md border-4 border-white transition duration-200 transform hover:scale-110">
@@ -215,7 +215,12 @@ import Navbar from "../../components/Navbar.svelte";
             {/if}
         </div>
     </div>
+
+
 </div>
+
+<br>
+<br>
   </div>
 
 </LoginWrapper>
