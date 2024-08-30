@@ -78,7 +78,7 @@ function saveToDatabase(...args) {
               // console.log("saved")
             })
             .catch((error) => {
-              console.log(error, "error");
+              // console.log(error, "error");
             });
         }
       } catch (e) {}

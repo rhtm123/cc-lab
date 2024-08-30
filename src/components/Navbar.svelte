@@ -20,7 +20,7 @@ import  user  from "../stores/auth";
 
 </script>
 
-<div class="navbar bg-base-100 p-0 min-h-0 " style="border-bottom:1.2px solid grey" >
+<div class="navbar bg-base-200 p-0 min-h-0 " style="border-bottom:1.2px solid grey" >
     <div class="navbar-start">
       <div class="dropdown">
         <label tabindex="0" class="btn btn-ghost lg:hidden">

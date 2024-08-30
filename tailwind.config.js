@@ -35,9 +35,13 @@ export default {
               marginBottom: '0.5rem', // Adjust as needed to half the default margin
             },
             li: {
-              marginTop: '0.1rem',  // Adjust as needed to half the default margin
-              marginBottom: '0.1rem', // Adjust as needed to half the default margin
+              marginTop: '0.05rem',  // Adjust as needed to half the default margin
+              marginBottom: '0.05rem', // Adjust as needed to half the default margin
             },
+            pre: {
+              marginTop: '0.1rem', // Adjust as needed to half the
+              marginBottom: '0.1rem', // Adjust as needed to half the
+            }
           },
         },
       },
@@ -66,33 +70,35 @@ export default {
       {
         light: {
           ...require('daisyui/src/theming/themes')['[data-theme=cupcake]'],
-          "primary": "#0048A4",        // Primary color remains unchanged
-          "secondary": "#F68C1F",      // Secondary color
-          "accent": "#FF6F61",         // Accent color
-          "neutral": "#1F2937",        // Darker neutral for better readability
-          "base-100": "#F9FAFB",       // Base background color
-          "base-200": "#E5E7EB",       // Light base background color
-          "base-300": "#CBD5E1",       // Lighter base background color
-          "info": "#18C2EC",           // Info color
-          "success": "#0C5F37",        // Success color
-          "warning": "#AD840B",        // Warning color
-          "error": "#EF3C25"           // Error color
+
+          "primary": "#0048A4",
+          "secondary": "#ff00d3",
+          "accent": "#689ab8",
+
+          // "neutral": "#1F2937",        // Darker neutral for better readability
+          // "base-100": "#F9FAFB",       // Base background color
+          // "base-200": "#E5E7EB",       // Light base background color
+          // "base-300": "#CBD5E1",       // Lighter base background color
+          // "info": "#18C2EC",           // Info color
+          // "success": "#0C5F37",        // Success color
+          // "warning": "#AD840B",        // Warning color
+          // "error": "#EF3C25"           // Error color
         }
       },
       {
         dark: {
-          ...require('daisyui/src/theming/themes')['[data-theme=forest]'],
-          "primary": "#0048A4",        // Primary color remains unchanged
-          "secondary": "#F68C1F",      // Secondary color
+          ...require('daisyui/src/theming/themes')['[data-theme=dark]'],
+          "primary": "#4093fe",
+          "secondary": "#ff00d3",
           "accent": "#FF6F61",         // Accent color
-          "neutral": "#2D3748",        // Darker neutral for better contrast
-          "base-100": "#0D1117",       // Dark base background color
-          "base-200": "#1F2937",       // Slightly lighter dark background color
-          "base-300": "#2D3748",       // Even lighter dark background color
-          "info": "#18C2EC",           // Info color
-          "success": "#0C5F37",        // Success color
-          "warning": "#AD840B",        // Warning color
-          "error": "#EF3C25"           // Error color
+          // "neutral": "#2D3748",        // Darker neutral for better contrast
+          // "base-100": "#2D3748",       // Dark base background color
+          // "base-200": "#1F2937",       // Slightly lighter dark background color
+          // "base-300": "#0D1117",       // Even lighter dark background color
+          // "info": "#18C2EC",           // Info color
+          // "success": "#0C5F37",        // Success color
+          // "warning": "#AD840B",        // Warning color
+          // "error": "#EF3C25"           // Error color
         }
       },
     ],

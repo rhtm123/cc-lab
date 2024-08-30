@@ -34,19 +34,17 @@
     }
 
 
-    function handleFunctionEvent(event) {
-    let runFunction = event.detail.runFunction;
-    runFunction();
+
+    async function handleFunctionEvent(event) {
+        let runFunction = event.detail.runFunction;
+        let d = await runFunction();
+        // console.log("Hello", d);
+        logs.update(current => [...current, d]);
   }
 
 
-  const logs = writable([]);
+  const logs = writable([{"error":false,"output":"Welcome to python editor!"}]);
 
-  const originalConsoleLog = console.log;
-    console.log = (...args) => {
-        logs.update(currentLogs => [...currentLogs, args.join(' ')]);
-        originalConsoleLog.apply(console, args);
-    };
 
 </script>
 
@@ -101,18 +99,23 @@
 
         <Pane minSize={20} size={40}>
             
-            <div class="overflow-auto" style="height:90vh">
+            <div class="overflow-auto bg-base-100 h-full" >
                 <div class="bg-base-200 flex items-center justify-between">
                   <span class="btn btn-sm">OUTCOME</span>
+
+                  <button on:click={()=> logs.update(current => [])} class="btn btn-sm btn-primary btn-outline">CLEAR</button>
+
       
                 </div>
-                  <div class="px-2 py-1 font-mono">
-                      <ul>
-                          {#each $logs as log}
-                              <li class="text-sm">> {log}</li>
-                          {/each}
-                      </ul>
-                  </div>
+                <div class="px-1 py-2 font-mono">
+                    {#each $logs as log}
+                        {#if !log.error}
+                        <pre class="text-sm text-success">> {log.output}</pre>
+                        {:else}
+                        <pre class="text-sm text-error">> {log.output}</pre>
+                        {/if}
+                    {/each}
+              </div>
                 </div>
         </Pane>
     </Splitpanes>
