@@ -9,7 +9,7 @@
        let GOOGLE_CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID;
        let API_URL = import.meta.env.VITE_API_URL;
    
-       const nextPage = $page.url.searchParams.get("nextPage");
+       let nextPage = $page.url.searchParams.get("nextPage");
    
        let user1;
        user.subscribe(value => {
@@ -22,7 +22,7 @@
                } else {
                    goto('/');
                }
-           }, 3000); // Redirect after 3 seconds
+           }, 1000); // Redirect after 3 seconds
          } else {
            user1 = null;
          }
@@ -62,7 +62,7 @@
              localStorage.setItem("user", JSON.stringify(data));
              user.set(JSON.stringify(data));
              loading = false;
-             if (nextPage) goto(nextPage);
+             if (nextPage) { let n = nextPage; nextPage=null; goto(nextPage)};
            }).catch(error => {
              console.log(error);
          });
