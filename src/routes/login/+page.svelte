@@ -9,19 +9,22 @@
        let GOOGLE_CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID;
        let API_URL = import.meta.env.VITE_API_URL;
    
-       let nextPage = $page.url.searchParams.get("nextPage");
-   
+       let nextPage = $page.url.searchParams.get("nextPage") || "/";
+
        let user1;
        user.subscribe(value => {
          if (value) { 
            user1 = JSON.parse(value);
            // If the user is already logged in, redirect after a few seconds
            setTimeout(() => {
-               if (nextPage) {
-                   goto(nextPage);
-               } else {
-                   goto('/');
-               }
+
+              if (window){
+                if (nextPage){
+                   let n = nextPage;
+                   nextPage = null;
+                   window.location.href = n
+                }
+              }
            }, 1000); // Redirect after 3 seconds
          } else {
            user1 = null;
@@ -62,7 +65,13 @@
              localStorage.setItem("user", JSON.stringify(data));
              user.set(JSON.stringify(data));
              loading = false;
-             if (nextPage) { let n = nextPage; nextPage=null; goto(nextPage)};
+             if (nextPage) { let n = nextPage; nextPage=null; 
+              
+              // goto(n)
+              window.location.href = n;
+            
+            
+            };
            }).catch(error => {
              console.log(error);
          });
