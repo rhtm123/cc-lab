@@ -147,7 +147,7 @@
 
 </script>
 
-<div class="p-4 md:p-8 md:w-1/2 md:m-auto">
+<div class="p-4 md:p-4 md:w-1/2 md:m-auto">
 
     {#if !requesting }
 
@@ -158,9 +158,11 @@
               </div>
     {/if}
 
+    
     <input class="mt-4 input input-bordered input-sm w-full" placeholder="Project Name" bind:value={projectname}  text="Project Name" />
 
     <button class="mt-4 btn btn-sm btn-secondary" on:click={creatProjectRedirect} >Create Project</button>
+    <p class="text-sm mt-4 opacity-80">Don't want to create project? Return back to <a href="/" class="text-primary"> home</a></p>
 
     {:else}
         <p>Please wait. Your project will be created soon.</p>
