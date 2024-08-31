@@ -5,7 +5,6 @@
        import Navbar from '../../components/Navbar.svelte';
        import { page } from '$app/stores';
        import user from '../../stores/auth';
-       import { goto } from '$app/navigation';
        let GOOGLE_CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID;
        let API_URL = import.meta.env.VITE_API_URL;
    

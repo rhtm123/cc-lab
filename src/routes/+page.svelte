@@ -18,39 +18,47 @@
 
 <Navbar />
 
-<section class="hero p-4 bg-base-200">
-  <div class="hero-content flex flex-col lg:flex-row-reverse md:px-4 py-24 max-w-7xl mx-auto">
-    
-    <div class="flex-1 flex items-center justify-center">
+<section class="hero p-4 bg-base-100">
+  <div class="hero-content flex flex-col lg:flex-row lg:flex-row-reverse md:px-4 py-24 max-w-7xl mx-auto">
+
+    <div class="flex-1 flex items-center justify-center mt-8 lg:mt-0">
       <video class="rounded-lg shadow-lg" autoplay muted loop aria-label="Coding demonstration video">
         <source src="/video/codes.mp4" type="video/mp4">
         Your browser does not support the video tag.
       </video>
     </div>
-    
+
     <div class="flex-1 flex flex-col justify-center text-center lg:text-left">
-      <h1 class="text-5xl font-bold mb-4">Write Code Online</h1>
-      <p class="text-lg mb-6">Code online effortlessly with our user-friendly platform. Write, run, and experiment with Python, NodeJs, Java, and HTML directly in your web browser. Get coding now!</p>
-      <a href="/online-editor">
-        <button class="btn btn-primary" aria-label="Get Started with Online Editor">Get Started</button>
-      </a>
+      <h1 class="text-5xl font-bold mb-4">Write Code Online & Solve Coding Problems</h1>
+      <p class="text-lg mb-6">
+        Code online effortlessly with our user-friendly online code editor. Write, run, and experiment with Python, NodeJs, Java, and HTML directly in your web browser.
+        <strong>Practice coding problems</strong> with our online judge, where you can <strong>run test cases</strong> and <strong>submit your code</strong> to see how you fare against others.
+      </p>
+      <div class="flex flex-col lg:flex-row">
+        <a href="/online-editor" class="mb-4 lg:mb-0 lg:mr-4">
+          <button class="btn btn-primary flex items-center" aria-label="Get Started with Online Editor">
+            <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+            </svg>
+            Get Started
+          </button>
+        </a>
+        <a href="/coding-problems">
+          <button class="btn btn-primary flex items-center" aria-label="Start Solving Coding Problems">
+            <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+            </svg>
+            Solve Coding Problems
+          </button>
+        </a>
+      </div>
     </div>
+
+
 
   </div>
 </section>
 
-
-<div class="hero bg-base-100 p-4 py-16 ">
-  <div class="hero-content flex flex-col text-center max-w-4xl mx-auto">
-    <h1 class="text-5xl font-bold mb-4">Solve Coding Problems</h1>
-    <p class="text-lg mb-6">
-      Solving coding problems is an essential skill for any programmer. It enhances logical thinking, creativity, and problem-solving abilities. By practicing coding problems regularly, you can become more proficient and confident in your programming skills.
-    </p>
-    <a href="/coding-problems">
-      <button class="btn btn-primary">Solve Now</button>
-    </a>
-  </div>
-</div>
 
 <div class="hero bg-base-200 p-4 py-16">
   <div class="hero-content flex flex-col text-center max-w-5xl mx-auto">

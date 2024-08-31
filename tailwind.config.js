@@ -69,7 +69,7 @@ export default {
     themes: [
       {
         light: {
-          ...require('daisyui/src/theming/themes')['[data-theme=cupcake]'],
+          ...require('daisyui/src/theming/themes')['[data-theme=light]'],
 
           "primary": "#0048A4",
           "secondary": "#ff00d3",

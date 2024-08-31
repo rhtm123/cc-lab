@@ -45,8 +45,15 @@
 
   const logs = writable([{"error":false,"output":"Welcome to python editor!"}]);
 
+  let innerWidth = 0
+
+  $: is_small_screen = innerWidth<640;
+
 
 </script>
+
+<svelte:window bind:innerWidth />
+
 
 <svelte:head>
     <title>Python Online Code Editor | Coding Chaska Lab</title>
@@ -88,7 +95,7 @@
         </div>
     </div>
 
-    <Splitpanes>
+    <Splitpanes horizontal={is_small_screen}>
         
 
         <Pane minSize={5} size={60}>

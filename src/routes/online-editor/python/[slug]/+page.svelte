@@ -107,8 +107,15 @@ onMount(() => {
     }
   }
 
+  let innerWidth = 0
+
+  $: is_small_screen = innerWidth<640;
+
 
 </script>
+
+<svelte:window bind:innerWidth />
+
 
 <svelte:head>
     <title>HTML Editor | Coding Chaska Lab</title>
@@ -156,7 +163,7 @@ onMount(() => {
 
     <LoginWrapper>
 
-    <Splitpanes>
+    <Splitpanes horizontal={is_small_screen}>
         
 
         <Pane minSize={5} size={60}>

@@ -190,7 +190,7 @@ async function runCode() {
 </script>
 
     <div class="bg-base-200 flex items-center justify-between">
-    <span class="px-2 opacity-90">PY</span>
+    <span class="px-2 opacity-90 text-sm">PYTHON</span>
 
     <div>
 

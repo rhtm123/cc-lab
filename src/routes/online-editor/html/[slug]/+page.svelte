@@ -1,7 +1,7 @@
 <script>
   // @ts-nocheck
   import { onMount } from 'svelte';
-  import CodeEditor from '../../../../components/CodeEditor.svelte'; // Unused import
+//   import CodeEditor from '../../../../components/CodeEditor.svelte'; // Unused import
   import user from '../../../../stores/auth';
   import LoginWrapper from '../../../../components/LoginWrapper.svelte';
   import HtmlEditor from '../../../../components/Editors/HtmlEditor.svelte';
@@ -132,7 +132,14 @@
           value = css;
       }
   }
+  let innerWidth = 0
+
+    $: is_small_screen = innerWidth<640;
+
+
 </script>
+
+<svelte:window bind:innerWidth />
 
 <svelte:head>
   <title>{data.name} | Coding Chaska Lab</title>
@@ -170,20 +177,33 @@
   </div>
 
   <LoginWrapper>
-      <Splitpanes>
+
+      <div class="px-1">
+        {#each projectcodes as projectcode_}
+            {#if projectcode?.id === projectcode_?.id}
+                <button class={"text-success bg-base-200 px-2 py-1 font-semibold cursor-default rounded m-1"}>{projectcode_?.file_name}</button>
+            {:else}
+                <button on:click={() => handleTabChange(projectcode_)} class={"bg-base-200 px-2 py-1 rounded m-1 "}>{projectcode_?.file_name}</button>
+            {/if}
+        {/each}
+       </div>
+      <Splitpanes horizontal={is_small_screen}>
+
+          {#if !is_small_screen}
           <Pane minSize={5} size={15}>
               <div class="bg-base-100 h-full">
                   <div class="px-1">
                       {#each projectcodes as projectcode_}
                           {#if projectcode?.id === projectcode_?.id}
-                              <button class="text-success bg-base-200 font-semibold cursor-default rounded-lg mt-1 w-full">{projectcode_?.file_name}</button>
+                              <button class={"text-success bg-base-200 font-semibold cursor-default rounded-lg mt-1 w-full"}>{projectcode_?.file_name}</button>
                           {:else}
-                              <button on:click={() => handleTabChange(projectcode_)} class="bg-base-200 rounded-lg mt-1 w-full">{projectcode_?.file_name}</button>
+                              <button on:click={() => handleTabChange(projectcode_)} class={"bg-base-200 rounded-lg mt-1 w-full"}>{projectcode_?.file_name}</button>
                           {/if}
                       {/each}
                   </div>
               </div>
-          </Pane>
+          </Pane> 
+          {/if}
 
           <Pane minSize={5} size={60}>
               {#if projectcode?.lang?.prog_lang === "html"}

@@ -75,7 +75,14 @@
         }
     }
 
+    let innerWidth = 0
+
+    $: is_small_screen = innerWidth<640;
+
+
 </script>
+
+<svelte:window bind:innerWidth />
 
 <svelte:head>
     <title>HTML, CSS & JavaScript Online Code Editor | Coding Chaska Lab</title>
@@ -120,7 +127,22 @@
         </div>
     </div>
 
-    <Splitpanes>
+    {#if is_small_screen}
+
+        <div class="px-1">
+        {#each projectcodes as projectcode_}
+            {#if projectcode?.file_name === projectcode_?.file_name}
+                <button class={"text-success bg-base-200 px-2 py-1 font-semibold cursor-default rounded m-1"}>{projectcode_?.file_name}</button>
+            {:else}
+                <button on:click={() => handleTabChange(projectcode_)} class={"bg-base-200 px-2 py-1 rounded m-1 "}>{projectcode_?.file_name}</button>
+            {/if}
+        {/each}
+       </div>
+    {/if}
+    
+
+    <Splitpanes horizontal={is_small_screen}>
+        {#if !is_small_screen}
         <Pane minSize={5} size={15}>
             <div class="bg-base-100 h-full">
                 {#each projectcodes as projectcode_}
@@ -132,6 +154,8 @@
                 {/each}
             </div>
         </Pane>
+
+        {/if}
 
         <Pane minSize={5} size={60}>
             {#if projectcode?.file_name === 'index.html'}

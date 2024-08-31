@@ -222,7 +222,7 @@
     
     <LoginWrapper>
     
-      <div class="p-4 md:w-5/6  lg:w-4/6 xl:w-3/6 mx-auto min-h-screen">
+      <div class="p-4 md:w-5/6 lg:w-4/6 mx-auto min-h-screen">
     
               {#if error?.text}
               <div role="alert" class="alert alert-warning my-4">
@@ -233,7 +233,7 @@
     
               <div class="flex justify-between items-center">
     
-              <h4 class="text-xl my-4 font-semibold	">My Projects</h4>
+              <h4 class="text-xl my-2 font-semibold	">My Projects</h4>
     
               <button class="btn btn-primary btn-sm" onclick="my_modal_1.showModal()" for="modal-1">
                 + New Project
@@ -314,21 +314,17 @@
     
               
     
-              <div class="card mt-2">
+              <div class="card rounded-lg bg-base-200 mt-2 pt-2">
     
                     
-    
-    
                   {#if loading}
                     <p class="p-4">Loading...</p>
                   {/if}
-    
-                  
-    
+     
     
               {#if (!loading && projects.length>0)}
     
-              <table class="table border">
+              <table class="table">
                   <thead>
                     <tr>
                       <th>NAME</th>
@@ -365,7 +361,7 @@
               {#if next}
               <div class="row flex-center py-4">
                 {#if loadingMore} <p>loading...</p> {/if}
-                {#if (!loadingMore && !loading)}<button on:click={loadMore} class="btn btn-sm">Load More</button>{/if}
+                {#if (!loadingMore && !loading)}<button on:click={loadMore} class="btn btn-sm mx-2">Load More</button>{/if}
               </div>
               {/if}
     
