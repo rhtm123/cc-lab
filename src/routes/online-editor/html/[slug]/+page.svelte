@@ -178,6 +178,7 @@
 
   <LoginWrapper>
 
+    {#if is_small_screen}
       <div class="px-1">
         {#each projectcodes as projectcode_}
             {#if projectcode?.id === projectcode_?.id}
@@ -187,6 +188,9 @@
             {/if}
         {/each}
        </div>
+    {/if}
+
+
       <Splitpanes horizontal={is_small_screen}>
 
           {#if !is_small_screen}

@@ -157,10 +157,7 @@
                 <span>{error?.text}</span>
               </div>
     {/if}
-
-    
     <input class="mt-4 input input-bordered input-sm w-full" placeholder="Project Name" bind:value={projectname}  text="Project Name" />
-
     <button class="mt-4 btn btn-sm btn-secondary" on:click={creatProjectRedirect} >Create Project</button>
     <p class="text-sm mt-4 opacity-80">Don't want to create project? Return back to <a href="/" class="text-primary"> home</a></p>
 
