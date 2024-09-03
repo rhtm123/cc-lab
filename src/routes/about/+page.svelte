@@ -57,7 +57,7 @@
   <h2 class="text-3xl font-bold mb-4">Join Our Community</h2>
   <p class="mb-6">
     We value your feedback and suggestions as we work to enhance our platform. If you encounter any issues or have ideas for new features, please reach out to us through our 
-    <a target="_blank" href="https://www.codingchaska.com/contact" class="text-primary hover:underline">contact page</a>. Your input is essential to our ongoing development and commitment to providing a superior coding experience.
+    <a target="_blank" href="https://discord.com/invite/8jHuMEBVPV" class="text-primary hover:underline">discord server</a>. Your input is essential to our ongoing development and commitment to providing a superior coding experience.
   </p>
   
   <h2 class="text-3xl font-bold mb-4">Stay Updated</h2>

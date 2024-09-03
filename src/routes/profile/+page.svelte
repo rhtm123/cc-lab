@@ -165,7 +165,7 @@ import Navbar from "../../components/Navbar.svelte";
                 {/if}
 
               {:else}
-                <p class="mt-10">
+                <p class="mt-4">
                   You have not solved any problem yet
                 </p>
               {/if}
@@ -207,7 +207,7 @@ import Navbar from "../../components/Navbar.svelte";
                 {/if}
 
               {:else}
-                <p class="mt-10">
+                <p class="mt-4">
                   You have not added any coding problem yet
                 </p>
               {/if}

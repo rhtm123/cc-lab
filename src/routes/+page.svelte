@@ -18,10 +18,10 @@
 
 <Navbar />
 
-<section class="hero p-4 bg-base-100">
-  <div class="hero-content flex flex-col lg:flex-row lg:flex-row-reverse md:px-4 py-24 max-w-7xl mx-auto">
+<section class="hero bg-base-100">
+  <div class="hero-content flex flex-col lg:flex-row lg:flex-row-reverse px-8 md:gap-8 py-16 max-w-7xl mx-auto">
 
-    <div class="flex-1 flex items-center justify-center mt-8 lg:mt-0">
+    <div class="flex-1 flex items-center justify-center my-4 lg:mt-0">
       <video class="rounded-lg shadow-lg" autoplay muted loop aria-label="Coding demonstration video">
         <source src="/video/codes.mp4" type="video/mp4">
         Your browser does not support the video tag.
@@ -60,8 +60,8 @@
 </section>
 
 
-<div class="hero bg-base-200 p-4 py-16">
-  <div class="hero-content flex flex-col text-center max-w-5xl mx-auto">
+<div class="hero bg-base-200 py-16">
+  <div class="hero-content flex flex-col p-4 text-center max-w-5xl mx-auto">
     <h1 class="text-5xl font-bold mb-4">Try Our Editors Without Login</h1>
     <p class="text-lg mb-6">
       Get started immediately! Try writing and running code in Python, NodeJs, Java, or HTML without needing to log in. Experience the ease and convenience of our editors. If you choose to log in, your code will be securely stored on our servers, allowing you to access and continue your work anytime, anywhere.
@@ -130,17 +130,20 @@
 </div>
 
 <div class="hero bg-primary text-white p-4 py-16">
-  <div class="hero-content flex flex-col lg:flex-row justify-between items-center max-w-7xl mx-auto">
-    <div class="flex-1 text-center lg:text-left lg:mr-8">
-      <h1 class="text-5xl font-bold mb-4">Join Thousands of Coders Worldwide</h1>
-      <p class="text-lg mb-6">Start coding now and become a part of our growing community. Enhance your skills, solve challenges, and build something amazing!</p>
-      <a href="/login">
-        <button class="btn btn-secondary">Sign Up for Free</button>
-      </a>
-    </div>
+  <div class="hero-content flex flex-col md:gap-8 lg:flex-row justify-between items-center max-w-7xl mx-auto">
+
     <div class="flex-1">
       <img src="/img/online-editor.jpg" alt="Join Our Community" class="rounded-lg shadow-lg">
     </div>
+
+    <div class="flex-1 text-center lg:text-left">
+      <h1 class="text-5xl font-bold mb-4">Join Thousands of Coders Worldwide</h1>
+      <p class="text-lg mb-6">Start coding now and become a part of our growing community. Enhance your skills, solve challenges, and build something amazing!</p>
+      <a target="_blank" href="https://discord.com/invite/8jHuMEBVPV">
+        <button class="btn btn-secondary">Join Discord</button>
+      </a>
+    </div>
+
   </div>
 </div>
 

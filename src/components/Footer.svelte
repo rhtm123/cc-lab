@@ -12,10 +12,10 @@
 
 </script>
 
-<footer class="footer bg-base-200 text-base-content p-10">
+<footer class="footer bg-base-200 text-base-content md:p-8 p-8">
   <aside>
     <p>
-      <span class="font-bold text-lg">Coding Chaska Lab</span>
+      <span class="font-bold text-xl">Coding Chaska Lab</span>
       <br />
       Simple & Clean Online Code Editor
     </p>
