@@ -36,10 +36,14 @@
   <nav>
     <h6 class="footer-title">Services</h6>
     <a href="/coding-problems" class="link link-hover">Coding Problems</a> 
+    <a href="/add-problem" class="link link-hover">Add Coding Problem</a> 
+
   </nav>
   <nav>
-    <h6 class="footer-title">Company</h6>
-    <a href="/about" class="link link-hover">About us</a> 
+    <h6 class="footer-title">Impotant Links</h6>
+    <a href="/about" class="link link-hover">About us</a>
+    <a href="/versions" class="link link-hover">App History</a>
+
 
   </nav>
   <!-- <nav>
@@ -53,4 +57,4 @@
 </footer>
 
 
-<p class="text-center bg-base-200 p-2">Copyright © 2022 - All right reserved by Learning Setu Private Limited | <span id="gt"></span></p>
+<p class="text-center bg-base-300 p-2">Copyright © 2022 - All right reserved by Learning Setu Private Limited | <span id="gt"></span></p>
