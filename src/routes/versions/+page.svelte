@@ -87,8 +87,18 @@ let ordering = "created";
 
       {#each versions as version}
         <div class="mb-8 p-6 bg-base-200 rounded-lg shadow-lg">
-            <h2 class="text-2xl font-bold mb-2">Version {version.name}</h2>  
-            <p class="text-gray-600 mb-4">Release Date: {version.release_date}</p>
+            <h2 class="text-2xl font-bold mb-2">Version {version.name} </h2>  
+            {#if version.is_published}
+            <div class="flex items-stretch gap-1 mb-4">
+            <p class="opacity-80 font-semibold ">Release Date: {version.release_date}</p>
+            <span class="badge badge-success">Published</span>
+            </div>
+            {:else}
+            <div class="flex items-stretch gap-1 mb-4">
+            <p class="opacity-80 font-semibold">Release Date: {version.release_date} 
+              <span class="badge badge-info">Working</span></p>
+            </div>
+            {/if}
             <div class="prose max-w-none">{@html version.detail}</div>
         </div>
 
