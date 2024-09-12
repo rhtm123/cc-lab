@@ -14,15 +14,15 @@
 
 // @ts-nocheck
 
-    import LoginRequired from '../../../components/LoginRequired.svelte';
-    import user from '../../../stores/auth';
-    import { postDataAuth,postData } from '../../../utils/auth';
+  import LoginRequired from '../../../components/LoginRequired.svelte';
+  import user from '../../../stores/auth';
+  import { postDataAuth,postData } from '../../../utils/auth';
 
   import { Splitpanes, Pane } from 'svelte-splitpanes';
 
   // import CodeEditorProblem from '../../../components/CodeEditorProblem.svelte';
   import { writable } from 'svelte/store';
-  import PythonEditor from "../../../components/Editors/PythonEditor.svelte"
+  import PythonEditor from "../../../components/Editors/PythonEditor.svelte";
 
 
     /**
@@ -164,14 +164,31 @@
   let problem_solved = false;
   // let value = "" ;
 
+  let addUserPoints = () => {
+    let url = API_URL + "auth/userpoints/";
+    postDataAuth(url, user1.access, {reason: user_problem.problem.name + " solved coins", point:100, user:user1.user.id})
+    .then(data=>{
+      addAlert("You have got 100 CC Coins", "success")
+      console.log(data);
+    }).catch(error=>{
+
+    });
+
+  }
+
 const submitCode = () => {
       // e.preventDefault();
       let problemID = user_problem.id;
       show_modal = false;
       let url = API_URL + `editor/userproblem/`+problemID+'/';
-      postDataAuth(url, user1.access, {submitted: true, accepted:true}, "PATCH")
+      if (!user_problem.points_received){
+        
+        addUserPoints();
+      }
+      postDataAuth(url, user1.access, {submitted: true, accepted:true, points_received:true}, "PATCH")
         .then(data => {
           // console.log(data);
+          
           problem_solved = true;
             
       }).catch(error => {
@@ -262,14 +279,32 @@ const submitCode = () => {
 
   const logs = writable([{"error":false,"output":"Welcome to python editor!"}]);
 
+  let isProblemActive = true;
 
-    // const originalConsoleLog = console.log;
-    // console.log = (...args) => {
-    //     logs.update(currentLogs => [...currentLogs, args.join(' ')]);
-    //     originalConsoleLog.apply(console, args);
-    // };
+  const toggleProblemDiscussion = (value ) => {
+    if (value == "problem"){
+      isProblemActive = true
+    } else {
+      isProblemActive = false
+    }
+  }
 
+  let Discussion;
+  let loadingDiscussion = true;
 
+  const loadDiscussionComponent = async () => {
+    loadingDiscussion = true;
+    Discussion = (await import('../../../components/Discussion.svelte')).default;
+    loadingDiscussion = false;
+  };
+
+  onMount(()=>{
+    loadDiscussionComponent();
+  })
+
+  import { addAlert } from "../../../stores/alertStore";
+  import AlertContainer from "../../../components/AlertContainer.svelte";
+    
 </script>
 
 
@@ -285,6 +320,8 @@ const submitCode = () => {
 </svelte:head>
 
 
+
+<AlertContainer />
 
 
 <div class="flex flex-col h-screen overflow-hidden">
@@ -375,11 +412,42 @@ const submitCode = () => {
 
       <Pane minSize={15} size={50}>
 
-        <div class="bg-base-100 overflow-y-auto prose max-w-none p-2" style="height: calc(100% - 40px);">
-        <h1 class="">{data.name}</h1>
-            <div>{@html data.statement}</div>
+        <div style="height: calc(100% - 40px);" class="overflow-y-auto base-100">
 
-          </div>
+        <div class="bg-base-200 items-center justify-between">
+          <button on:click={() => toggleProblemDiscussion("problem")} class={isProblemActive?"btn btn-outline btn-success btn-sm":"btn btn-sm"}>Problem</button>
+          <button on:click={() => toggleProblemDiscussion("discussion")} class={isProblemActive?"btn btn-sm":"btn btn-sm btn-success btn-outline"}>Discussion</button>
+        <div>
+
+
+        {#if isProblemActive}
+        <div class="bg-base-100 prose max-w-none p-2" style="height: calc(100% - 40px);">
+        
+          <h1 class="py-2">{data.name}</h1>
+          <div>{@html data.statement}</div>
+        </div>
+        {:else}
+          {#if user1}
+          <div class="bg-base-100"  style="height: calc(100% - 60px);">
+              {#if loadingDiscussion} 
+                <span class="loading py-4 loading-dots loading-sm"></span>
+              {:else}
+              <Discussion 
+                discuss_on_id={data.id} 
+                user={user1}
+              />
+              {/if}
+
+          </div> 
+          {:else}
+            <LoginRequired />
+          {/if}
+
+        {/if}
+
+      </div>
+
+
       </Pane>
   
       <Pane minSize={20} size={60} class="h-full">
@@ -421,7 +489,7 @@ const submitCode = () => {
             <div class=" bg-base-100 overflow-y-auto prose max-w-none p-2" style="height: calc(100% - 40px);">
 
               {#if activeTab=="testcase"}
-                <button class="btn btn-sm btn-success">Test cases</button>
+                <button class="btn btn-sm text-success">Test cases</button>
                 <button class="btn btn-sm " on:click={()=>changeActiveTab("output")}>Output</button>
                 <div class="py-2">
                 {#each test_cases as test_case, index}
@@ -452,7 +520,7 @@ const submitCode = () => {
                   <div class="flex justify-between">
                   <div>
                   <button class="btn btn-sm" on:click={()=>changeActiveTab("testcase")}>Test cases</button>
-                  <button class="btn btn-sm btn-success">Output</button>
+                  <button class="btn btn-sm text-success">Output</button>
                 </div>
                 <button on:click={()=> logs.update(current => [])} class="btn btn-sm btn-primary btn-outline">CLEAR</button>
                 </div>

@@ -4,7 +4,7 @@ import { getAllCodingProblems } from '../../lib/getAllCodingProblems';
 
 
 
-const pages = ["coding-problems","about","write-code-online"] //list of pages as a string ex. ["about", "blog", "contact"]
+const pages = ["coding-problems","about","online-editor"] //list of pages as a string ex. ["about", "blog", "contact"]
 const site = "https://www.codingchaskalab.com"
 
 const website = "https://www.codingchaskalab.com"

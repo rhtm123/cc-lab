@@ -82,7 +82,7 @@ import Navbar from "../../components/Navbar.svelte";
   
   <Navbar />
 
-<div class="px-4">
+  <div class="px-4">
 
   <div class="text-sm breadcrumbs">
     <ul>

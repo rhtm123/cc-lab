@@ -18,6 +18,8 @@
         // @ts-ignore
       import CodingProblemLists from "../../components/CodingProblemLists.svelte";
       import LoginWrapper from "../../components/LoginWrapper.svelte";
+      import { addAlert } from "../../stores/alertStore";
+      import AlertContainer from "../../components/AlertContainer.svelte";
     
       // @ts-ignore
       let user1;
@@ -135,6 +137,7 @@
         postDataAuth(url,user1.access,{},'DELETE')
         // @ts-ignore
         .then(data2 => {
+          addAlert("Project deleted successfully", "success");
           getProjects();
           // @ts-ignore
           }).catch(error => {
@@ -221,6 +224,8 @@
     <Navbar />
     
     <LoginWrapper>
+
+      <AlertContainer />
     
       <div class="p-4 md:w-5/6 lg:w-4/6 mx-auto min-h-screen">
     
