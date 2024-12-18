@@ -16,8 +16,10 @@
      export let value;
      export let theme;
 
-     export let height = "88vh";
      export let project_type;
+
+
+     let height = project_type==="problem"?"90%":"88vh";
 
      let pyodide;
      let pyodideLoaded = false;

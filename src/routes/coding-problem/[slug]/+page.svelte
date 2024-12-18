@@ -463,8 +463,8 @@ const submitCode = () => {
               <div class="p-2">
 
                 <p class="py-4">You have solved this problem.</p>
-                <a href="/coding-problems"><button class="btn btn-secondary">Solve More Problems</button></a>
-                <button class="btn btn-secondary" on:click={unSubmit}>Solve it Again</button>
+                <a href="/coding-problems"><button class="btn btn-secondary btn-sm">Solve More Problems</button></a>
+                <button class="btn btn-secondary btn-sm" on:click={unSubmit}>Solve it Again</button>
 
               </div>
 
