@@ -88,7 +88,7 @@ export default {
       {
         dark: {
           ...require('daisyui/src/theming/themes')['[data-theme=dark]'],
-          "primary": "#4093fe",
+          "primary": "#0048A4",
           "secondary": "#ff00d3",
           "accent": "#FF6F61",         // Accent color
           // "neutral": "#2D3748",        // Darker neutral for better contrast

@@ -412,7 +412,7 @@ const submitCode = () => {
 
       <Pane minSize={15} size={50}>
 
-        <div style="height: calc(100% - 40px);" class="overflow-y-auto base-100">
+        <div style="height: calc(100% - 40px);" class="overflow-y-auto bg-base-100">
 
         <div class="bg-base-200 items-center justify-between">
           <button on:click={() => toggleProblemDiscussion("problem")} class={isProblemActive?"btn btn-outline btn-success btn-sm":"btn btn-sm"}>Problem</button>
