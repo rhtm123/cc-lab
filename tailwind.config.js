@@ -70,38 +70,36 @@ export default {
       {
         light: {
           ...require('daisyui/src/theming/themes')['[data-theme=light]'],
-
-          "primary": "#0048A4",
-          "secondary": "#ff00d3",
-          "accent": "#689ab8",
-
-          // "neutral": "#1F2937",        // Darker neutral for better readability
-          // "base-100": "#F9FAFB",       // Base background color
-          // "base-200": "#E5E7EB",       // Light base background color
-          // "base-300": "#CBD5E1",       // Lighter base background color
-          // "info": "#18C2EC",           // Info color
-          // "success": "#0C5F37",        // Success color
-          // "warning": "#AD840B",        // Warning color
-          // "error": "#EF3C25"           // Error color
+          "primary": "#0048A4",       // Your brand blue
+          "secondary": "#7C3AED",     // Purple (from Tailwind's violet-600)
+          "accent": "#059669",        // Emerald green (from Tailwind's emerald-600)
+          "neutral": "#1F2937",      // Gray-800
+          "base-100": "#FFFFFF",     // White
+          "base-200": "#F3F4F6",     // Gray-100
+          "base-300": "#E5E7EB",     // Gray-200
+          "info": "#0284C7",         // Sky-600
+          "success": "#059669",      // Emerald-600
+          "warning": "#D97706",      // Amber-600
+          "error": "#DC2626"         // Red-600
         }
       },
       {
         dark: {
           ...require('daisyui/src/theming/themes')['[data-theme=dark]'],
-          "primary": "#0048A4",
-          "secondary": "#ff00d3",
-          "accent": "#FF6F61",         // Accent color
-          // "neutral": "#2D3748",        // Darker neutral for better contrast
-          // "base-100": "#2D3748",       // Dark base background color
-          // "base-200": "#1F2937",       // Slightly lighter dark background color
-          // "base-300": "#0D1117",       // Even lighter dark background color
-          // "info": "#18C2EC",           // Info color
-          // "success": "#0C5F37",        // Success color
-          // "warning": "#AD840B",        // Warning color
-          // "error": "#EF3C25"           // Error color
+          "primary": "#0048A4",       // Your brand blue
+          "secondary": "#7C3AED",     // Purple
+          "accent": "#10B981",        // Emerald green (lighter for dark mode)
+          "neutral": "#1E293B",      // Slate-800
+          "base-100": "#0F172A",     // Slate-900
+          "base-200": "#1E293B",     // Slate-800
+          "base-300": "#334155",     // Slate-700
+          "info": "#0EA5E9",         // Sky-500
+          "success": "#10B981",      // Emerald-500
+          "warning": "#F59E0B",      // Amber-500
+          "error": "#EF4444"         // Red-500
         }
-      },
-    ],
+      }
+    ]
   },
 
   plugins: [require('@tailwindcss/typography'), require('daisyui')]
