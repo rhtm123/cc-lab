@@ -116,11 +116,7 @@ import  user  from "../stores/auth";
             Login
           </a>
         </li>
-        <li>
-          <a href="/signup" class="btn btn-ghost font-medium rounded-btn hover:bg-primary/10 hover:text-primary">
-            Sign Up
-          </a>
-        </li>
+        
       {/if}
       
       <li class="px-2">

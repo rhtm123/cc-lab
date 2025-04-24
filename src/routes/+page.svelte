@@ -147,9 +147,7 @@
           <!-- Add more features similarly -->
         </div>
         
-        <div class="mt-10">
-          <a href="/features" class="btn btn-primary btn-lg">Explore All Features</a>
-        </div>
+        
       </div>
       
       <div class="flex-1" data-aos="zoom-in">
@@ -171,7 +169,7 @@
           Connect with thousands of developers, get help, share knowledge, and grow together.
         </p>
         <div class="flex flex-col sm:flex-row gap-4">
-          <a href="/signup" class="btn btn-accent btn-lg shadow-lg">
+          <a href="/login" class="btn btn-accent btn-lg shadow-lg">
             Create Free Account
           </a>
           <a href="https://discord.com/invite/8jHuMEBVPV" target="_blank" class="btn btn-outline btn-lg text-white border-white hover:bg-white/10">
